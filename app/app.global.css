@@ -10,6 +10,31 @@ body {
   overflow-y: hidden;
 }
 
+div#rect{
+  background-color: black;
+}
+
+div#canvaschild{
+  height: inherit;
+}
+
+div#main{
+  height: inherit;
+  background-color: white;
+}
+
+div#canvas{
+  height: inherit;
+}
+div#wrapper{
+  height: 100vh;
+  width: 100vw;
+}
+
+div#sidebar{
+  height: inherit;
+}
+
 h2 {
   margin: 0;
   font-size: 2.25rem;

@@ -3,12 +3,46 @@ import React, { Component } from "react"
 import { Link } from "react-router-dom"
 import styles from "./Home.css"
 import fs from "fs"
+import { findDOMNode } from "react-dom"
+import ReactDOM from "react-dom"
+import { DropTarget } from "react-dnd"
+import Type from "./Type"
 
-export default class Home extends Component {
-	constructor() {
-		super()
 
-		this.state = { input: "" }
+const canvasTarget = {
+	hover(props, monitor, component) {
+		console.log("HOVERPROPS", props)
+	},
+	drop(props, monitor, component) {
+		// You can disallow drop based on props or item
+		props.allProps.handleAddComponent(monitor.getItem().component)
+
+	},
+}
+
+
+/**
+ * Specifies which props to inject into your component.
+ */
+function collect(connect, monitor) {
+	return {
+		// Call this function inside render()
+		// to let React DnD handle the drag events:
+		connectDropTarget: connect.dropTarget(),
+		// You can ask the monitor about the current drag state:
+		isOver: monitor.isOver(),
+		isOverCurrent: monitor.isOver({ shallow: true }),
+		canDrop: monitor.canDrop(),
+		itemType: monitor.getItemType(),
+		onDrop: canvasTarget.drop
+	}
+}
+
+
+class Home extends Component {
+	constructor(props) {
+		super(props)
+		this.state = { input: "", components: [] }
 		this.handleChange = this.handleChange.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
 	}
@@ -19,7 +53,6 @@ export default class Home extends Component {
 
 	handleSubmit(event) {
 		event.preventDefault()
-		console.log("CLICK!!!!!")
 		fs.mkdir("/Users/dorischeng/electron-react-boilerplate/db", (err) => {
 			if (err) {
 				console.log("failed to create dir", err)
@@ -37,16 +70,20 @@ export default class Home extends Component {
 	}
 
 	render() {
-		return (
-      <div>
-        <div className={styles.container} data-tid="container">
-          <h2>Home</h2>
-          <form onSubmit={this.handleSubmit}>
-            <input type="text" placeholder="Model Name" name="input" onChange={this.handleChange} />
-            <button>Submit</button>
-          </form>
-          <Link to="/counter">to Counter</Link>
-        </div>
-      </div>)
+		console.log("COMPONENT", this.props.component)
+  	// These props are injected by React DnD,
+		// as defined by your `collect` function above:
+		// const {testProp} = this.props
+		const { isOver, canDrop, connectDropTarget } = this.props
+		return connectDropTarget(
+			<div id = "canvaschild">
+    		{this.props.component && this.props.component.map((component) => {
+					return (
+						component
+					)
+				})}
+			</div>)
 	}
 }
+
+export default DropTarget(Type.RECTANGLE, canvasTarget, collect)(Home)
