@@ -17,9 +17,7 @@ const canvasTarget = {
 	drop(props, monitor, component) {
 		// You can disallow drop based on props or item
 		props.allProps.handleAddComponent(monitor.getItem().component)
-
-
-	},
+	}
 }
 
 
@@ -44,9 +42,18 @@ function collect(connect, monitor) {
 class Home extends Component {
 	constructor(props) {
 		super(props)
-		this.state = { input: "", components: [] }
+		this.state = {
+			top: "0",
+			left: "0"
+		}
+		this.movePosition = this.movePosition.bind(this)
 		this.handleChange = this.handleChange.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
+		this.renderBox = this.renderBox.bind(this)
+	}
+
+	movePosition(x, y){
+		this.setState({top: x, left: y})
 	}
 
 	handleChange(event) {
@@ -73,9 +80,9 @@ class Home extends Component {
 
 	renderBox(){
 		if (this.props.allProps.component.length){
-			return this.props.allProps.component.map((component) => {
+			return this.props.allProps.component.map((component, i) => {
 				return (
-					<Rectangle />
+					<Rectangle id={i} />
 				)
 
 			})

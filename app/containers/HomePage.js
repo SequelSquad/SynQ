@@ -14,7 +14,6 @@ class HomePage extends Component {
 	}
 
 	render() {
-		let testProp = 100
 		return (
 			<div id = "wrapper">
 				<div id = "main" className = "col-xs-2">

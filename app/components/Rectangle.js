@@ -9,8 +9,7 @@ const rectangleSource = {
 
 	beginDrag(props, monitor, component) {
 		// Return the data describing the dragged item
-		console.log("SOURCEmonitor!!!", monitor.getItem())
-		const str = ""
+		//return props
 		return {component}
 	},
 
@@ -39,19 +38,12 @@ class Rectangle extends Component {
 	}
 
 	render(){
-		console.log("PROPS", this.props)
 		const {isDragging, connectDragSource} = this.props
 
 		return connectDragSource(
-			<div id = "rect">
-        I am a draggable card number
-			</div>
+			<span id={this.props.id} style = {{top:"200", left:"0", position:"absolute"}}>▢</span>
 		)
 	}
 }
 
 export default DragSource(Type.RECTANGLE, rectangleSource, collect)(Rectangle)
-
-/* <svg width = "100%" height = "100%">
-<rect width = "100%" height = "100%"/>
-</svg> */
