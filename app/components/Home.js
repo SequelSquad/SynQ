@@ -3,7 +3,7 @@ import React, { Component } from "react"
 import { Link } from "react-router-dom"
 import styles from "./Home.css"
 import fs from "fs"
-import AggregateText from "../../background/AggregateText"
+import Generator from "../../background/AggregateText"
 
 export default class Home extends Component {
 	constructor() {
@@ -11,7 +11,7 @@ export default class Home extends Component {
 
 		this.state = {
 			path: "./db2",
-			model: {
+			models: [{
 				name: "Puppies",
 				dataValue:[
 					{
@@ -38,8 +38,36 @@ export default class Home extends Component {
 						}
 					}
 				]
+			},
+			{
+				name: "breeders",
+				dataValue:[
+					{
+						name: "breed",
+						properties: {
+							type: 'STRING',
+							boolean: [
+								['allowNull', false],
+								['isEmail', false]
+							]
+						}
+					},
+					{
+						name: "breeders",
+						properties: {
+							type: 'STRING',
+							boolean: [
+								['allowNull', false],
+								['isEmail', false]
+							],
+							validate: [
+								['is', `["^[a-z]+$"]`]
+							]
+						}
+					}
+				]
 			}
-		}
+		]}
 		this.handleChange = this.handleChange.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
 	}
@@ -51,7 +79,7 @@ export default class Home extends Component {
 	handleSubmit(event) {
 		event.preventDefault()
 		console.log("CLICK!!!!!")
-		AggregateText(this.state)
+		Generator(this.state)
 		// fs.mkdir("/Users/dorischeng/electron-react-boilerplate/db", (err) => {
 		// 	if (err) {
 		// 		console.log("failed to create dir", err)
