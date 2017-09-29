@@ -9,18 +9,15 @@ const rectangleSource = {
 
 	beginDrag(props, monitor, component) {
 		// Return the data describing the dragged item
-		//return props
-		return {component}
+		return {id: props.id}
 	},
 
-	isDragging(props,monitor){
-		console.log("ISDRAGGING!", monitor.getItem())
+	isDragging(props, monitor){
+
 	},
 
 	endDrag(props,monitor,component){
-		console.log("ENDDRAGMONITOR", monitor.getItem())
 		return {component}
-
 	}
 }
 
@@ -41,7 +38,7 @@ class Rectangle extends Component {
 		const {isDragging, connectDragSource} = this.props
 
 		return connectDragSource(
-			<span id={this.props.id} style = {{top:"200", left:"0", position:"absolute"}}>▢</span>
+			<span id={this.props.id} style = {{top:`${this.props.top}`, left:`${this.props.left}`, position:"absolute"}}>▢</span>
 		)
 	}
 }

@@ -11,15 +11,15 @@ import Rectangle from "./Rectangle"
 
 
 const canvasTarget = {
-	hover(props, monitor, component) {
-		console.log("HOVERPROPS", props)
-	},
 	drop(props, monitor, component) {
 		// You can disallow drop based on props or item
-		props.allProps.handleAddComponent(monitor.getItem().component)
+		if (!monitor.getItem().id && monitor.getItem().id !== 0) {
+			props.allProps.handleAddComponent(monitor.getItem().component)
+		} else {
+			component.movePosition(monitor.getClientOffset().x, monitor.getClientOffset().y)
+		}
 	}
 }
-
 
 /**
  * Specifies which props to inject into your component.
@@ -82,7 +82,7 @@ class Home extends Component {
 		if (this.props.allProps.component.length){
 			return this.props.allProps.component.map((component, i) => {
 				return (
-					<Rectangle id={i} />
+					<Rectangle id={i} top={this.state.top} left={this.state.left} movePosition={this.movePosition}/>
 				)
 
 			})
