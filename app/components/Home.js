@@ -7,6 +7,7 @@ import { findDOMNode } from "react-dom"
 import ReactDOM from "react-dom"
 import { DropTarget } from "react-dnd"
 import Type from "./Type"
+import Rectangle from "./Rectangle"
 
 
 const canvasTarget = {
@@ -16,6 +17,7 @@ const canvasTarget = {
 	drop(props, monitor, component) {
 		// You can disallow drop based on props or item
 		props.allProps.handleAddComponent(monitor.getItem().component)
+
 
 	},
 }
@@ -69,19 +71,29 @@ class Home extends Component {
 		})
 	}
 
+	renderBox(){
+		if (this.props.allProps.component.length){
+			return this.props.allProps.component.map((component) => {
+				return (
+					<Rectangle />
+				)
+
+			})
+		}	else {
+			return
+		}
+	}
+
 	render() {
-		console.log("COMPONENT", this.props.component)
+		const newBox = this.renderBox()
+		console.log("COMPONENT", this.props.allProps.component)
   	// These props are injected by React DnD,
 		// as defined by your `collect` function above:
 		// const {testProp} = this.props
 		const { isOver, canDrop, connectDropTarget } = this.props
 		return connectDropTarget(
 			<div id = "canvaschild">
-    		{this.props.component && this.props.component.map((component) => {
-					return (
-						component
-					)
-				})}
+				{newBox}
 			</div>)
 	}
 }

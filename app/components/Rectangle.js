@@ -7,7 +7,6 @@ import Type from "./Type"
 
 const rectangleSource = {
 
-
 	beginDrag(props, monitor, component) {
 		// Return the data describing the dragged item
 		console.log("SOURCEmonitor!!!", monitor.getItem())
