@@ -1,25 +1,62 @@
 import functions from './TextFunctions'
 import fs from "fs"
 
-let file = ''
-
 export default (state) => {
-  // const setup = functions.setup();
-  // const data = functions.tableName(state.input);
-  // const columEnd = functions.endColumn()
-  // const tableEnd = functions.endTable()
-  // const sequelizeFile = file.concat(setup, data, columEnd, tableEnd)
 
-  const isNull = functions.boolean('allowNull', true)
-  const isEmail = functions.boolean('isEmail', false)
-  const validation = functions.validate(isEmail)
-  const type = functions.type('STRING')
-  const parameters = type.concat(isNull, validation)
+  //initiates array of columns to join at the end
+  let columnArr = []
 
-  const column = functions.column(state.input,parameters)
-  const table = functions.table(state.input, column)
+  //for each column in our DB, aka 'model.dataValue'
+  state.model.dataValue.forEach(data => {
+
+    //Store the validation strings
+    let validateStr = " "
+    //Store the boolean strings
+    let booleanArr= []
+
+    //if it has boolean elements
+    if (data.properties.boolean){
+      data.properties.boolean.forEach( bool => {
+        let val = functions.boolean(bool[0], bool[1])
+        booleanArr.push(val)
+      })
+    }
+
+    //if it has validation elements
+    if (data.properties.validate){
+      let validateArr = []
+      data.properties.validate.forEach( validation => {
+        let val = functions.boolean(validation[0], validation[1])
+        validateArr.push(val)
+      })
+      let validateJoin = validateArr.join()
+      validateStr = functions.validate(validateJoin)
+    }
+
+    //Store the type string
+    const type = functions.type(data.properties.type)
+
+    //Join everything together!
+    const booleanStr = booleanArr.join()
+    const parameters = type.concat(booleanStr, validateStr)
+
+    //create the column string
+    const column = functions.column(data.name,parameters)
+
+    //push the column string to the column array
+    columnArr.push(column)
+  })
+
+  //Join all the columns into a single string
+  const allMyData = columnArr.join()
+
+  //pass the columns string into the table
+  const table = functions.table(state.model.name, allMyData)
+
+  //pass the table in the setup function
   const finalFile = functions.setup(table)
 
+  //create the directory and file
   fs.mkdir("./db2", (err) => {
     if (err) {
       console.log("failed to create dir", err)

@@ -13,27 +13,27 @@ functions.setup = (table) => {
 //Start Table
 functions.table = (TableName, TableProperties) => {
   console.log('creating table')
-  return `'${TableName}',{ \n ${TableProperties} \n}`
+  return `'${TableName}',{  ${TableProperties}\n}`
 }
 //create column
 functions.column = (ColumnName, ColumnProperties) => {
   console.log('creating column')
-  return `\t ${ColumnName}:{\n ${ColumnProperties}}`
+  return `\n\t${ColumnName}:{\n${ColumnProperties}}`
 }
 //column properties: TYPE
 functions.type = (type) =>{
   console.log('creating type')
-  return `\t \t type: Sequelize.${type},\n `
+  return `\t\ttype: Sequelize.${type},`
 }
 //Column properties: Boolean value property (etc allowNull, isEmail, isURL)
-functions.property = (property, bool) => {
+functions.boolean = (property, bool) => {
   console.log('creating allowNull')
-  return `\t \t ${property}: ${bool},\n `
+  return `\n\t\t${property}: ${bool}`
 }
 //Column properties: VALIDATE
 functions.validate = (validationStr) =>{
   console.log('Creating validation')
-  return `\t \t validate: {\n \t ${validationStr}}`
+  return `\n\t\tvalidate: {\n\t${validationStr}}`
 }
 
 export default functions
