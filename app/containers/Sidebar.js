@@ -11,7 +11,7 @@ const Sidebar = (props) => {
 				<li>
 					<Rectangle />
 				</li>
-		  </ul>
+	    </ul>
 		</div>
 	)
 }

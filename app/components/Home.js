@@ -12,17 +12,15 @@ import Generator from "../../background/AggregateText"
 
 
 const canvasTarget = {
-	hover(props, monitor, component) {
-		console.log("HOVERPROPS", props)
-	},
 	drop(props, monitor, component) {
 		// You can disallow drop based on props or item
-		props.allProps.handleAddComponent(monitor.getItem().component)
-
-
-	},
+		if (!monitor.getItem().id && monitor.getItem().id !== 0) {
+			props.allProps.handleAddComponent(monitor.getItem().component)
+		} else {
+			component.movePosition(monitor.getClientOffset().x, monitor.getClientOffset().y)
+		}
+	}
 }
-
 
 /**
  * Specifies which props to inject into your component.
@@ -45,7 +43,11 @@ function collect(connect, monitor) {
 class Home extends Component {
 	constructor(props) {
 		super(props)
-		this.state = { input: "", components: [] }
+		this.state = {
+			top: "0",
+			left: "0"
+		}
+		this.movePosition = this.movePosition.bind(this)
 		// this.state = {
 		// 	path: "./db2",
 		// 	models: [{
@@ -107,6 +109,11 @@ class Home extends Component {
 		// ]}
 		this.handleChange = this.handleChange.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
+		this.renderBox = this.renderBox.bind(this)
+	}
+
+	movePosition(x, y){
+		this.setState({top: x, left: y})
 	}
 
 	handleChange(event) {
@@ -148,9 +155,9 @@ class Home extends Component {
 
 	renderBox(){
 		if (this.props.allProps.component.length){
-			return this.props.allProps.component.map((component) => {
+			return this.props.allProps.component.map((component, i) => {
 				return (
-					<Rectangle />
+					<Rectangle id={i} top={this.state.top} left={this.state.left} />
 				)
 
 			})
