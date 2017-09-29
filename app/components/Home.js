@@ -10,6 +10,7 @@ export default class Home extends Component {
 		super()
 
 		this.state = {
+			path: "./db2",
 			model: {
 				name: "Puppies",
 				dataValue:[
@@ -30,6 +31,9 @@ export default class Home extends Component {
 							boolean: [
 								['allowNull', false],
 								['isEmail', false]
+							],
+							validate: [
+								['is', `["^[a-z]+$"]`]
 							]
 						}
 					}

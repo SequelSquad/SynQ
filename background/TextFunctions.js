@@ -20,7 +20,7 @@ functions.column = (ColumnName, ColumnProperties) => {
   console.log('creating column')
   return `\n\t${ColumnName}:{\n${ColumnProperties}}`
 }
-//column properties: TYPE
+//column properties: Sequelize.TYPE
 functions.type = (type) =>{
   console.log('creating type')
   return `\t\ttype: Sequelize.${type},`
@@ -33,7 +33,7 @@ functions.boolean = (property, bool) => {
 //Column properties: VALIDATE
 functions.validate = (validationStr) =>{
   console.log('Creating validation')
-  return `\n\t\tvalidate: {\n\t${validationStr}}`
+  return `,\n\t\tvalidate: {\t${validationStr}}`
 }
 
 export default functions
