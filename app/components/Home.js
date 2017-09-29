@@ -82,7 +82,7 @@ class Home extends Component {
 		if (this.props.allProps.component.length){
 			return this.props.allProps.component.map((component, i) => {
 				return (
-					<Rectangle id={i} top={this.state.top} left={this.state.left} movePosition={this.movePosition}/>
+					<Rectangle id={i} top={this.state.top} left={this.state.left} />
 				)
 
 			})
