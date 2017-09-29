@@ -8,6 +8,7 @@ import ReactDOM from "react-dom"
 import { DropTarget } from "react-dnd"
 import Type from "./Type"
 import Rectangle from "./Rectangle"
+import Generator from "../../background/AggregateText"
 
 
 const canvasTarget = {
@@ -45,12 +46,71 @@ class Home extends Component {
 	constructor(props) {
 		super(props)
 		this.state = { input: "", components: [] }
+		// this.state = {
+		// 	path: "./db2",
+		// 	models: [{
+		// 		name: "Puppies",
+		// 		dataValue:[
+		// 			{
+		// 				name: "breed",
+		// 				properties: {
+		// 					type: 'STRING',
+		// 					boolean: [
+		// 						['allowNull', false],
+		// 						['isEmail', false]
+		// 					]
+		// 				}
+		// 			},
+		// 			{
+		// 				name: "breeders",
+		// 				properties: {
+		// 					type: 'STRING',
+		// 					boolean: [
+		// 						['allowNull', false],
+		// 						['isEmail', false]
+		// 					],
+		// 					validate: [
+		// 						['is', `["^[a-z]+$"]`]
+		// 					]
+		// 				}
+		// 			}
+		// 		]
+		// 	},
+		// 	{
+		// 		name: "breeders",
+		// 		dataValue:[
+		// 			{
+		// 				name: "breed",
+		// 				properties: {
+		// 					type: 'STRING',
+		// 					boolean: [
+		// 						['allowNull', false],
+		// 						['isEmail', false]
+		// 					]
+		// 				}
+		// 			},
+		// 			{
+		// 				name: "breeders",
+		// 				properties: {
+		// 					type: 'STRING',
+		// 					boolean: [
+		// 						['allowNull', false],
+		// 						['isEmail', false]
+		// 					],
+		// 					validate: [
+		// 						['is', `["^[a-z]+$"]`]
+		// 					]
+		// 				}
+		// 			}
+		// 		]
+		// 	}
+		// ]}
 		this.handleChange = this.handleChange.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
 	}
 
 	handleChange(event) {
-		this.setState({ [event.target.name]: event.target.value })
+		//this.setState({ [event.target.name]: event.target.value })
 	}
 
 	handleSubmit(event) {
@@ -69,6 +129,21 @@ class Home extends Component {
 				})
 			}
 		})
+		Generator(this.state)
+		// fs.mkdir("/Users/dorischeng/electron-react-boilerplate/db", (err) => {
+		// 	if (err) {
+		// 		console.log("failed to create dir", err)
+		// 	} else {
+		// 		fs.writeFile("/Users/dorischeng/electron-react-boilerplate/db" + "/test.js", this.state.input, (err) => {
+		// 			if (err) {
+		// 				console.log("Where's the input?")
+		// 			}
+		// 			else {
+		// 				console.log("wrote file")
+		// 			}
+		// 		})
+		// 	}
+		// })
 	}
 
 	renderBox(){
