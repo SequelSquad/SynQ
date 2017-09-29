@@ -8,7 +8,7 @@ import ReactDOM from "react-dom"
 import { DropTarget } from "react-dnd"
 import Type from "./Type"
 import Rectangle from "./Rectangle"
-import Generator from "../../background/AggregateText"
+import Generator from "../../background/Generator"
 
 
 const canvasTarget = {
@@ -122,35 +122,7 @@ class Home extends Component {
 
 	handleSubmit(event) {
 		event.preventDefault()
-		fs.mkdir("/Users/dorischeng/electron-react-boilerplate/db", (err) => {
-			if (err) {
-				console.log("failed to create dir", err)
-			} else {
-				fs.writeFile("/Users/dorischeng/electron-react-boilerplate/db" + "/test.js", this.state.input, (err) => {
-					if (err) {
-						console.log("Where's the input?")
-					}
-					else {
-						console.log("wrote file")
-					}
-				})
-			}
-		})
 		Generator(this.state)
-		// fs.mkdir("/Users/dorischeng/electron-react-boilerplate/db", (err) => {
-		// 	if (err) {
-		// 		console.log("failed to create dir", err)
-		// 	} else {
-		// 		fs.writeFile("/Users/dorischeng/electron-react-boilerplate/db" + "/test.js", this.state.input, (err) => {
-		// 			if (err) {
-		// 				console.log("Where's the input?")
-		// 			}
-		// 			else {
-		// 				console.log("wrote file")
-		// 			}
-		// 		})
-		// 	}
-		// })
 	}
 
 	renderBox(){
