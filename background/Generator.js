@@ -1,19 +1,20 @@
 import functions from './TextFunctions'
 import fs from "fs"
+import Promise from "bluebird"
 
 export default (state) => {
 
   const gState = state
   if (!fs.existsSync(gState.path)) {
-    fs.mkdir(gState.path, modelCreator)
-
+    fs.mkdir(gState.path, () => {
+      modelCreator(gState)
+      indexCreator(gState)
+    })
   }
   else {
     modelCreator(gState)
-    createIndexFile(gState)
+    indexCreator(gState)
   }
-  //create the directory and file
-
 }
 
 const modelCreator = (state) => {
@@ -83,7 +84,45 @@ const modelCreator = (state) => {
             console.log("wrote file")
           }
         })
+        return 'done'
     })
 
   // }
+}
+
+const indexCreator = (state) => {
+  if (state.associations.length){
+    let assoArr = []
+    let modelsArr = []
+    let tablesArr = []
+
+    state.associations.forEach(association => {
+      let str = functions.associations(association.source, association.target, association.relationship)
+      assoArr.push(str)
+    })
+
+    state.models.map(model => {
+      modelsArr.push(model.name)
+    })
+
+    modelsArr.forEach(model => {
+      let modelRequire = functions.requireModel(model)
+      tablesArr.push(modelRequire)
+    })
+    console.log('modelsArr ', modelsArr)
+    let exportString = functions.exportModels(modelsArr)
+
+    let modelsRequireStatement = tablesArr.join('')
+    let fileContent = assoArr.join('')
+    let finalFile = modelsRequireStatement.concat(fileContent, exportString)
+
+    fs.writeFile(state.path + `/index.js`, finalFile, (err) => {
+      if (err) {
+        console.log("Where's the input?")
+      }
+      else {
+        console.log("wrote file")
+      }
+    })
+  }
 }

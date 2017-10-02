@@ -48,65 +48,76 @@ class Home extends Component {
 			left: "0"
 		}
 		this.movePosition = this.movePosition.bind(this)
-		// this.state = {
-		// 	path: "./db2",
-		// 	models: [{
-		// 		name: "Puppies",
-		// 		dataValue:[
-		// 			{
-		// 				name: "breed",
-		// 				properties: {
-		// 					type: 'STRING',
-		// 					boolean: [
-		// 						['allowNull', false],
-		// 						['isEmail', false]
-		// 					]
-		// 				}
-		// 			},
-		// 			{
-		// 				name: "breeders",
-		// 				properties: {
-		// 					type: 'STRING',
-		// 					boolean: [
-		// 						['allowNull', false],
-		// 						['isEmail', false]
-		// 					],
-		// 					validate: [
-		// 						['is', `["^[a-z]+$"]`]
-		// 					]
-		// 				}
-		// 			}
-		// 		]
-		// 	},
-		// 	{
-		// 		name: "breeders",
-		// 		dataValue:[
-		// 			{
-		// 				name: "breed",
-		// 				properties: {
-		// 					type: 'STRING',
-		// 					boolean: [
-		// 						['allowNull', false],
-		// 						['isEmail', false]
-		// 					]
-		// 				}
-		// 			},
-		// 			{
-		// 				name: "breeders",
-		// 				properties: {
-		// 					type: 'STRING',
-		// 					boolean: [
-		// 						['allowNull', false],
-		// 						['isEmail', false]
-		// 					],
-		// 					validate: [
-		// 						['is', `["^[a-z]+$"]`]
-		// 					]
-		// 				}
-		// 			}
-		// 		]
-		// 	}
-		// ]}
+		this.state = {
+			path: "./db2",
+			models: [{
+				name: "Puppies",
+				dataValue:[
+					{
+						name: "breed",
+						properties: {
+							type: 'STRING',
+							boolean: [
+								['allowNull', false],
+								['isEmail', false]
+							]
+						}
+					},
+					{
+						name: "breeders",
+						properties: {
+							type: 'STRING',
+							boolean: [
+								['allowNull', false],
+								['isEmail', false]
+							],
+							validate: [
+								['is', `["^[a-z]+$"]`]
+							]
+						}
+					}
+				]
+			},
+			{
+				name: "breeders",
+				dataValue:[
+					{
+						name: "breed",
+						properties: {
+							type: 'STRING',
+							boolean: [
+								['allowNull', false],
+								['isEmail', false]
+							]
+						}
+					},
+					{
+						name: "breeders",
+						properties: {
+							type: 'STRING',
+							boolean: [
+								['allowNull', false],
+								['isEmail', false]
+							],
+							validate: [
+								['is', `["^[a-z]+$"]`]
+							]
+						}
+					}
+				]
+			}
+		],
+		associations: [
+			{
+				source: "player",
+				target: "team",
+				relationship: "belongsTo",
+		}, {
+			source: "player2",
+			target: "team2",
+			relationship: "belongsTo"
+		}]
+	}
 		this.handleChange = this.handleChange.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
 		this.renderBox = this.renderBox.bind(this)
@@ -122,6 +133,7 @@ class Home extends Component {
 
 	handleSubmit(event) {
 		event.preventDefault()
+		console.log('CLICKEDDDDDD!')
 		Generator(this.state)
 	}
 
@@ -146,8 +158,14 @@ class Home extends Component {
 		// const {testProp} = this.props
 		const { isOver, canDrop, connectDropTarget } = this.props
 		return connectDropTarget(
+			<div>
+				<form onSubmit={this.handleSubmit}>
+			<button type='submit'>test</button>
+			</form>
 			<div id = "canvaschild">
 				{newBox}
+
+			</div>
 			</div>)
 	}
 }
