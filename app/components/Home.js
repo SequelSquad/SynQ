@@ -15,11 +15,9 @@ const canvasTarget = {
 	drop(props, monitor, component) {
 		// You can disallow drop based on props or item
 		if (!monitor.getItem().id && monitor.getItem().id !== 0) {
-			// props.allProps.handleAddComponent({top: monitor.getSourceClientOffset().y + 20, left: monitor.getSourceClientOffset().x - 128})
-			props.allProps.handleAddComponent(component)
+			props.allProps.handleAddComponent({id: props.allProps.component.length + 1, top: monitor.getSourceClientOffset().y + 20, left: monitor.getSourceClientOffset().x - 128})
 		} else {
-			// component.movePosition(monitor.getItem().id, monitor.getSourceClientOffset().y + 20, monitor.getSourceClientOffset().x - 128)
-			component.movePosition(monitor.getSourceClientOffset().y + 20, monitor.getSourceClientOffset().x - 128)
+			props.allProps.handleMovePosition({id: monitor.getItem().id, top: monitor.getSourceClientOffset().y + 20, left: monitor.getSourceClientOffset().x - 128})
 		}
 	}
 }
@@ -45,69 +43,70 @@ function collect(connect, monitor) {
 class Home extends Component {
 	constructor(props) {
 		super(props)
-		this.state = {
-			top: "0",
-			left: "0"
-		}
 		// this.state = {
-		// 	path: "./db2",
-		// 	models: [{
-		// 		name: "Puppies",
-		// 		dataValue:[
-		// 			{
-		// 				name: "breed",
-		// 				properties: {
-		// 					type: 'STRING',
-		// 					boolean: [
-		// 						['allowNull', false],
-		// 						['isEmail', false]
-		// 					]
-		// 				}
-		// 			},
-		// 			{
-		// 				name: "breeders",
-		// 				properties: {
-		// 					type: 'STRING',
-		// 					boolean: [
-		// 						['allowNull', false],
-		// 						['isEmail', false]
-		// 					],
-		// 					validate: [
-		// 						['is', `["^[a-z]+$"]`]
-		// 					]
-		// 				}
-		// 			}
-		// 		]
-		// 	},
-		// 	{
-		// 		name: "breeders",
-		// 		dataValue:[
-		// 			{
-		// 				name: "breed",
-		// 				properties: {
-		// 					type: 'STRING',
-		// 					boolean: [
-		// 						['allowNull', false],
-		// 						['isEmail', false]
-		// 					]
-		// 				}
-		// 			},
-		// 			{
-		// 				name: "breeders",
-		// 				properties: {
-		// 					type: 'STRING',
-		// 					boolean: [
-		// 						['allowNull', false],
-		// 						['isEmail', false]
-		// 					],
-		// 					validate: [
-		// 						['is', `["^[a-z]+$"]`]
-		// 					]
-		// 				}
-		// 			}
-		// 		]
-		// 	}
-		// ]}
+		// 	id: "",
+		// 	top: "0",
+		// 	left: "0"
+		// }
+		this.state = {
+			path: "./db2",
+			models: [{
+				name: "Puppies",
+				dataValue:[
+					{
+						name: "breed",
+						properties: {
+							type: "STRING",
+							boolean: [
+								["allowNull", false],
+								["isEmail", false]
+							]
+						}
+					},
+					{
+						name: "breeders",
+						properties: {
+							type: "STRING",
+							boolean: [
+								["allowNull", false],
+								["isEmail", false]
+							],
+							validate: [
+								["is", "[\"^[a-z]+$\"]"]
+							]
+						}
+					}
+				]
+			},
+			{
+				name: "breeders",
+				dataValue:[
+					{
+						name: "breed",
+						properties: {
+							type: "STRING",
+							boolean: [
+								["allowNull", false],
+								["isEmail", false]
+							]
+						}
+					},
+					{
+						name: "breeders",
+						properties: {
+							type: "STRING",
+							boolean: [
+								["allowNull", false],
+								["isEmail", false]
+							],
+							validate: [
+								["is", "[\"^[a-z]+$\"]"]
+							]
+						}
+					}
+				]
+			}
+			]}
 		this.movePosition = this.movePosition.bind(this)
 		this.handleChange = this.handleChange.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
@@ -129,9 +128,9 @@ class Home extends Component {
 
 	renderBox(){
 		if (this.props.allProps.component.length){
-			return this.props.allProps.component.map((component, i) => {
+			return this.props.allProps.component.map((component) => {
 				return (
-					<Rectangle id={i} top={this.state.top} left={this.state.left} />
+					<Rectangle id={component.id} top={component.top} left={component.left} />
 				)
 
 			})
@@ -149,6 +148,9 @@ class Home extends Component {
 		return connectDropTarget(
 			<div id = "canvaschild">
 				{newBox}
+				<form onSubmit={this.handleSubmit}>
+					<button type="submit">Submit</button>
+				</form>
 			</div>)
 	}
 }
