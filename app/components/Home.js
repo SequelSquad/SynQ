@@ -15,9 +15,11 @@ const canvasTarget = {
 	drop(props, monitor, component) {
 		// You can disallow drop based on props or item
 		if (!monitor.getItem().id && monitor.getItem().id !== 0) {
-			props.allProps.handleAddComponent(monitor.getItem().component)
+			// props.allProps.handleAddComponent({top: monitor.getSourceClientOffset().y + 20, left: monitor.getSourceClientOffset().x - 128})
+			props.allProps.handleAddComponent(component)
 		} else {
-			component.movePosition(monitor.getClientOffset().x, monitor.getClientOffset().y)
+			// component.movePosition(monitor.getItem().id, monitor.getSourceClientOffset().y + 20, monitor.getSourceClientOffset().x - 128)
+			component.movePosition(monitor.getSourceClientOffset().y + 20, monitor.getSourceClientOffset().x - 128)
 		}
 	}
 }
@@ -47,7 +49,6 @@ class Home extends Component {
 			top: "0",
 			left: "0"
 		}
-		this.movePosition = this.movePosition.bind(this)
 		// this.state = {
 		// 	path: "./db2",
 		// 	models: [{
@@ -107,6 +108,7 @@ class Home extends Component {
 		// 		]
 		// 	}
 		// ]}
+		this.movePosition = this.movePosition.bind(this)
 		this.handleChange = this.handleChange.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
 		this.renderBox = this.renderBox.bind(this)
@@ -140,7 +142,6 @@ class Home extends Component {
 
 	render() {
 		const newBox = this.renderBox()
-		console.log("COMPONENT", this.props.allProps.component)
   	// These props are injected by React DnD,
 		// as defined by your `collect` function above:
 		// const {testProp} = this.props
