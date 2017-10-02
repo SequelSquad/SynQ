@@ -111,7 +111,11 @@ class Home extends Component {
 			{
 				source: "player",
 				target: "team",
-				relationship: "belongsTo"
+				relationship: "belongsTo",
+		}, {
+			source: "player2",
+			target: "team2",
+			relationship: "belongsTo"
 		}]
 	}
 		this.handleChange = this.handleChange.bind(this)

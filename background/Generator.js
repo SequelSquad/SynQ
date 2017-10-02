@@ -113,7 +113,7 @@ const indexCreator = (state) => {
     let exportString = functions.exportModels(modelsArr)
 
     let modelsRequireStatement = tablesArr.join('')
-    let fileContent = assoArr.join()
+    let fileContent = assoArr.join('')
     let finalFile = modelsRequireStatement.concat(fileContent, exportString)
 
     fs.writeFile(state.path + `/index.js`, finalFile, (err) => {
