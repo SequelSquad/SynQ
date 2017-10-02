@@ -41,7 +41,7 @@ class Rectangle extends Component {
 		const {isDragging, connectDragSource} = this.props
 
 		return connectDragSource(
-			<span onClick={ () => {
+			<span className="table" onClick={ () => {
 				this.props.handleClick("POP_UP")}} id={this.props.id} style = {{top:`${this.props.top}`, left:`${this.props.left}`, position:"absolute"}}>▢</span>
 		)
 	}

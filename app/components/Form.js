@@ -8,8 +8,13 @@ class PopUp extends React.Component {
 	constructor (props){
 		super(props)
 		this.state = {
-			email: "",
-			password: ""
+			name: "",
+			dataValues: [{
+				name: "",
+				properties:{
+					type: ""
+				}
+			}]
 		}
 		this.onHandleChange = this.onHandleChange.bind(this)
 	}
@@ -34,7 +39,7 @@ class PopUp extends React.Component {
 					<Modal.Body>
 						<FormGroup controlId="formHorizontalEmail">
 							<Col componentClass={ControlLabel} sm={2}>
-						Email
+						Name
 							</Col>
 							<Col sm={10}>
 								<FormControl type="email" placeholder="Email" name = "email" onChange = {this.onHandleChange} />
@@ -43,10 +48,28 @@ class PopUp extends React.Component {
 
 						<FormGroup controlId="formHorizontalPassword">
 							<Col componentClass={ControlLabel} sm={2}>
-						Password
+						Properties
 							</Col>
 							<Col sm={10}>
 								<FormControl type="password" placeholder="Password" name = "password" onChange = {this.onHandleChange} />
+							</Col>
+						</FormGroup>
+
+						<FormGroup controlId="formHorizontalEmail">
+							<Col componentClass={ControlLabel} sm={2}>
+						Name
+							</Col>
+							<Col sm={10}>
+								<FormControl type="email" placeholder="Email" name = "email" onChange = {this.onHandleChange} />
+							</Col>
+						</FormGroup>
+
+						<FormGroup controlId="formHorizontalEmail">
+							<Col componentClass={ControlLabel} sm={2}>
+						Type
+							</Col>
+							<Col sm={10}>
+								<FormControl type="email" placeholder="Email" name = "email" onChange = {this.onHandleChange} />
 							</Col>
 						</FormGroup>
 					</Modal.Body>
@@ -56,16 +79,7 @@ class PopUp extends React.Component {
 								<FormGroup>
 									<Col smOffset={2} sm={10}>
 										<Button type="submit">
-							Sign in
-										</Button>
-									</Col>
-								</FormGroup>
-							</td>
-							<td>
-								<FormGroup>
-									<Col smOffset={2} sm={10}>
-										<Button href = "/auth/google" bsStyle="danger">
-						Sign in with Google
+							Submit
 										</Button>
 									</Col>
 								</FormGroup>
