@@ -48,65 +48,65 @@ class Home extends Component {
 		// 	top: "0",
 		// 	left: "0"
 		// }
-		this.state = {
-			path: "./db2",
-			models: [{
-				name: "Puppies",
-				dataValue:[
-					{
-						name: "breed",
-						properties: {
-							type: "STRING",
-							boolean: [
-								["allowNull", false],
-								["isEmail", false]
-							]
-						}
-					},
-					{
-						name: "breeders",
-						properties: {
-							type: "STRING",
-							boolean: [
-								["allowNull", false],
-								["isEmail", false]
-							],
-							validate: [
-								["is", "[\"^[a-z]+$\"]"]
-							]
-						}
-					}
-				]
-			},
-			{
-				name: "breeders",
-				dataValue:[
-					{
-						name: "breed",
-						properties: {
-							type: "STRING",
-							boolean: [
-								["allowNull", false],
-								["isEmail", false]
-							]
-						}
-					},
-					{
-						name: "breeders",
-						properties: {
-							type: "STRING",
-							boolean: [
-								["allowNull", false],
-								["isEmail", false]
-							],
-							validate: [
-								["is", "[\"^[a-z]+$\"]"]
-							]
-						}
-					}
-				]
-			}
-			]}
+		// this.state = {
+		// 	path: "./db2",
+		// 	models: [{
+		// 		name: "Puppies",
+		// 		dataValue:[
+		// 			{
+		// 				name: "breed",
+		// 				properties: {
+		// 					type: "STRING",
+		// 					boolean: [
+		// 						["allowNull", false],
+		// 						["isEmail", false]
+		// 					]
+		// 				}
+		// 			},
+		// 			{
+		// 				name: "breeders",
+		// 				properties: {
+		// 					type: "STRING",
+		// 					boolean: [
+		// 						["allowNull", false],
+		// 						["isEmail", false]
+		// 					],
+		// 					validate: [
+		// 						["is", "[\"^[a-z]+$\"]"]
+		// 					]
+		// 				}
+		// 			}
+		// 		]
+		// 	},
+		// 	{
+		// 		name: "breeders",
+		// 		dataValue:[
+		// 			{
+		// 				name: "breed",
+		// 				properties: {
+		// 					type: "STRING",
+		// 					boolean: [
+		// 						["allowNull", false],
+		// 						["isEmail", false]
+		// 					]
+		// 				}
+		// 			},
+		// 			{
+		// 				name: "breeders",
+		// 				properties: {
+		// 					type: "STRING",
+		// 					boolean: [
+		// 						["allowNull", false],
+		// 						["isEmail", false]
+		// 					],
+		// 					validate: [
+		// 						["is", "[\"^[a-z]+$\"]"]
+		// 					]
+		// 				}
+		// 			}
+		// 		]
+		// 	}
+		// 	]}
 		this.movePosition = this.movePosition.bind(this)
 		this.handleChange = this.handleChange.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
