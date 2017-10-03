@@ -4,11 +4,13 @@ import {connect} from "react-redux"
 import {removeModal} from "../actions/modalAction"
 import {setModel} from "../actions"
 import update from "react-addons-update"
+import {addColumn} from "../actions"
 
 class Column extends React.Component {
 	constructor (props){
 		super(props)
 		this.state = {
+			id: this.props.id,
 			name: "",
 			type: ""
 		}
@@ -20,10 +22,6 @@ class Column extends React.Component {
 		this.setState({[evt.target.name]: evt.target.value})
 	}
 
-	onSave(){
-
-	}
-
 	render() {
 		console.log(this.state)
 		return (
@@ -31,20 +29,25 @@ class Column extends React.Component {
 				<span>
 					<input type="text" name="name" onChange={this.onHandleChange}></input>
 					<input type="text" name="type" onChange={this.onHandleChange}></input>
-					<button>Save</button>
+					<button type="button" onClick={this.props.onSave}>Save</button>
 				</span>
 			</form>
 		)
 	}
 }
 
+const mapStateToProps = (state) => {
+	return {
+		id: state.currRect
+	}
+}
+
 const mapDispatchToProps = (dispatch) => {
 	return {
-		handleSave(state) {
-			console.log("****************", state)
-			dispatch(setModel(state))
+		onSave(state) {
+			dispatch(addColumn(state))
 		}
 	}
 }
 
-export default connect(state => state, mapDispatchToProps)(Column)
+export default connect(mapStateToProps, mapDispatchToProps)(Column)

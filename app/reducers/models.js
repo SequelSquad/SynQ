@@ -9,7 +9,7 @@ export default function models(state = modelsArr, action) {
 	case ADD_COLUMN:
 	{
 		const model = state.filter(model => model.id === action.column.id)
-		if (!model.dataValues.length) {
+		if (!model.dataValues) {
 			model.dataValues = []
 		}
 		model.dataValues.push(action.column)

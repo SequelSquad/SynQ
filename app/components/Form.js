@@ -66,7 +66,7 @@ class PopUp extends React.Component {
 	}
 
 	render() {
-		console.log(this.state)
+		console.log("PROPS", this.props)
 		return (
 			<Modal className="signInModal" bsSize="small" show = {true} onHide = {() => {
 				this.props.handleRemoveModal()}} >
