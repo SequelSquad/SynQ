@@ -1,4 +1,4 @@
-import { SET_MODEL } from "../actions/modelAction"
+import { SET_MODEL } from "../actions"
 
 const modelsArr = []
 
