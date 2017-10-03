@@ -141,7 +141,7 @@ class Home extends Component {
 		if (this.props.allProps.model.length){
 			return this.props.allProps.model.map((model) => {
 				return (
-					<Rectangle key={model.id} top={model.top} left={model.left} />
+					<Rectangle key={model.id} id={model.id} top={model.top} left={model.left} />
 				)
 
 			})
