@@ -1,4 +1,4 @@
-import { SET_MODAL, REMOVE_MODAL } from "../actions/modalAction"
+import { SET_MODAL, REMOVE_MODAL } from "../actions"
 const currentModal = ""
 
 export default (state = currentModal, action) => {

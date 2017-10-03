@@ -15,7 +15,7 @@ const canvasTarget = {
 	drop(props, monitor, component) {
 		// You can disallow drop based on props or item
 		if (!monitor.getItem().id && monitor.getItem().id !== 0) {
-			props.allProps.handleAddComponent({id: props.allProps.component.length + 1, top: monitor.getSourceClientOffset().y + 20, left: monitor.getSourceClientOffset().x - 128})
+			props.allProps.handleAddModel({id: props.allProps.model.length + 1, top: monitor.getSourceClientOffset().y + 20, left: monitor.getSourceClientOffset().x - 128})
 		} else {
 			props.allProps.handleMovePosition({id: monitor.getItem().id, top: monitor.getSourceClientOffset().y + 20, left: monitor.getSourceClientOffset().x - 128})
 		}
@@ -138,10 +138,10 @@ class Home extends Component {
 	}
 
 	renderBox(){
-		if (this.props.allProps.component.length){
-			return this.props.allProps.component.map((component) => {
+		if (this.props.allProps.model.length){
+			return this.props.allProps.model.map((model) => {
 				return (
-					<Rectangle id={component.id} top={component.top} left={component.left} />
+					<Rectangle key={model.id} id={model.id} top={model.top} left={model.left} />
 				)
 
 			})

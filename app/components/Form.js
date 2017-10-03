@@ -2,7 +2,7 @@ import React from "react"
 import {Form, FormGroup, Col, FormControl, Button, Checkbox, ControlLabel, Modal} from "react-bootstrap"
 import {connect} from "react-redux"
 import {removeModal} from "../actions/modalAction"
-import {setModel} from "../actions/modelAction"
+import {setModel} from "../actions"
 import update from "react-addons-update"
 
 class PopUp extends React.Component {
