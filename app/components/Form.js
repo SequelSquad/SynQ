@@ -9,7 +9,7 @@ class PopUp extends React.Component {
 	constructor (props){
 		super(props)
 		this.state = {
-			name: "",
+			name: "H",
 			dataValues: [{
 				name: "",
 				properties:{
@@ -18,19 +18,51 @@ class PopUp extends React.Component {
 			}]
 		}
 		this.onHandleChange = this.onHandleChange.bind(this)
+		this.onHandleSubmit = this.onHandleSubmit.bind(this)
 	}
 
 	onHandleChange(evt){
-		let newState = {}
-    newState[evt.target.name] = evt.target.value
+		console.log(this.state)
+	  // let newState = {}
+		// newState[evt.target.name] = evt.target.value
+		// console.log(newState)
+		this.setState(update(this.state, {
+			name: {$set: evt.target.value}
+		}))
+		this.setState(update(this.state, {
+			dataValues: {
+				[0]: {
+					name: {$set: evt.target.value}
+				}
+			}
+		}))
+		this.setState(update(this.state, {
+			dataValues: {
+				[0]: {
+					properties: {
+						type: {$set: evt.target.value}
+					}
+				}
+			}
+		}))
+		// const newData = update(this.state, {
+		// 	name: {$set: evt.target.modelname.value},
+		// 	dataValues: {
+		// 		[0]: {
+		// 			name: {$set: evt.target.columnName.value},
+		// 			properties: {
+		// 				type: {$set: evt.target.columnType.value}
+		// 			}
+		// 		}
+		// 	}
+		// })
+		// this.setState(newData)
+	}
 
-    const newData = update(this.state, {
-      name:
-      dataValues: {name: {$set:}}
-    })
-		this.setState(newState)
-  }
-
+	onHandleSubmit(){
+		console.log("SUBMIT??")
+		this.props.handleSubmit(this.state)
+	}
 
 	render() {
 		console.log(this.state)
@@ -40,8 +72,7 @@ class PopUp extends React.Component {
 				<Modal.Header closeButton>
 					<Modal.Title>Create Model</Modal.Title>
 				</Modal.Header>
-				<Form horizontal onSubmit = {() => {
-					this.props.handleSubmit(this.state)}}>
+				<Form horizontal>
 					<Modal.Body>
 						<FormGroup controlId="formHorizontalEmail">
 							<Col componentClass={ControlLabel} sm={2}>
@@ -73,7 +104,7 @@ class PopUp extends React.Component {
 					<Modal.Footer>
 						<FormGroup>
 							<Col smOffset={2} sm={10}>
-								<Button type="submit">
+								<Button type="submit" onClick={this.onHandleSubmit}>
 							Submit
 								</Button>
 							</Col>
