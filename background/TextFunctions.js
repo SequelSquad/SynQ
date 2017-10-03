@@ -6,10 +6,6 @@ functions.setup = (table) => {
   module.exports = db.define(${table})`
 }
 
-//Ends the property if there are other properties inside this table
-// functions.endProperties = () => {
-//   return `,`
-// }
 //Start Table
 functions.table = (TableName, TableProperties) => {
 	console.log("creating table")
@@ -35,5 +31,20 @@ functions.validate = (validationStr) =>{
 	console.log("Creating validation")
 	return `,\n\t\tvalidate: {\t${validationStr}}`
 }
+
+functions.associations = (source, target, association) => {
+  return `${source}.${association}(${target})\n`
+}
+
+functions.requireModel = (name) =>{
+  let fileName = name.toLowerCase()
+  return `const ${name} = require('./${fileName}')\n`
+}
+
+functions.exportModels = (modelArr) => {
+  let modelList = modelArr.join(', \n')
+  return `\nmodule.export = {\n${modelList}\n}`
+}
+//functions.indexSetup = ()
 
 export default functions
