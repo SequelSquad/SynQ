@@ -4,6 +4,7 @@ import {connect} from "react-redux"
 import {removeModal} from "../actions/modalAction"
 import {setModel} from "../actions"
 import update from "react-addons-update"
+import Column from "./Column"
 
 class PopUp extends React.Component {
 	constructor (props){
@@ -83,23 +84,8 @@ class PopUp extends React.Component {
 							</Col>
 						</FormGroup>
 
-						<FormGroup controlId="formHorizontalPassword">
-							<Col componentClass={ControlLabel} sm={2}>
-						Properties
-							</Col>
-							<Col sm={10}>
-								<FormControl type="properties" placeholder="properties" name = "columnName" onChange = {this.onHandleChange} />
-							</Col>
-						</FormGroup>
+						<Column />
 
-						<FormGroup controlId="formHorizontalEmail">
-							<Col componentClass={ControlLabel} sm={2}>
-						Type
-							</Col>
-							<Col sm={10}>
-								<FormControl type="email" placeholder="data type" name = "columnType" onChange = {this.onHandleChange} />
-							</Col>
-						</FormGroup>
 					</Modal.Body>
 					<Modal.Footer>
 						<FormGroup>
