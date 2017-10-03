@@ -15,9 +15,9 @@ const canvasTarget = {
 	drop(props, monitor, component) {
 		// You can disallow drop based on props or item
 		if (!monitor.getItem().id && monitor.getItem().id !== 0) {
-			props.allProps.handleAddComponent(monitor.getItem().component)
+			props.allProps.handleAddComponent({id: props.allProps.component.length + 1, top: monitor.getSourceClientOffset().y + 20, left: monitor.getSourceClientOffset().x - 128})
 		} else {
-			component.movePosition(monitor.getClientOffset().x, monitor.getClientOffset().y)
+			props.allProps.handleMovePosition({id: monitor.getItem().id, top: monitor.getSourceClientOffset().y + 20, left: monitor.getSourceClientOffset().x - 128})
 		}
 	}
 }
@@ -139,9 +139,9 @@ class Home extends Component {
 
 	renderBox(){
 		if (this.props.allProps.component.length){
-			return this.props.allProps.component.map((component, i) => {
+			return this.props.allProps.component.map((component) => {
 				return (
-					<Rectangle id={i} top={this.state.top} left={this.state.left} />
+					<Rectangle id={component.id} top={component.top} left={component.left} />
 				)
 
 			})
@@ -152,7 +152,6 @@ class Home extends Component {
 
 	render() {
 		const newBox = this.renderBox()
-		console.log("COMPONENT", this.props.allProps.component)
   	// These props are injected by React DnD,
 		// as defined by your `collect` function above:
 		// const {testProp} = this.props
@@ -164,8 +163,14 @@ class Home extends Component {
 			</form>
 			<div id = "canvaschild">
 				{newBox}
+<<<<<<< HEAD
+				<form onSubmit={this.handleSubmit}>
+					<button type="submit">Submit</button>
+				</form>
+=======
 
 			</div>
+>>>>>>> master
 			</div>)
 	}
 }
