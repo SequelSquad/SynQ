@@ -5,6 +5,7 @@ import counter from "./counter"
 import addModel from "./addModel"
 import currentModal from "./modals"
 import models from "./models"
+import lines from "./lines"
 import currRect from "./currRect"
 
 const rootReducer = combineReducers({
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
 	addModel,
 	models,
 	currentModal,
+	lines,
 	currRect
 })
 

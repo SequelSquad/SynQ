@@ -29,6 +29,8 @@ class HomePage extends Component {
 
 const mapStateToProps = (state) => {
 	return {
+		component: state.homednd,
+		lines: state.lines,
 		model: state.addModel
 	}
 }

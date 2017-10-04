@@ -8,6 +8,7 @@ import ReactDOM from "react-dom"
 import { DropTarget } from "react-dnd"
 import Type from "./Type"
 import Rectangle from "./Rectangle"
+import Line from "./Line"
 import Generator from "../../background/Generator"
 
 
@@ -144,26 +145,56 @@ class Home extends Component {
 				return (
 					<Rectangle key={model.id} id={model.id} top={model.top} left={model.left} />
 				)
-
 			})
 		}	else {
 			return
 		}
 	}
 
+	renderLines(){
+		if(this.props.allProps.lines){
+			return this.props.allProps.lines.map((line) => {
+				return (
+					<Line
+						x1 = {this.props.allProps.model.filter((model) => {
+							return model.id === parseInt(line.Table1)
+						})[0].left}
+						x2 = {this.props.allProps.model.filter((model) => {
+							return model.id === parseInt(line.Table2)
+						})[0].left}
+						y1 = {this.props.allProps.model.filter((model) => {
+							return model.id === parseInt(line.Table1)
+						})[0].top}
+						y2 = {this.props.allProps.model.filter((model) => {
+							return model.id === parseInt(line.Table2)
+						})[0].top}
+					/>
+				)
+			})
+		} else {
+			return
+		}
+	}
+
 	render() {
 		const newBox = this.renderBox()
+		const newLines = this.renderLines()
   	// These props are injected by React DnD,
 		// as defined by your `collect` function above:
 		// const {testProp} = this.props
 		const { isOver, canDrop, connectDropTarget } = this.props
 		return connectDropTarget(
+
 			<div id = "canvaschild">
 				{newBox}
+				<svg height="1000" width="1000">
+					{newLines}
+				</svg>
 				<form onSubmit={this.handleSubmit}>
 					<button type="submit">Submit</button>
 				</form>
 			</div>
+
 		)
 	}
 }
