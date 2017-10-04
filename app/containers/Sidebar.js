@@ -33,12 +33,12 @@ class Sidebar extends Component {
 			<div className='sidebar-menu'>
 				<FormGroup controlId="formHorizontalEmail">
 					<Col componentClass={ControlLabel}>
-						Path Name:
+						File Path:
 					</Col>
 					<FormControl type="path" placeholder="Enter path of directory" name = "path"/>
 				</FormGroup>
 				<Button type="button" onClick={this.handleSetPath}>Set Path</Button>
-				<Button bsStyle="info" type="submit" onClick={this.handleSubmit}>Create Database</Button>
+				<Button type="submit" onClick={this.handleSubmit}>Create Database</Button>
 				<ul className = "nav sidebar-nav">
 					<li>
 						<Rectangle />
