@@ -3,6 +3,7 @@ import { SET_MODAL, REMOVE_MODAL, setModal, removeModal } from "./modalAction"
 import { SET_MODEL, setModel, ADD_TABLE, addTable } from "./modelAction"
 import { ADD_COLUMN, addColumn } from "./addColumn"
 import { SET_CURR_RECT, setCurrRect } from "./currRectAction"
+import { SET_PATH, setPath } from "./setPath"
 
 export default {
 	ADD_MODEL,
@@ -13,6 +14,7 @@ export default {
 	SET_MODEL,
 	SET_CURR_RECT,
 	ADD_TABLE,
+	SET_PATH,
 
 	addModel,
 	addColumn,
@@ -21,5 +23,6 @@ export default {
 	removeModal,
 	setModel,
 	setCurrRect,
-	addTable
+	addTable,
+	setPath
 }
