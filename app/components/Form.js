@@ -145,7 +145,7 @@ class PopUp extends React.Component {
 						Name
 							</Col>
 							<Col sm={10}>
-								<FormControl type="email" placeholder="Email" name = "modelname" onChange = {this.onHandleChange} />
+								<FormControl type="email" placeholder="Email" name = "name" onChange = {this.onHandleChange} />
 							</Col>
 						</FormGroup>
 
