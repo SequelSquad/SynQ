@@ -15,11 +15,16 @@ class Column extends React.Component {
 			type: ""
 		}
 		this.onHandleChange = this.onHandleChange.bind(this)
-		// this.onHandleSubmit = this.onHandleSubmit.bind(this)
+		this.handleSubmit = this.handleSubmit.bind(this)
 	}
 
 	onHandleChange(evt) {
 		this.setState({[evt.target.name]: evt.target.value})
+	}
+
+	handleSubmit(){
+		console.log("SAVE STATE", this.state)
+		this.props.onSave(this.state)
 	}
 
 	render() {
@@ -29,7 +34,7 @@ class Column extends React.Component {
 				<span>
 					<input type="text" name="name" onChange={this.onHandleChange}></input>
 					<input type="text" name="type" onChange={this.onHandleChange}></input>
-					<button type="button" onClick={this.props.onSave}>Save</button>
+					<button type="button" onClick={this.handleSubmit}>Save</button>
 				</span>
 			</form>
 		)
@@ -45,6 +50,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		onSave(state) {
+			console.log("^^^^^^^^^^^^^^",state)
 			dispatch(addColumn(state))
 		}
 	}
