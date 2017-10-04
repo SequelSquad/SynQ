@@ -1,5 +1,5 @@
 import React from "react"
-import {Form, FormGroup, Col, FormControl, Button, Checkbox, ControlLabel, Modal} from "react-bootstrap"
+import {Form, FormGroup, Col, FormControl, Button, Checkbox, ControlLabel, Modal, DropdownButton, MenuItem} from "react-bootstrap"
 import {connect} from "react-redux"
 import {removeModal} from "../actions/modalAction"
 import {addLine} from "../actions/lines"
@@ -11,8 +11,8 @@ class PopUp extends React.Component {
 	constructor (props){
 		super(props)
 		this.state = {
-			Table1: 0,
-			Table2: 0,
+			TargetTable: "Table",
+			Relationship: "Relationship",
 			// name: "H",
 			// dataValues: [{
 			// 	name: "",
@@ -21,7 +21,8 @@ class PopUp extends React.Component {
 			// 	}
 			// }]
 			id: this.props.id,
-			name: "H",
+			name: "H"
+
 		}
 		this.onHandleChange = this.onHandleChange.bind(this)
 		this.onHandleChangeDvName = this.onHandleChangeDvName.bind(this)
@@ -86,13 +87,17 @@ class PopUp extends React.Component {
 	}
 
 	onHandleSubmit(){
-		console.log("SUBMIT??")
 		this.props.handleSubmit(this.state, this.props.key)
 	}
 
 	handleLineCreate(evt){
-		console.log("EVTTARGET!", evt.target)
-		this.props.lineCreate(this.state)
+		this.props.lineCreate({
+			Table1: this.props.id,
+			Table2: this.props.models.filter((model) => {
+				return model.name === this.state.TargetTable
+			})[0].id,
+			Relationship: this.state.Relationship
+		})
 	}
 
 	render() {
@@ -111,18 +116,44 @@ class PopUp extends React.Component {
 						Name
 							</Col>
 							<Col sm={10}>
-								<FormControl type="email" placeholder="Email" name = "name" onChange = {this.onHandleChange} />
+								<FormControl type="email" placeholder="name" name = "name" onChange = {this.onHandleChange} />
 							</Col>
 						</FormGroup>
 
-						<FormGroup controlId="formHorizontalPassword">
+
+						<FormGroup>
+							<Col smOffset={2} sm={10}>
+								<DropdownButton title = {this.state.TargetTable} onSelect = {(evt) => {
+									this.setState({TargetTable: evt})
+								}} >
+									{this.props.models.filter((model) => {
+										return model.id !== this.props.id
+									}).map((model, i) => {
+										return (
+											<MenuItem eventKey = {model.name}>{model.name}</MenuItem>
+										)
+									})}
+								</DropdownButton>
+							</Col>
+						</FormGroup>
+						<FormGroup>
+							<Col smOffset={2} sm={10}>
+								<DropdownButton title = {this.state.Relationship} onSelect = {(evt) => {
+									this.setState({Relationship: evt})}} >
+									<MenuItem eventKey="One-to-One">One-to-One</MenuItem>
+									<MenuItem eventKey="One-to-Many">One-to-Many</MenuItem>
+									<MenuItem eventKey="Many-to-Many">Many-to-Many</MenuItem>
+								</DropdownButton>
+							</Col>
+						</FormGroup>
+						{/* <FormGroup controlId="formHorizontalPassword">
 							<Col componentClass={ControlLabel} sm={2}>
 						Table1
 							</Col>
 							<Col sm={10}>
 								<FormControl type="properties" placeholder="properties" name = "Table1" onChange =  {this.onHandleChange} />
 							</Col>
-						</FormGroup>
+						</FormGroup> */}
 
 						<FormGroup controlId="formHorizontalEmail">
 							<Col componentClass={ControlLabel} sm={2}>
@@ -160,7 +191,8 @@ class PopUp extends React.Component {
 }
 const mapStateToProps = (state) => {
 	return {
-		id: state.currRect
+		id: state.currRect,
+		models: state.models
 	}
 }
 
@@ -171,7 +203,6 @@ const mapDispatchToProps = (dispatch) => {
 			dispatch(removeModal())
 		},
 		handleSubmit(state) {
-			console.log("****************", state)
 			dispatch(setModel(state))
 		},
 		lineCreate(line){
