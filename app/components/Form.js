@@ -86,40 +86,6 @@ class PopUp extends React.Component {
 		// this.setState(newData)
 	}
 
-
-	// this.setState(update(this.state, {
-	// 	name: {$set: evt.target.value}
-	// }))
-	// this.setState(update(this.state, {
-	// 	dataValues: {
-	// 		[0]: {
-	// 			name: {$set: evt.target.value}
-	// 		}
-	// 	}
-	// }))
-	// this.setState(update(this.state, {
-	// 	dataValues: {
-	// 		[0]: {
-	// 			properties: {
-	// 				type: {$set: evt.target.value}
-	// 			}
-	// 		}
-	// 	}
-	// }))
-	// const newData = update(this.state, {
-	// 	name: {$set: evt.target.modelname.value},
-	// 	dataValues: {
-	// 		[0]: {
-	// 			name: {$set: evt.target.columnName.value},
-	// 			properties: {
-	// 				type: {$set: evt.target.columnType.value}
-	// 			}
-	// 		}
-	// 	}
-	// })
-	// this.setState(newData)
-
-
 	onHandleSubmit(){
 		this.props.handleSubmit(this.state, this.props.key)
 	}
