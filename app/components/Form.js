@@ -3,69 +3,97 @@ import {Form, FormGroup, Col, FormControl, Button, Checkbox, ControlLabel, Modal
 import {connect} from "react-redux"
 import {removeModal} from "../actions/modalAction"
 import {setModel} from "../actions/modelAction"
+import {addLine} from "../actions/lines"
 import update from "react-addons-update"
 
 class PopUp extends React.Component {
 	constructor (props){
 		super(props)
 		this.state = {
-			name: "H",
-			dataValues: [{
-				name: "",
-				properties:{
-					type: ""
-				}
-			}]
+			Table1: 0,
+			Table2: 0
+			// name: "H",
+			// dataValues: [{
+			// 	name: "",
+			// 	properties:{
+			// 		type: ""
+			// 	}
+			// }]
 		}
 		this.onHandleChange = this.onHandleChange.bind(this)
+		this.onHandleChangeDvName = this.onHandleChangeDvName.bind(this)
 		this.onHandleSubmit = this.onHandleSubmit.bind(this)
+		this.handleLineCreate = this.handleLineCreate.bind(this)
 	}
 
 	onHandleChange(evt){
-		console.log(this.state)
-	  // let newState = {}
-		// newState[evt.target.name] = evt.target.value
-		// console.log(newState)
-		this.setState(update(this.state, {
-			name: {$set: evt.target.value}
-		}))
-		this.setState(update(this.state, {
-			dataValues: {
-				[0]: {
-					name: {$set: evt.target.value}
-				}
-			}
-		}))
-		this.setState(update(this.state, {
-			dataValues: {
-				[0]: {
-					properties: {
-						type: {$set: evt.target.value}
-					}
-				}
-			}
-		}))
-		// const newData = update(this.state, {
-		// 	name: {$set: evt.target.modelname.value},
-		// 	dataValues: {
-		// 		[0]: {
-		// 			name: {$set: evt.target.columnName.value},
-		// 			properties: {
-		// 				type: {$set: evt.target.columnType.value}
-		// 			}
-		// 		}
-		// 	}
+		let newState = {}
+		newState[evt.target.name] = evt.target.value
+		this.setState(newState)
+		// console.log(this.state)
+
+		// let newState = update(this.state, {
+		// 	name: {$set: evt.target.value}
 		// })
-		// this.setState(newData)
+		// this.setState(newState)
 	}
+
+	onHandleChangeDvName(evt){
+		let newState = update(this.state, {
+			dataValues:{
+				[0]: {
+					name: {$set: evt.target.value}}
+			}
+		})
+		this.setState(newState)
+	}
+
+
+	// this.setState(update(this.state, {
+	// 	name: {$set: evt.target.value}
+	// }))
+	// this.setState(update(this.state, {
+	// 	dataValues: {
+	// 		[0]: {
+	// 			name: {$set: evt.target.value}
+	// 		}
+	// 	}
+	// }))
+	// this.setState(update(this.state, {
+	// 	dataValues: {
+	// 		[0]: {
+	// 			properties: {
+	// 				type: {$set: evt.target.value}
+	// 			}
+	// 		}
+	// 	}
+	// }))
+	// const newData = update(this.state, {
+	// 	name: {$set: evt.target.modelname.value},
+	// 	dataValues: {
+	// 		[0]: {
+	// 			name: {$set: evt.target.columnName.value},
+	// 			properties: {
+	// 				type: {$set: evt.target.columnType.value}
+	// 			}
+	// 		}
+	// 	}
+	// })
+	// this.setState(newData)
+
 
 	onHandleSubmit(){
 		console.log("SUBMIT??")
 		this.props.handleSubmit(this.state)
 	}
 
+	handleLineCreate(evt){
+		console.log("EVTTARGET!", evt.target)
+		this.props.lineCreate(this.state)
+	}
+
 	render() {
-		console.log(this.state)
+		console.log("HOMEDNDPROP", this.props.homednd)
 		return (
 			<Modal className="signInModal" bsSize="small" show = {true} onHide = {() => {
 				this.props.handleRemoveModal()}} >
@@ -85,19 +113,19 @@ class PopUp extends React.Component {
 
 						<FormGroup controlId="formHorizontalPassword">
 							<Col componentClass={ControlLabel} sm={2}>
-						Properties
+						Table1
 							</Col>
 							<Col sm={10}>
-								<FormControl type="properties" placeholder="properties" name = "columnName" onChange = {this.onHandleChange} />
+								<FormControl type="properties" placeholder="properties" name = "Table1" onChange =  {this.onHandleChange} />
 							</Col>
 						</FormGroup>
 
 						<FormGroup controlId="formHorizontalEmail">
 							<Col componentClass={ControlLabel} sm={2}>
-						Type
+						Table2
 							</Col>
 							<Col sm={10}>
-								<FormControl type="email" placeholder="data type" name = "columnType" onChange = {this.onHandleChange} />
+								<FormControl type="email" placeholder="data type" name = "Table2" onChange = {this.onHandleChange} />
 							</Col>
 						</FormGroup>
 					</Modal.Body>
@@ -106,6 +134,13 @@ class PopUp extends React.Component {
 							<Col smOffset={2} sm={10}>
 								<Button type="submit" onClick={this.onHandleSubmit}>
 							Submit
+								</Button>
+							</Col>
+						</FormGroup>
+						<FormGroup>
+							<Col smOffset={2} sm={10}>
+								<Button onClick={this.handleLineCreate}>
+							CreateLines
 								</Button>
 							</Col>
 						</FormGroup>
@@ -125,6 +160,9 @@ const mapDispatchToProps = (dispatch) => {
 		handleSubmit(state) {
 			console.log("****************", state)
 			dispatch(setModel(state))
+		},
+		lineCreate(line){
+			dispatch(addLine(line))
 		}
 	}
 }

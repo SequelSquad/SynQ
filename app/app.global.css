@@ -23,6 +23,10 @@ div#canvaschild{
   height: inherit;
 }
 
+#svgchild{
+  height: inherit;
+}
+
 div#main{
   height: inherit;
   background-color: white;
