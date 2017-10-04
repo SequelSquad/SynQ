@@ -16,7 +16,7 @@ export default class Line extends Component {
 
 		return(
 			<g>
-				<line x1={x1} y1={y1} x2={x2} y2={y2} stroke = "black"/>
+				<line x1={x1+45} y1={y1+55} x2={x2+45} y2={y2+55} stroke = "black"/>
 			</g>
 		)
 	}

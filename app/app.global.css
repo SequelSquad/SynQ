@@ -5,12 +5,14 @@ body {
   color: black;
   font-size: 14px;
   height: 100vh;
-  background-color: #3E95FF;
+  background-color: #86ABD7;
   /* background-image: linear-gradient(45deg, rgba(0, 216, 255, 0.5) 10%, rgba(0, 1, 127, 0.7)); */
   /* font-family: Arial, Helvetica, Helvetica Neue, serif; */
   /* font-family: Helvetica W01,sans-serif; */
   font-family: 'Raleway', sans-serif;
   overflow-y: hidden;
+  margin: 0;
+  border: 0;
 }
 
 
@@ -34,9 +36,10 @@ div#main{
 
 div#canvas{
   height: inherit;
-  background-color: lightgrey;
-  color: black
+  background-color: #EAEFF3;
+  color: black;
 }
+
 div#wrapper{
   height: 100vh;
   width: 100vw;
@@ -50,6 +53,7 @@ h1 {
   font-weight: bold;
   margin-left: 24px;
   color: white;
+  font-size: 410%;
 }
 h2 {
   margin: 0;
@@ -80,19 +84,26 @@ a:hover {
 }
 
 nav {
-  border-bottom: 1px solid grey
+  border-bottom: 3px outset azure;
+}
+
+.sidebar-menu {
+
 }
 .table {
   border: 1px solid black;
+
   width: 120px;
   height: 120px;
   text-align: center;
   border-radius: 10px;
-  background-color: #3E95FF;
+  background-color: #86ABD7;
   color: white;
   position: relative;
-  top: 20px
+
 }
+
+
 
 .table h2 {
   position: absolute;

@@ -6,6 +6,7 @@ import Generator from "../../background/Generator"
 import { setPath } from "../actions"
 import { Button, FormGroup, FormControl, Col, ControlLabel } from "react-bootstrap"
 
+
 class Sidebar extends Component {
 	constructor(props) {
 		super(props)
@@ -29,7 +30,7 @@ class Sidebar extends Component {
 
 	render() {
 		return (
-			<div>
+			<div className='sidebar-menu'>
 				<FormGroup controlId="formHorizontalEmail">
 					<Col componentClass={ControlLabel}>
 						Path Name:

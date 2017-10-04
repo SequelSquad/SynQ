@@ -16,10 +16,10 @@ const canvasTarget = {
 	drop(props, monitor, component) {
 		// You can disallow drop based on props or item
 		if (!monitor.getItem().id && monitor.getItem().id !== 0) {
-			props.allProps.handleAddModel({id: props.allProps.model.length + 1, top: monitor.getSourceClientOffset().y + 20, left: monitor.getSourceClientOffset().x - 128})
+			props.allProps.handleAddModel({id: props.allProps.model.length + 1, top: monitor.getSourceClientOffset().y - 96, left: monitor.getSourceClientOffset().x - 212})
 			props.allProps.handleAddTable({id: props.allProps.model.length + 1})
 		} else {
-			props.allProps.handleMovePosition({id: monitor.getItem().id, top: monitor.getSourceClientOffset().y + 20, left: monitor.getSourceClientOffset().x - 128})
+			props.allProps.handleMovePosition({id: monitor.getItem().id, top: monitor.getSourceClientOffset().y - 96, left: monitor.getSourceClientOffset().x - 212})
 		}
 	}
 }
@@ -187,7 +187,7 @@ class Home extends Component {
 
 			<div id = "canvaschild">
 				{newBox}
-				<svg height="1000" width="1000">
+				<svg height="1000" width="100%">
 					{newLines}
 				</svg>
 				<form onSubmit={this.handleSubmit}>
