@@ -27,7 +27,7 @@ const modelCreator = (state) => {
 		let columnArr = []
 
 		//for each column in our DB, aka 'model.dataValue'
-		model.dataValue.forEach(data => {
+		model.dataValues.forEach(data => {
 
 			//Store the validation strings
 			let validateStr = " "
@@ -35,26 +35,27 @@ const modelCreator = (state) => {
 			let booleanArr= []
 
 			//if it has boolean elements
-			if (data.properties.boolean){
-				data.properties.boolean.forEach( bool => {
-					let val = functions.boolean(bool[0], bool[1])
-					booleanArr.push(val)
-				})
-			}
+			// if (data.properties.boolean){
+			// 	data.properties.boolean.forEach( bool => {
+			// 		let val = functions.boolean(bool[0], bool[1])
+			// 		booleanArr.push(val)
+			// 	})
+			// }
 
-			//if it has validation elements
-			if (data.properties.validate){
-				let validateArr = []
-				data.properties.validate.forEach( validation => {
-					let val = functions.boolean(validation[0], validation[1])
-					validateArr.push(val)
-				})
-				let validateJoin = validateArr.join()
-				validateStr = functions.validate(validateJoin)
-			}
+			// //if it has validation elements
+			// if (data.properties.validate){
+			// 	let validateArr = []
+			// 	data.properties.validate.forEach( validation => {
+			// 		let val = functions.boolean(validation[0], validation[1])
+			// 		validateArr.push(val)
+			// 	})
+			// 	let validateJoin = validateArr.join()
+			// 	validateStr = functions.validate(validateJoin)
+			// }
 
 			//Store the type string
-			const type = functions.type(data.properties.type)
+			// const type = functions.type(data.properties.type)
+			const type = functions.type(data.type)
 
 			//Join everything together!
 			const booleanStr = booleanArr.join()

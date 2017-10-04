@@ -4,7 +4,7 @@ import Home from "../components/Home"
 import Sidebar from "./Sidebar"
 import HTML5Backend from "react-dnd-html5-backend"
 import { DragDropContext } from "react-dnd"
-import {addModel, movePosition, setModel} from "../actions"
+import {addModel, movePosition, setModel, addTable} from "../actions"
 import {connect} from "react-redux"
 
 class HomePage extends Component {
@@ -16,10 +16,10 @@ class HomePage extends Component {
 	render() {
 		return (
 			<div id = "wrapper">
-				<div id = "main" className = "col-xs-2">
+				<div id = "main" className = "col-xs-3">
 					<Sidebar />
 				</div>
-				<div id = "canvas" className = "col-xs-10">
+				<div id = "canvas" className = "col-xs-9">
 					<Home allProps = {this.props} />
 				</div>
 			</div>
@@ -31,7 +31,8 @@ const mapStateToProps = (state) => {
 	return {
 		component: state.homednd,
 		lines: state.lines,
-		model: state.addModel
+		model: state.addModel,
+		models: state.models
 	}
 }
 
@@ -45,6 +46,9 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		handleSetModel: (model) => {
 			return dispatch(setModel(model))
+		},
+		handleAddTable: (table) => {
+			return dispatch(addTable(table))
 		}
 	}
 }
