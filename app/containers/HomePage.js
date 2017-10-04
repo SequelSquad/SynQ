@@ -4,7 +4,7 @@ import Home from "../components/Home"
 import Sidebar from "./Sidebar"
 import HTML5Backend from "react-dnd-html5-backend"
 import { DragDropContext } from "react-dnd"
-import {addModel, movePosition} from "../actions"
+import {addModel, movePosition, setModel} from "../actions"
 import {connect} from "react-redux"
 
 class HomePage extends Component {
@@ -40,6 +40,9 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		handleMovePosition: (model) => {
 			return dispatch(movePosition(model))
+		},
+		handleSetModel: (model) => {
+			return dispatch(setModel(model))
 		}
 	}
 }

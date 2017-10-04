@@ -4,18 +4,14 @@ import {connect} from "react-redux"
 import {removeModal} from "../actions/modalAction"
 import {setModel} from "../actions"
 import update from "react-addons-update"
+import Column from "./Column"
 
 class PopUp extends React.Component {
 	constructor (props){
 		super(props)
 		this.state = {
+			id: this.props.id,
 			name: "H",
-			dataValues: [{
-				name: "",
-				properties:{
-					type: ""
-				}
-			}]
 		}
 		this.onHandleChange = this.onHandleChange.bind(this)
 		this.onHandleSubmit = this.onHandleSubmit.bind(this)
@@ -29,22 +25,22 @@ class PopUp extends React.Component {
 		this.setState(update(this.state, {
 			name: {$set: evt.target.value}
 		}))
-		this.setState(update(this.state, {
-			dataValues: {
-				[0]: {
-					name: {$set: evt.target.value}
-				}
-			}
-		}))
-		this.setState(update(this.state, {
-			dataValues: {
-				[0]: {
-					properties: {
-						type: {$set: evt.target.value}
-					}
-				}
-			}
-		}))
+		// this.setState(update(this.state, {
+		// 	dataValues: {
+		// 		[0]: {
+		// 			name: {$set: evt.target.value}
+		// 		}
+		// 	}
+		// }))
+		// this.setState(update(this.state, {
+		// 	dataValues: {
+		// 		[0]: {
+		// 			properties: {
+		// 				type: {$set: evt.target.value}
+		// 			}
+		// 		}
+		// 	}
+		// }))
 		// const newData = update(this.state, {
 		// 	name: {$set: evt.target.modelname.value},
 		// 	dataValues: {
@@ -61,11 +57,11 @@ class PopUp extends React.Component {
 
 	onHandleSubmit(){
 		console.log("SUBMIT??")
-		this.props.handleSubmit(this.state)
+		this.props.handleSubmit(this.state, this.props.key)
 	}
 
 	render() {
-		console.log(this.state)
+		// console.log("PROPS", this.state)
 		return (
 			<Modal className="signInModal" bsSize="small" show = {true} onHide = {() => {
 				this.props.handleRemoveModal()}} >
@@ -83,23 +79,8 @@ class PopUp extends React.Component {
 							</Col>
 						</FormGroup>
 
-						<FormGroup controlId="formHorizontalPassword">
-							<Col componentClass={ControlLabel} sm={2}>
-						Properties
-							</Col>
-							<Col sm={10}>
-								<FormControl type="properties" placeholder="properties" name = "columnName" onChange = {this.onHandleChange} />
-							</Col>
-						</FormGroup>
+						<Column />
 
-						<FormGroup controlId="formHorizontalEmail">
-							<Col componentClass={ControlLabel} sm={2}>
-						Type
-							</Col>
-							<Col sm={10}>
-								<FormControl type="email" placeholder="data type" name = "columnType" onChange = {this.onHandleChange} />
-							</Col>
-						</FormGroup>
 					</Modal.Body>
 					<Modal.Footer>
 						<FormGroup>
@@ -116,6 +97,12 @@ class PopUp extends React.Component {
 		)
 	}
 }
+const mapStateToProps = (state) => {
+	return {
+		id: state.currRect
+	}
+}
+
 
 const mapDispatchToProps = (dispatch) => {
 	return {
@@ -129,4 +116,4 @@ const mapDispatchToProps = (dispatch) => {
 	}
 }
 
-export default connect(state => state, mapDispatchToProps)(PopUp)
+export default connect(mapStateToProps, mapDispatchToProps)(PopUp)

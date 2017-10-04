@@ -5,13 +5,15 @@ import counter from "./counter"
 import addModel from "./addModel"
 import currentModal from "./modals"
 import models from "./models"
+import currRect from "./currRect"
 
 const rootReducer = combineReducers({
 	counter,
 	router,
 	addModel,
 	models,
-	currentModal
+	currentModal,
+	currRect
 })
 
 export default rootReducer
