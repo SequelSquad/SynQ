@@ -87,16 +87,16 @@ a:hover {
   padding:10px;
 }
 .table {
-  border: 1px solid gray;
+  border: 1px solid #8B8989;
   width: 120px;
   height: 120px;
   text-align: center;
   border-radius: 10px;
   background-color: #B4DAE5;
-  color: white;
+  color: black;
   font-family: 'Quicksand', sans-serif;
   position: relative;
-  box-shadow: 0 8px 6px -5px #959292;
+  box-shadow: 0 8px 6px -5px #757272;
   margin-top: 30px;
 }
 
