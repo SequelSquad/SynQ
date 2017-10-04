@@ -19,7 +19,7 @@ const canvasTarget = {
 			props.allProps.handleAddModel({id: props.allProps.model.length + 1, top: monitor.getSourceClientOffset().y - 96, left: monitor.getSourceClientOffset().x - 212})
 			props.allProps.handleAddTable({id: props.allProps.model.length + 1})
 		} else {
-			props.allProps.handleMovePosition({id: monitor.getItem().id, top: monitor.getSourceClientOffset().y - 96, left: monitor.getSourceClientOffset().x - 212})
+			props.allProps.handleMovePosition({id: monitor.getItem().id, top: monitor.getSourceClientOffset().y - 60, left: monitor.getSourceClientOffset().x - 300})
 		}
 	}
 }

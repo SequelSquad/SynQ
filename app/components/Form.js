@@ -104,7 +104,7 @@ class PopUp extends React.Component {
 		// console.log("HOMEDNDPROP", this.props.homednd)
 		// console.log("PROPS", this.state)
 		return (
-			<Modal className="signInModal" bsSize="small" show = {true} onHide = {() => {
+			<Modal className="signInModal" dialogClassName="custom-modal" show = {true} onHide = {() => {
 				this.props.handleRemoveModal()}} >
 				<Modal.Header closeButton>
 					<Modal.Title>Create Model</Modal.Title>
