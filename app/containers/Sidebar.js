@@ -6,8 +6,9 @@ import Rectangle from "../components/Rectangle"
 const Sidebar = (props) => {
 
 	return (
-		<div >
+		<div className='sidebar-menu'>
 			<ul className = "nav sidebar-nav">
+				<br/>
 				<li>
 					<Rectangle />
 				</li>
