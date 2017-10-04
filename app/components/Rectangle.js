@@ -35,19 +35,30 @@ const collect = (connect, monitor) => {
 class Rectangle extends Component {
 	constructor (props){
 		super(props)
+		this.state = {
+			id: this.props.id,
+			model: {}
+		}
+	}
+
+	componentWillReceiveProps() {
+		this.props.models.forEach(model => {
+			if(model.id === this.props.id){
+				this.setState({model: model})
+			}
+		})
 	}
 
 	render(){
 		const {isDragging, connectDragSource} = this.props
+		console.log("MODELSSSSS", this.props.models)
 
 		return connectDragSource(
 			<div className="table" onClick={ () => {
 				this.props.handleClick("POP_UP", this.props.id)}} id={this.props.id} style = {{top:`${this.props.top}`, left:`${this.props.left}`, position:"absolute"}}>
-				<h2>Create Model</h2>
-
+				<h2>{this.state.model.id}</h2><br />
+				<h4>{this.state.model.name}</h4>
 			</div>
-			// <span className="table" onClick={ () => {
-			// 	this.props.handleClick("POP_UP", this.props.id)}} id={this.props.id} style = {{top:`${this.props.top}`, left:`${this.props.left}`, position:"absolute"}}>▢</span>
 		)
 	}
 }
@@ -62,7 +73,8 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const mapStateToProps = (state) => {
-	return { state }
+	return {
+		models: state.models }
 }
 
 const rectangleWrapper = connect(state => state, mapDispatchToProps)(Rectangle)
