@@ -5,7 +5,7 @@ import {removeModal} from "../actions/modalAction"
 import {addLine} from "../actions/lines"
 import {setModel} from "../actions"
 import update from "react-addons-update"
-import Column from "./Column"
+import ToggleCol from "./ToggleCol"
 
 class PopUp extends React.Component {
 	constructor (props){
@@ -145,7 +145,7 @@ class PopUp extends React.Component {
 						Name
 							</Col>
 							<Col sm={10}>
-								<FormControl type="email" placeholder="Email" name = "modelname" onChange = {this.onHandleChange} />
+								<FormControl type="email" placeholder="Email" name = "name" onChange = {this.onHandleChange} />
 							</Col>
 						</FormGroup>
 
@@ -166,7 +166,8 @@ class PopUp extends React.Component {
 								<FormControl type="email" placeholder="data type" name = "Table2" onChange = {this.onHandleChange} />
 							</Col>
 						</FormGroup>
-						<Column />
+
+						<ToggleCol />
 
 					</Modal.Body>
 					<Modal.Footer>
