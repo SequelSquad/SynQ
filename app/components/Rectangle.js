@@ -5,7 +5,7 @@ import { DragSource } from "react-dnd"
 import Type from "./Type"
 import Form from "./Form"
 import {connect} from "react-redux"
-import {setModal} from "../actions/modalAction"
+import {setModal, setCurrRect} from "../actions"
 
 
 const rectangleSource = {
@@ -42,15 +42,16 @@ class Rectangle extends Component {
 
 		return connectDragSource(
 			<span className="table" onClick={ () => {
-				this.props.handleClick("POP_UP")}} id={this.props.id} style = {{top:`${this.props.top}`, left:`${this.props.left}`, position:"absolute"}}>▢</span>
+				this.props.handleClick("POP_UP", this.props.id)}} id={this.props.id} style = {{top:`${this.props.top}`, left:`${this.props.left}`, position:"absolute"}}>▢</span>
 		)
 	}
 }
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		handleClick (modalType) {
+		handleClick (modalType, id) {
 			dispatch(setModal(modalType))
+			dispatch(setCurrRect(id))
 		}
 	}
 }

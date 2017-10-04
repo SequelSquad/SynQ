@@ -2,16 +2,17 @@ import React from "react"
 import {Form, FormGroup, Col, FormControl, Button, Checkbox, ControlLabel, Modal} from "react-bootstrap"
 import {connect} from "react-redux"
 import {removeModal} from "../actions/modalAction"
-import {setModel} from "../actions/modelAction"
 import {addLine} from "../actions/lines"
+import {setModel} from "../actions"
 import update from "react-addons-update"
+import Column from "./Column"
 
 class PopUp extends React.Component {
 	constructor (props){
 		super(props)
 		this.state = {
 			Table1: 0,
-			Table2: 0
+			Table2: 0,
 			// name: "H",
 			// dataValues: [{
 			// 	name: "",
@@ -19,6 +20,8 @@ class PopUp extends React.Component {
 			// 		type: ""
 			// 	}
 			// }]
+			id: this.props.id,
+			name: "H",
 		}
 		this.onHandleChange = this.onHandleChange.bind(this)
 		this.onHandleChangeDvName = this.onHandleChangeDvName.bind(this)
@@ -46,6 +49,40 @@ class PopUp extends React.Component {
 			}
 		})
 		this.setState(newState)
+	  // let newState = {}
+		// newState[evt.target.name] = evt.target.value
+		// console.log(newState)
+		this.setState(update(this.state, {
+			name: {$set: evt.target.value}
+		}))
+		// this.setState(update(this.state, {
+		// 	dataValues: {
+		// 		[0]: {
+		// 			name: {$set: evt.target.value}
+		// 		}
+		// 	}
+		// }))
+		// this.setState(update(this.state, {
+		// 	dataValues: {
+		// 		[0]: {
+		// 			properties: {
+		// 				type: {$set: evt.target.value}
+		// 			}
+		// 		}
+		// 	}
+		// }))
+		// const newData = update(this.state, {
+		// 	name: {$set: evt.target.modelname.value},
+		// 	dataValues: {
+		// 		[0]: {
+		// 			name: {$set: evt.target.columnName.value},
+		// 			properties: {
+		// 				type: {$set: evt.target.columnType.value}
+		// 			}
+		// 		}
+		// 	}
+		// })
+		// this.setState(newData)
 	}
 
 
@@ -84,7 +121,7 @@ class PopUp extends React.Component {
 
 	onHandleSubmit(){
 		console.log("SUBMIT??")
-		this.props.handleSubmit(this.state)
+		this.props.handleSubmit(this.state, this.props.key)
 	}
 
 	handleLineCreate(evt){
@@ -93,7 +130,8 @@ class PopUp extends React.Component {
 	}
 
 	render() {
-		console.log("HOMEDNDPROP", this.props.homednd)
+		// console.log("HOMEDNDPROP", this.props.homednd)
+		// console.log("PROPS", this.state)
 		return (
 			<Modal className="signInModal" bsSize="small" show = {true} onHide = {() => {
 				this.props.handleRemoveModal()}} >
@@ -128,6 +166,8 @@ class PopUp extends React.Component {
 								<FormControl type="email" placeholder="data type" name = "Table2" onChange = {this.onHandleChange} />
 							</Col>
 						</FormGroup>
+						<Column />
+
 					</Modal.Body>
 					<Modal.Footer>
 						<FormGroup>
@@ -151,6 +191,12 @@ class PopUp extends React.Component {
 		)
 	}
 }
+const mapStateToProps = (state) => {
+	return {
+		id: state.currRect
+	}
+}
+
 
 const mapDispatchToProps = (dispatch) => {
 	return {
@@ -167,4 +213,4 @@ const mapDispatchToProps = (dispatch) => {
 	}
 }
 
-export default connect(state => state, mapDispatchToProps)(PopUp)
+export default connect(mapStateToProps, mapDispatchToProps)(PopUp)

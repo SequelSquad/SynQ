@@ -1,7 +1,7 @@
-import { SET_MODAL, REMOVE_MODAL } from "../actions/modalAction"
-const currentModal = ""
+import { SET_MODAL, REMOVE_MODAL, SET_CURR_RECT } from "../actions"
+const Modal = ""
 
-export default (state = currentModal, action) => {
+export default (state = Modal, action) => {
 	switch(action.type){
 	case SET_MODAL:
 		return action.modal

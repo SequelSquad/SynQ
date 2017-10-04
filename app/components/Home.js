@@ -16,7 +16,8 @@ const canvasTarget = {
 	drop(props, monitor, component) {
 		// You can disallow drop based on props or item
 		if (!monitor.getItem().id && monitor.getItem().id !== 0) {
-			props.allProps.handleAddComponent({id: props.allProps.component.length + 1, top: monitor.getSourceClientOffset().y + 20, left: monitor.getSourceClientOffset().x - 128})
+			props.allProps.handleAddModel({id: props.allProps.model.length + 1, top: monitor.getSourceClientOffset().y + 20, left: monitor.getSourceClientOffset().x - 128})
+			props.allProps.handleSetModel({id: props.allProps.model.length + 1})
 		} else {
 			props.allProps.handleMovePosition({id: monitor.getItem().id, top: monitor.getSourceClientOffset().y + 20, left: monitor.getSourceClientOffset().x - 128})
 		}
@@ -139,10 +140,10 @@ class Home extends Component {
 	}
 
 	renderBox(){
-		if (this.props.allProps.component.length){
-			return this.props.allProps.component.map((component) => {
+		if (this.props.allProps.model.length){
+			return this.props.allProps.model.map((model) => {
 				return (
-					<Rectangle id={component.id} top={component.top} left={component.left} />
+					<Rectangle key={model.id} id={model.id} top={model.top} left={model.left} />
 				)
 			})
 		}	else {
@@ -155,17 +156,17 @@ class Home extends Component {
 			return this.props.allProps.lines.map((line) => {
 				return (
 					<Line
-						x1 = {this.props.allProps.component.filter((component) => {
-							return component.id === parseInt(line.Table1)
+						x1 = {this.props.allProps.model.filter((model) => {
+							return model.id === parseInt(line.Table1)
 						})[0].left}
-						x2 = {this.props.allProps.component.filter((component) => {
-							return component.id === parseInt(line.Table2)
+						x2 = {this.props.allProps.model.filter((model) => {
+							return model.id === parseInt(line.Table2)
 						})[0].left}
-						y1 = {this.props.allProps.component.filter((component) => {
-							return component.id === parseInt(line.Table1)
+						y1 = {this.props.allProps.model.filter((model) => {
+							return model.id === parseInt(line.Table1)
 						})[0].top}
-						y2 = {this.props.allProps.component.filter((component) => {
-							return component.id === parseInt(line.Table2)
+						y2 = {this.props.allProps.model.filter((model) => {
+							return model.id === parseInt(line.Table2)
 						})[0].top}
 					/>
 				)
