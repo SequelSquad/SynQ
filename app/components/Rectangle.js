@@ -41,8 +41,13 @@ class Rectangle extends Component {
 		const {isDragging, connectDragSource} = this.props
 
 		return connectDragSource(
-			<span className="table" onClick={ () => {
-				this.props.handleClick("POP_UP", this.props.id)}} id={this.props.id} style = {{top:`${this.props.top}`, left:`${this.props.left}`, position:"absolute"}}>▢</span>
+			<div className="table" onClick={ () => {
+				this.props.handleClick("POP_UP", this.props.id)}} id={this.props.id} style = {{top:`${this.props.top}`, left:`${this.props.left}`, position:"absolute"}}>
+				<h2>Create Model</h2>
+
+			</div>
+			// <span className="table" onClick={ () => {
+			// 	this.props.handleClick("POP_UP", this.props.id)}} id={this.props.id} style = {{top:`${this.props.top}`, left:`${this.props.left}`, position:"absolute"}}>▢</span>
 		)
 	}
 }
@@ -54,6 +59,10 @@ const mapDispatchToProps = (dispatch) => {
 			dispatch(setCurrRect(id))
 		}
 	}
+}
+
+const mapStateToProps = (state) => {
+	return { state }
 }
 
 const rectangleWrapper = connect(state => state, mapDispatchToProps)(Rectangle)
