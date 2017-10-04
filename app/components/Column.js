@@ -28,15 +28,16 @@ class Column extends React.Component {
 	}
 
 	render() {
-		console.log(this.state)
 		return (
-			<form>
+			<div>
 				<span>
-					<input type="text" name="name" onChange={this.onHandleChange}></input>
-					<input type="text" name="type" onChange={this.onHandleChange}></input>
-					<button type="button" onClick={this.handleSubmit}>Save</button>
+					<form>
+						<input type="text" name="name" onChange={this.onHandleChange}></input>
+						<input type="text" name="type" onChange={this.onHandleChange}></input>
+						<button type="button" onClick={this.handleSubmit}>Save</button>
+					</form>
 				</span>
-			</form>
+			</div>
 		)
 	}
 }
