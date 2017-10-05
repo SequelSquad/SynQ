@@ -5,23 +5,33 @@ import Rectangle from "../components/Rectangle"
 import Generator from "../../background/Generator"
 import { setPath } from "../actions"
 import { Button, FormGroup, FormControl, Col, ControlLabel } from "react-bootstrap"
-
+const remote = require("electron").remote
+const app = remote.app
 
 class Sidebar extends Component {
 	constructor(props) {
 		super(props)
 
 		this.state = {
-			path: "./db2"
+			path: ""
 		}
+		this.handleChange = this.handleChange.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
 		this.handleSetPath = this.handleSetPath.bind(this)
 	}
 
+	handleChange(e){
+		const path = app.getPath("home")+"/"
+		console.log("value", e.target.value,"path", path)
+		this.setState({path: path + e.target.value})
+	}
+
 	handleSubmit(event) {
 		event.preventDefault()
-		console.log("CLICKEDDDDDD!", this.props.models)
-		Generator({models: this.props.models, path: this.state.path})
+
+		console.log("FilePath", this.state.path)
+		// console.log("CLICKEDDDDDD!", this.props.models)
+		// Generator({models: this.props.models, path: this.state.path})
 	}
 
 	handleSetPath(){
@@ -35,7 +45,7 @@ class Sidebar extends Component {
 					<Col componentClass={ControlLabel}>
 						<b>File Path:</b>
 					</Col>
-					<FormControl type="path" placeholder="Enter path of directory" name = "path"/>
+					<input type="text" name="path" placeholder="documents/myproject/db" onChange={this.handleChange}/>
 				</FormGroup>
 				<Button type="button" onClick={this.handleSetPath}>Set Path</Button>
 				<Button type="submit" onClick={this.handleSubmit}>Create Database</Button>
