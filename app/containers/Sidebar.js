@@ -33,7 +33,7 @@ class Sidebar extends Component {
 			<div className='sidebar-menu'>
 				<FormGroup controlId="formHorizontalEmail">
 					<Col componentClass={ControlLabel}>
-						File Path:
+						<b>File Path:</b>
 					</Col>
 					<FormControl type="path" placeholder="Enter path of directory" name = "path"/>
 				</FormGroup>
