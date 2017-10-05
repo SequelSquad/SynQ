@@ -29,7 +29,7 @@ class Column extends React.Component {
 	}
 
 	render() {
-		console.log("COLUMN PROPS", this.props)
+		console.log("COLUMNS PROPS", this.props)
 		return (
 			// <div>
 			// 	<span>
@@ -47,8 +47,8 @@ class Column extends React.Component {
 						New Column
 						</Col>
 						<Col sm={10}>
-							<FormControl type="column" placeholder="Enter column name" name="name" value={this.state.name} onChange = {this.onHandleChange} />
-							<FormControl type="column" placeholder="Enter column type" name="type" value={this.state.type} onChange = {this.onHandleChange} />
+							<FormControl type="column" placeholder="Enter column name" name="name" value={this.state.name} onChange = {this.props.onHandleCols(this.state.id)} />
+							<FormControl type="column" placeholder="Enter column type" name="type" value={this.state.type} onChange = {this.props.onHandleCols(this.state.id)} />
 							<Button bsStyle="info" type="button" onClick={this.handleSubmit}>Save</Button>
 						</Col>
 					</FormGroup>
@@ -58,10 +58,11 @@ class Column extends React.Component {
 	}
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
 	return {
 		id: state.currRect,
-		dataValues: ownProps.dataValues
+		// dataValues: ownProps.dataValues,
+		// onHandleCols: ownProps.onHandleCols
 	}
 }
 

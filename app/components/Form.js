@@ -13,18 +13,12 @@ class PopUp extends React.Component {
 		this.state = {
 			TargetTable: "Table",
 			Relationship: "Relationship",
-			// name: "H",
-			// dataValues: [{
-			// 	name: "",
-			// 	properties:{
-			// 		type: ""
-			// 	}
-			// }]
 			id: this.props.id,
-			name: this.props.model ? this.props.model.name : ""
+      name: this.props.model ? this.props.model.name : "",
+      dataValues: []
 		}
 		this.onHandleChange = this.onHandleChange.bind(this)
-		this.onHandleChangeDvName = this.onHandleChangeDvName.bind(this)
+		this.onHandleCols = this.onHandleCols.bind(this)
 		this.onHandleSubmit = this.onHandleSubmit.bind(this)
 		this.handleLineCreate = this.handleLineCreate.bind(this)
 	}
@@ -33,57 +27,16 @@ class PopUp extends React.Component {
 		let newState = {}
 		newState[evt.target.name] = evt.target.value
 		this.setState(newState)
-		// console.log(this.state)
+	};
 
-		// let newState = update(this.state, {
-		// 	name: {$set: evt.target.value}
-		// })
-		// this.setState(newState)
-	}
-
-	onHandleChangeDvName(evt){
-		let newState = update(this.state, {
-			dataValues:{
-				[0]: {
-					name: {$set: evt.target.value}}
-			}
-		})
-		this.setState(newState)
-	  // let newState = {}
-		// newState[evt.target.name] = evt.target.value
-		// console.log(newState)
-		this.setState(update(this.state, {
-			name: {$set: evt.target.value}
-		}))
-		// this.setState(update(this.state, {
-		// 	dataValues: {
-		// 		[0]: {
-		// 			name: {$set: evt.target.value}
-		// 		}
-		// 	}
-		// }))
-		// this.setState(update(this.state, {
-		// 	dataValues: {
-		// 		[0]: {
-		// 			properties: {
-		// 				type: {$set: evt.target.value}
-		// 			}
-		// 		}
-		// 	}
-		// }))
-		// const newData = update(this.state, {
-		// 	name: {$set: evt.target.modelname.value},
-		// 	dataValues: {
-		// 		[0]: {
-		// 			name: {$set: evt.target.columnName.value},
-		// 			properties: {
-		// 				type: {$set: evt.target.columnType.value}
-		// 			}
-		// 		}
-		// 	}
-		// })
-		// this.setState(newData)
-	}
+	onHandleCols = jdx => evt => {
+    const dataValues = this.state.dataValues.map((dataVal, idx) => {
+      if(jdx === idx){
+        return {[evt.target.name] : evt.target.value}
+      } else return dataVal
+    })
+    this.setState({dataValues: dataValues})
+  }
 
 	onHandleSubmit(){
 		this.props.handleSubmit(this.state, this.props.key)
@@ -165,7 +118,7 @@ class PopUp extends React.Component {
 							</Col>
 						</FormGroup>
 
-						<ToggleCol selectedModel={selectedModel}/>
+						<ToggleCol selectedModel={selectedModel} onHandleCols={this.onHandleCols}/>
 
 					</Modal.Body>
 					<Modal.Footer>
@@ -190,6 +143,7 @@ class PopUp extends React.Component {
 		)
 	}
 }
+
 const mapStateToProps = (state) => {
 	return {
 		id: state.currRect,
