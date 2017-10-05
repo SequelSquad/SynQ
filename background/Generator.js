@@ -35,17 +35,17 @@ const modelCreator = (state) => {
 			let booleanArr= []
 
 			//if it has boolean elements
-			// if (data.properties.boolean){
-			// 	data.properties.boolean.forEach( bool => {
+			// if (data.boolean){
+			// 	data.boolean.forEach( bool => {
 			// 		let val = functions.boolean(bool[0], bool[1])
 			// 		booleanArr.push(val)
 			// 	})
 			// }
 
 			// //if it has validation elements
-			// if (data.properties.validate){
+			// if (data.validate){
 			// 	let validateArr = []
-			// 	data.properties.validate.forEach( validation => {
+			// 	data.validate.forEach( validation => {
 			// 		let val = functions.boolean(validation[0], validation[1])
 			// 		validateArr.push(val)
 			// 	})
@@ -54,7 +54,6 @@ const modelCreator = (state) => {
 			// }
 
 			//Store the type string
-			// const type = functions.type(data.properties.type)
 			const type = functions.type(data.type)
 
 			//Join everything together!
