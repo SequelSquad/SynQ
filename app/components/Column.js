@@ -11,14 +11,15 @@ class Column extends React.Component {
 		super(props)
 		this.state = {
 			id: this.props.id,
-			name: "",
-			type: ""
+			name: this.props.dataValue ? this.props.dataValue.name : "",
+			type: this.props.dataValue ? this.props.dataValue.type : ""
 		}
 		this.onHandleChange = this.onHandleChange.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
 	}
 
 	onHandleChange(evt) {
+		console.log("CHANGE", evt.target.value)
 		this.setState({[evt.target.name]: evt.target.value})
 	}
 
@@ -28,6 +29,7 @@ class Column extends React.Component {
 	}
 
 	render() {
+		console.log("COLUMN PROPS", this.props)
 		return (
 			// <div>
 			// 	<span>
@@ -45,8 +47,8 @@ class Column extends React.Component {
 						New Column
 						</Col>
 						<Col sm={10}>
-							<FormControl type="column" placeholder="Add Column" name = "name" onChange = {this.onHandleChange} />
-							<FormControl type="column" placeholder="Add Column" name = "type" onChange = {this.onHandleChange} />
+							<FormControl type="column" placeholder="Enter column name" name="name" value={this.state.name} onChange = {this.onHandleChange} />
+							<FormControl type="column" placeholder="Enter column type" name="type" value={this.state.type} onChange = {this.onHandleChange} />
 							<Button bsStyle="info" type="button" onClick={this.handleSubmit}>Save</Button>
 						</Col>
 					</FormGroup>
@@ -56,9 +58,10 @@ class Column extends React.Component {
 	}
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
 	return {
-		id: state.currRect
+		id: state.currRect,
+		dataValues: ownProps.dataValues
 	}
 }
 

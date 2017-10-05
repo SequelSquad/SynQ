@@ -21,8 +21,7 @@ class PopUp extends React.Component {
 			// 	}
 			// }]
 			id: this.props.id,
-			name: "H"
-
+			name: this.props.model ? this.props.model.name : ""
 		}
 		this.onHandleChange = this.onHandleChange.bind(this)
 		this.onHandleChangeDvName = this.onHandleChangeDvName.bind(this)
@@ -103,6 +102,8 @@ class PopUp extends React.Component {
 	render() {
 		// console.log("HOMEDNDPROP", this.props.homednd)
 		// console.log("PROPS", this.state)
+		let selectedModel = this.props.models.filter(model => model.id === this.state.id)[0]
+		console.log("SELECTEDMODEL", selectedModel)
 		return (
 			<Modal className="signInModal" dialogClassName="custom-modal" show = {true} onHide = {() => {
 				this.props.handleRemoveModal()}} >
@@ -116,7 +117,7 @@ class PopUp extends React.Component {
 						Name
 							</Col>
 							<Col sm={10}>
-								<FormControl type="email" placeholder="name" name = "name" onChange = {this.onHandleChange} />
+								<FormControl type="email" placeholder="Enter table name" name="name" value={this.state.name} onChange = {this.onHandleChange} />
 							</Col>
 						</FormGroup>
 
@@ -164,7 +165,7 @@ class PopUp extends React.Component {
 							</Col>
 						</FormGroup>
 
-						<ToggleCol />
+						<ToggleCol selectedModel={selectedModel}/>
 
 					</Modal.Body>
 					<Modal.Footer>
@@ -192,7 +193,8 @@ class PopUp extends React.Component {
 const mapStateToProps = (state) => {
 	return {
 		id: state.currRect,
-		models: state.models
+		models: state.models,
+		model: state.models.filter(model => model.id === +state.currRect)[0]
 	}
 }
 
