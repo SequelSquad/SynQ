@@ -84,7 +84,7 @@ a:hover {
 }
 
 .sidebar-menu {
-  padding:10px;
+  padding:30px 10px 10px 10px;
 }
 .table {
   border: 1px solid #8B8989;
@@ -97,7 +97,7 @@ a:hover {
   font-family: 'Quicksand', sans-serif;
   position: relative;
   box-shadow: 0 8px 6px -5px #757272;
-  margin-top: 30px;
+  margin-top: 40px;
 }
 
 .table h4 {
@@ -121,4 +121,10 @@ nav p {
 
 .custom-modal {
   width: 50vw
+}
+
+.btn-info {
+  color: #fff;
+  background-color: #9DCAD6;
+  border-color: #9DCAD6;
 }
