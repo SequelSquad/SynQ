@@ -35,6 +35,7 @@ class PopUp extends React.Component {
         return {[evt.target.name] : evt.target.value}
       } else return dataVal
     })
+    console.log("FORM NEWSTATE", this.state)
     this.setState({dataValues: dataValues})
   }
 

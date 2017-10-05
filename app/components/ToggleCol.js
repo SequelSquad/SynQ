@@ -36,7 +36,7 @@ export default class ToggleCol extends React.Component {
 		return (
 			<div>
 				{this.state.selectedModel.dataValues && this.state.selectedModel.dataValues.map((values) => <Column dataValue={values} onHandleCols={this.props.onHandleCols}/>)}
-				{this.state.columns.map((column, i) => <span key={i}><Column onHandleCols={this.props.onHandleCols} /><Button onClick={this.handleDelete}>-</Button></span>)}
+				{this.state.columns.map((column, i) => <span key={i}><Column onHandleCols={this.props.onHandleCols} dataValue={this.state.selectedModel.dataValues[i].values}/><Button onClick={this.handleDelete}>-</Button></span>)}
 				<Button onClick={this.handleAdd}>+</Button>
 			</div>
 		)
