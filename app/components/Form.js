@@ -42,7 +42,7 @@ class PopUp extends React.Component {
 			console.log('jdx',jdx,'idx', idx)
       if(jdx === idx){
 				console.log('updating exisiting datavalue field')
-        return {[evt.target.name] : evt.target.value}
+        return {...this.state.dataValues[idx], [evt.target.name] : evt.target.value}
       } else {
 				console.log('finishing up with new function', dataVal)
 				return dataVal}
