@@ -53,9 +53,10 @@ class Rectangle extends Component {
 		const {isDragging, connectDragSource} = this.props
 		console.log("MODELSSSSS", this.props.models)
 
+		let tableTheme = this.props.theme ? "" : "table-light"
 		return connectDragSource(
-			<div className="table" onClick={ () => {
-				this.props.handleClick("POP_UP", this.props.id)}} id={this.props.id} style = {{top:`${this.props.top}`, left:`${this.props.left}`, position:"absolute"}}>
+			<div className={`table ${tableTheme}`} onClick={ () => {
+				this.props.handleClick("POP_UP", this.props.id)}} id={this.props.id} style={{top:`${this.props.top}`, left:`${this.props.left}`, position:"absolute"}}>
 				<h2>{this.state.model.id}</h2><br />
 				<h4>{this.state.model.name}</h4>
 			</div>
@@ -74,7 +75,9 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
 	return {
-		models: state.models }
+		models: state.models,
+		theme: state.theme
+	}
 }
 
 const rectangleWrapper = connect(state => state, mapDispatchToProps)(Rectangle)

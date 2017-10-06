@@ -29,13 +29,14 @@ class Sidebar extends Component {
 	}
 
 	render() {
+		let menuTheme = this.props.theme ? "" : "sidebar-menu-light"
 		return (
-			<div className='sidebar-menu'>
+			<div className={`sidebar-menu ${menuTheme}`}>
 				<FormGroup controlId="formHorizontalEmail">
 					<Col componentClass={ControlLabel}>
 						<b>File Path:</b>
 					</Col>
-					<FormControl type="path" placeholder="Enter path of directory" name = "path"/>
+					<FormControl type="path" placeholder="Enter path of directory" name="path"/>
 				</FormGroup>
 				<Button type="button" onClick={this.handleSetPath}>Set Path</Button>
 				<Button type="submit" onClick={this.handleSubmit}>Create Database</Button>
@@ -51,7 +52,8 @@ class Sidebar extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		models: state.models
+		models: state.models,
+		theme: state.theme
 	}
 }
 
