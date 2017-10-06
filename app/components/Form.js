@@ -39,6 +39,7 @@ class PopUp extends React.Component {
 	onHandleCols = jdx => evt => {
 		console.log('FUNTION IS CALLED!')
     const dataValues = this.state.dataValues.map((dataVal, idx) => {
+			console.log('jdx',jdx,'idx', idx)
       if(jdx === idx){
 				console.log('updating exisiting datavalue field')
         return {[evt.target.name] : evt.target.value}

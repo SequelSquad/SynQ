@@ -24,13 +24,13 @@ class Column extends React.Component {
 	}
 
 	handleSubmit(){
-		console.log("SAVE STATE", this.state)
+		//console.log("SAVE STATE", this.state)
 		this.props.onSave(this.state)
 	}
 
 	render() {
-		console.log("COLUMNS PROPS", this.props)
-		console.log("DATAVALUES ON THE COLUMN", this.props.dataValue)
+		console.log("COLUMNS PROPS ID I WANT", this.props.id)
+		//console.log("DATAVALUES ON THE COLUMN", this.props.dataValue)
 		return (
 			// <div>
 			// 	<span>
@@ -61,7 +61,7 @@ class Column extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-		id: state.currRect,
+		//id: state.currRect,
 		// dataValues: ownProps.dataValues,
 		// onHandleCols: ownProps.onHandleCols
 	}
