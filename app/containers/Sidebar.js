@@ -29,9 +29,9 @@ class Sidebar extends Component {
 	handleSubmit(event) {
 		event.preventDefault()
 
-		console.log("FilePath", this.state.path)
-		// console.log("CLICKEDDDDDD!", this.props.models)
-		// Generator({models: this.props.models, path: this.state.path})
+		// console.log("FilePath", this.state.path)
+		console.log("CLICKEDDDDDD!", this.props.models)
+		Generator({models: this.props.models, path: this.state.path})
 	}
 
 	handleSetPath(){

@@ -3,17 +3,17 @@ import fs from "fs"
 import Promise from "bluebird"
 
 export default (state) => {
-
 	const gState = state
 	if (!fs.existsSync(gState.path)) {
+		console.log("creating folder")
 		fs.mkdir(gState.path, () => {
 			modelCreator(gState)
-			indexCreator(gState)
+			//indexCreator(gState)
 		})
 	}
 	else {
 		modelCreator(gState)
-		indexCreator(gState)
+		//indexCreator(gState)
 	}
 }
 
@@ -35,23 +35,23 @@ const modelCreator = (state) => {
 			let booleanArr= []
 
 			//if it has boolean elements
-			// if (data.boolean){
-			// 	data.boolean.forEach( bool => {
-			// 		let val = functions.boolean(bool[0], bool[1])
-			// 		booleanArr.push(val)
-			// 	})
-			// }
+			if (data.boolean){
+				data.boolean.forEach( bool => {
+					let val = functions.boolean(bool[0], bool[1])
+					booleanArr.push(val)
+				})
+			}
 
-			// //if it has validation elements
-			// if (data.validate){
-			// 	let validateArr = []
-			// 	data.validate.forEach( validation => {
-			// 		let val = functions.boolean(validation[0], validation[1])
-			// 		validateArr.push(val)
-			// 	})
-			// 	let validateJoin = validateArr.join()
-			// 	validateStr = functions.validate(validateJoin)
-			// }
+			//if it has validation elements
+			if (data.validate){
+				let validateArr = []
+				data.validate.forEach( validation => {
+					let val = functions.boolean(validation[0], validation[1])
+					validateArr.push(val)
+				})
+				let validateJoin = validateArr.join()
+				validateStr = functions.validate(validateJoin)
+			}
 
 			//Store the type string
 			const type = functions.type(data.type)
@@ -78,7 +78,7 @@ const modelCreator = (state) => {
 
 		fs.writeFile(state.path + `/${model.name}.js`, finalFile, (err) => {
 			if (err) {
-				console.log("Where's the input?")
+				console.log("Where's the input?", err)
 			}
 			else {
 				console.log("wrote file")
