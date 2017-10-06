@@ -163,7 +163,8 @@ const mapStateToProps = (state) => {
 	return {
 		id: state.currRect,
 		models: state.models,
-		model: state.models.filter(model => model.id === +state.currRect)[0]
+		model: state.models.filter(model => model.id === +state.currRect)[0],
+		store: state
 	}
 }
 
