@@ -44,7 +44,7 @@ class Sidebar extends Component {
 			<div className={`sidebar-menu ${menuTheme}`}>
 				<FormGroup controlId="formHorizontalEmail">
 					<Col componentClass={ControlLabel}>
-						<b>File Path:</b>
+						<b>File Path: </b>
 					</Col>
 					<br />
 					<input type="text" name="path" placeholder="documents/myproject/db" onChange={this.handleChange}/>
