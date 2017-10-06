@@ -6,7 +6,7 @@ export default (state = Modal, action) => {
 	case SET_MODAL:
 		return action.modal
 	case REMOVE_MODAL:
-		return ""
+		return state.slice(100)
 	default:
 		return state
 	}

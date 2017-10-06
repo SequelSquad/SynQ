@@ -8,6 +8,7 @@ import models from "./models"
 import lines from "./lines"
 import currRect from "./currRect"
 import path from "./path"
+import theme from "./theme"
 
 const rootReducer = combineReducers({
 	counter,
@@ -17,7 +18,8 @@ const rootReducer = combineReducers({
 	currentModal,
 	lines,
 	currRect,
-	path
+	path,
+	theme
 })
 
 export default rootReducer

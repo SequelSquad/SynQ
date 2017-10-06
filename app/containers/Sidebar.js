@@ -39,8 +39,9 @@ class Sidebar extends Component {
 	}
 
 	render() {
+		let menuTheme = this.props.theme ? "" : "sidebar-menu-light"
 		return (
-			<div className='sidebar-menu'>
+			<div className={`sidebar-menu ${menuTheme}`}>
 				<FormGroup controlId="formHorizontalEmail">
 					<Col componentClass={ControlLabel}>
 						<b>File Path:</b>
@@ -62,7 +63,8 @@ class Sidebar extends Component {
 const mapStateToProps = (state) => {
 	return {
 		models: state.models,
-		store: state
+		store: state,
+		theme: state.theme
 	}
 }
 

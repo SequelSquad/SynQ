@@ -16,10 +16,10 @@ const canvasTarget = {
 	drop(props, monitor, component) {
 		// You can disallow drop based on props or item
 		if (!monitor.getItem().id && monitor.getItem().id !== 0) {
-			props.allProps.handleAddModel({id: props.allProps.model.length + 1, top: monitor.getSourceClientOffset().y - 96, left: monitor.getSourceClientOffset().x - 212})
+			props.allProps.handleAddModel({id: props.allProps.model.length + 1, top: monitor.getSourceClientOffset().y - 60, left: monitor.getSourceClientOffset().x - 470})
 			props.allProps.handleAddTable({id: props.allProps.model.length + 1})
 		} else {
-			props.allProps.handleMovePosition({id: monitor.getItem().id, top: monitor.getSourceClientOffset().y - 60, left: monitor.getSourceClientOffset().x - 300})
+			props.allProps.handleMovePosition({id: monitor.getItem().id, top: monitor.getSourceClientOffset().y - 60, left: monitor.getSourceClientOffset().x - 470})
 		}
 	}
 }
@@ -121,7 +121,7 @@ class Home extends Component {
 		// 		}]
 		// }
 		this.handleChange = this.handleChange.bind(this)
-		this.handleSubmit = this.handleSubmit.bind(this)
+		// this.handleSubmit = this.handleSubmit.bind(this)
 		this.renderBox = this.renderBox.bind(this)
 	}
 
@@ -133,11 +133,11 @@ class Home extends Component {
 		//this.setState({ [event.target.name]: event.target.value })
 	}
 
-	handleSubmit(event) {
-		event.preventDefault()
-		console.log("CLICKEDDDDDD!")
-		Generator(this.state)
-	}
+	// handleSubmit(event) {
+	// 	event.preventDefault()
+	// 	console.log("CLICKEDDDDDD!")
+	// 	Generator(this.state)
+	// }
 
 	renderBox(){
 		if (this.props.allProps.model.length){
@@ -190,13 +190,15 @@ class Home extends Component {
 				<svg height="1000" width="100%">
 					{newLines}
 				</svg>
-				<form onSubmit={this.handleSubmit}>
-					<button type="submit">Submit</button>
-				</form>
+
 			</div>
 
 		)
 	}
 }
+
+// <form onSubmit={this.handleSubmit}>
+// <button type="submit">Submit</button>
+// </form>
 
 export default DropTarget(Type.RECTANGLE, canvasTarget, collect)(Home)

@@ -4,6 +4,7 @@ import { SET_MODEL, setModel, ADD_TABLE, addTable } from "./modelAction"
 import { ADD_COLUMN, addColumn } from "./addColumn"
 import { SET_CURR_RECT, setCurrRect } from "./currRectAction"
 import { SET_PATH, setPath } from "./setPath"
+import { SET_THEME, setTheme } from "./setTheme"
 
 export default {
 	ADD_MODEL,
@@ -15,6 +16,7 @@ export default {
 	SET_CURR_RECT,
 	ADD_TABLE,
 	SET_PATH,
+	SET_THEME,
 
 	addModel,
 	addColumn,
@@ -24,5 +26,6 @@ export default {
 	setModel,
 	setCurrRect,
 	addTable,
-	setPath
+	setPath,
+	setTheme
 }

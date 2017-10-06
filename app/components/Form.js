@@ -6,13 +6,13 @@ import {addLine} from "../actions/lines"
 import {setModel} from "../actions"
 import update from "react-addons-update"
 import ToggleCol from "./ToggleCol"
+import Relationship from "./Relationship"
 
 class PopUp extends React.Component {
 	constructor (props){
 		super(props)
 		this.state = {
-			TargetTable: "Table",
-			Relationship: "Relationship",
+			relationships: [],
 			id: this.props.id,
       name: this.props.model ? this.props.model.name : "",
       dataValues: []
@@ -21,7 +21,46 @@ class PopUp extends React.Component {
 		this.onHandleCols = this.onHandleCols.bind(this)
 		this.onHandleSubmit = this.onHandleSubmit.bind(this)
 		this.handleLineCreate = this.handleLineCreate.bind(this)
-		this.addDataValue = this.addDataValue.bind(this)
+		this.handleRelationshipSelect = this.handleRelationshipSelect.bind(this)
+		this.handleTableSelect = this.handleTableSelect.bind(this)
+		this.addRelationship = this.addRelationship.bind(this)
+		this.handleChangeRelationshipWrapper = this.handleChangeRelationshipWrapper.bind(this)
+    this.handleChangeTableWrapper = this.handleChangeTableWrapper.bind(this)
+    this.addDataValue = this.addDataValue.bind(this)
+	}
+
+	addRelationship(evt){
+		evt.preventDefault()
+		this.setState({
+			relationships: [...this.state.relationships, {Table1: this.props.id, Table2: 0, Relationship: ""}]
+		})
+	}
+
+	handleChangeRelationshipWrapper(jdx){
+		const thisVar = this
+		return function (evt) {
+			const relationships = thisVar.state.relationships.map((relationship, idx) => {
+				if (jdx === idx){
+					return Object.assign({}, relationship, {Relationship: evt})
+				} else return relationship
+			})
+			thisVar.setState({relationships})
+		}
+	}
+
+	handleChangeTableWrapper(jdx){
+		const thisVar = this
+		return function (evt) {
+			const tableId = thisVar.props.models.filter((model) => {
+				return model.name === evt
+			})[0].id
+			const relationships = thisVar.state.relationships.map((relationship, idx) => {
+				if (jdx === idx){
+					return Object.assign({}, relationship, {Table2: tableId})
+				} else return relationship
+			})
+			thisVar.setState({relationships})
+		}
 	}
 
 	addDataValue(){
@@ -37,41 +76,36 @@ class PopUp extends React.Component {
 	};
 
 	onHandleCols = jdx => evt => {
-		console.log('FUNTION IS CALLED!')
     const dataValues = this.state.dataValues.map((dataVal, idx) => {
-			console.log('jdx',jdx,'idx', idx)
       if(jdx === idx){
-				console.log('updating exisiting datavalue field')
         return {...this.state.dataValues[idx], [evt.target.name] : evt.target.value}
       } else {
-				console.log('finishing up with new function', dataVal)
 				return dataVal}
     })
-		// console.log("FORM NEWSTATE", this.state)
 
     this.setState({dataValues: dataValues})
   }
 
-	onHandleSubmit(e){
-		e.preventDefault()
-		this.props.handleSubmit(this.state, this.props.key)
+	onHandleSubmit(){
+    this.props.handleSubmit(this.state, this.props.key)
+    this.handleLineCreate()
+    this.props.handleRemoveModal()
 	}
 
-	handleLineCreate(evt){
-		this.props.lineCreate({
-			Table1: this.props.id,
-			Table2: this.props.models.filter((model) => {
-				return model.name === this.state.TargetTable
-			})[0].id,
-			Relationship: this.state.Relationship
-		})
+	handleTableSelect(evt){
+		this.setState({TargetTable: evt})
+	}
+
+	handleRelationshipSelect(evt){
+		this.setState({Relationship: evt})
+	}
+
+	handleLineCreate(){
+		this.props.lineCreate(this.state.relationships)
 	}
 
 	render() {
-		// console.log("HOMEDNDPROP", this.props.homednd)
-		// console.log("PROPS", this.state)
-		let selectedModel = this.props.models.filter(model => model.id === this.state.id)[0]
-		// console.log("SELECTEDMODEL", selectedModel)
+    let selectedModel = this.props.models.filter(model => model.id === this.state.id)[0]
 		return (
 			<Modal className="signInModal" dialogClassName="custom-modal" show = {true} onHide = {() => {
 				this.props.handleRemoveModal()}} >
@@ -80,6 +114,7 @@ class PopUp extends React.Component {
 				</Modal.Header>
 				<Form horizontal>
 					<Modal.Body>
+
 						<FormGroup controlId="formHorizontalEmail">
 							<Col componentClass={ControlLabel} sm={2}>
 						Name
@@ -88,66 +123,54 @@ class PopUp extends React.Component {
 								<FormControl type="email" placeholder="Enter table name" name="name" value={this.state.name} onChange = {this.onHandleChange} />
 							</Col>
 						</FormGroup>
-
-
-						<FormGroup>
-							<Col smOffset={2} sm={10}>
-								<DropdownButton title = {this.state.TargetTable} onSelect = {(evt) => {
-									this.setState({TargetTable: evt})
-								}} >
-									{this.props.models.filter((model) => {
-										return model.id !== this.props.id
-									}).map((model, i) => {
-										return (
-											<MenuItem eventKey = {model.name}>{model.name}</MenuItem>
+						<Col sm = {5}>
+							{this.props.associations.filter((association) => {
+								return (
+									association.Table1 === this.props.id
+								)
+							}).map((currAssoc, idx) => {
+								return(
+									<Relationship key = {idx} Table2 = {this.props.models.filter((model) => {
+										return(
+											model.id === currAssoc.Table2
 										)
-									})}
-								</DropdownButton>
-							</Col>
-						</FormGroup>
-						<FormGroup>
-							<Col smOffset={2} sm={10}>
-								<DropdownButton title = {this.state.Relationship} onSelect = {(evt) => {
-									this.setState({Relationship: evt})}} >
-									<MenuItem eventKey="One-to-One">One-to-One</MenuItem>
-									<MenuItem eventKey="One-to-Many">One-to-Many</MenuItem>
-									<MenuItem eventKey="Many-to-Many">Many-to-Many</MenuItem>
-								</DropdownButton>
-							</Col>
-						</FormGroup>
-						{/* <FormGroup controlId="formHorizontalPassword">
-							<Col componentClass={ControlLabel} sm={2}>
-						Table1
-							</Col>
-							<Col sm={10}>
-								<FormControl type="properties" placeholder="properties" name = "Table1" onChange =  {this.onHandleChange} />
-							</Col>
-						</FormGroup> */}
+									})[0].name} Relationship = {currAssoc.Relationship}
+									handleChangeRelationship = {this.handleChangeRelationshipWrapper}
+									handleChangeTable = {
+										this.handleChangeTableWrapper
+									}
+									idx = {idx} />
+								)
+							})
+              }
 
-						<FormGroup controlId="formHorizontalEmail">
-							<Col componentClass={ControlLabel} sm={2}>
-						Table2
-							</Col>
-							<Col sm={10}>
-								<FormControl type="email" placeholder="data type" name = "Table2" onChange = {this.onHandleChange} />
-							</Col>
-						</FormGroup>
+							{this.state.relationships.map((relationship, idx) => {
+								return (
+									<Relationship key = {idx}
+										relationship = {relationship}
+										handleChangeRelationship = {this.handleChangeRelationshipWrapper}
+										handleChangeTable = {
+											this.handleChangeTableWrapper
+										}
+										idx = {idx} />
+								)})
+							}
 
-						<ToggleCol selectedModel={selectedModel} onHandleCols={this.onHandleCols} addDataValue={this.addDataValue}/>
+              <Button onClick={this.addRelationship}>Add Relationship
+				    </Button>
 
+
+						</Col>
+						<Col sm = {5}>
+              <ToggleCol selectedModel={selectedModel} onHandleCols={this.onHandleCols} addDataValue={this.addDataValue}/>
+						</Col>
 					</Modal.Body>
 					<Modal.Footer>
 						<FormGroup>
 							<Col smOffset={2} sm={10}>
-								<Button type="submit" onClick={this.onHandleSubmit}>
+								<Button type="submit" onClick={() => {
+                  this.onHandleSubmit()}}>
 							Submit
-								</Button>
-							</Col>
-						</FormGroup>
-						<FormGroup>
-							<Col smOffset={2} sm={10}>
-								<Button onClick={this.handleLineCreate}>
-							CreateLines
 								</Button>
 							</Col>
 						</FormGroup>
@@ -164,7 +187,8 @@ const mapStateToProps = (state) => {
 		id: state.currRect,
 		models: state.models,
 		model: state.models.filter(model => model.id === +state.currRect)[0],
-		store: state
+		store: state,
+		associations: state.lines,
 	}
 }
 
@@ -172,7 +196,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		handleRemoveModal() {
-			dispatch(removeModal())
+      dispatch(removeModal())
 		},
 		handleSubmit(state) {
 			dispatch(setModel(state))
