@@ -56,7 +56,7 @@ class Rectangle extends Component {
 		let tableTheme = this.props.theme ? "" : "table-light"
 		return connectDragSource(
 			<div className={`table ${tableTheme}`} onClick={ () => {
-				this.props.handleClick("POP_UP", this.props.id)}} id={this.props.id} style={{top:`${this.props.top}`, left:`${this.props.left}`, position:"absolute"}}>
+				this.props.handleClick("POP_UP", this.props.id)}} id={this.props.id} style={{top:`${this.props.top}`, left:`${this.props.left}`, position:"fixed"}}>
 				<h2>{this.state.model.id}</h2><br />
 				<h4>{this.state.model.name}</h4>
 			</div>
