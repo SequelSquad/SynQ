@@ -3,9 +3,9 @@ import fs from "fs"
 import Promise from "bluebird"
 
 export default (state) => {
-
 	const gState = state
 	if (!fs.existsSync(gState.path)) {
+		console.log("creating folder")
 		fs.mkdir(gState.path, () => {
 			modelCreator(gState)
 			indexCreator(gState)
@@ -35,23 +35,23 @@ const modelCreator = (state) => {
 			let booleanArr= []
 
 			//if it has boolean elements
-			// if (data.boolean){
-			// 	data.boolean.forEach( bool => {
-			// 		let val = functions.boolean(bool[0], bool[1])
-			// 		booleanArr.push(val)
-			// 	})
-			// }
+			if (data.boolean){
+				data.boolean.forEach( bool => {
+					let val = functions.boolean(bool[0], bool[1])
+					booleanArr.push(val)
+				})
+			}
 
-			// //if it has validation elements
-			// if (data.validate){
-			// 	let validateArr = []
-			// 	data.validate.forEach( validation => {
-			// 		let val = functions.boolean(validation[0], validation[1])
-			// 		validateArr.push(val)
-			// 	})
-			// 	let validateJoin = validateArr.join()
-			// 	validateStr = functions.validate(validateJoin)
-			// }
+			//if it has validation elements
+			if (data.validate){
+				let validateArr = []
+				data.validate.forEach( validation => {
+					let val = functions.boolean(validation[0], validation[1])
+					validateArr.push(val)
+				})
+				let validateJoin = validateArr.join()
+				validateStr = functions.validate(validateJoin)
+			}
 
 			//Store the type string
 			const type = functions.type(data.type)
@@ -78,7 +78,7 @@ const modelCreator = (state) => {
 
 		fs.writeFile(state.path + `/${model.name}.js`, finalFile, (err) => {
 			if (err) {
-				console.log("Where's the input?")
+				console.log("Where's the input?", err)
 			}
 			else {
 				console.log("wrote file")
@@ -91,13 +91,31 @@ const modelCreator = (state) => {
 }
 
 const indexCreator = (state) => {
-	if (state.associations.length){
+	console.log("state at index creator", state)
+	if (state.lines.length){
 		let assoArr = []
 		let modelsArr = []
 		let tablesArr = []
 
-		state.associations.forEach(association => {
-			let str = functions.associations(association.source, association.target, association.relationship)
+		state.lines.forEach(line => {
+			let source = ""
+			let target = ""
+			state.models.forEach(model => {
+				//console.log("SOURCE lineID", line.Table1, "modelId", model.id)
+				if(line.Table1 === model.id){
+					//console.log("WHAT I AM PUSHING SOURCE", model.name)
+					source = model.name
+				}
+			})
+			state.models.forEach(model => {
+				//console.log("TARGET lineID", line.Table2, "modelId", model.id)
+				if(line.Table2 === model.id){
+					//console.log("WHAT I AM PUSHING TARGET", model.name)
+					target = model.name
+				}
+			})
+			console.log("source", source, "target", target)
+			let str = functions.associations(source, target, "belongsTo")
 			assoArr.push(str)
 		})
 
