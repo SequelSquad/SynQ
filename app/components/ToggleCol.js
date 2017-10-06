@@ -34,7 +34,7 @@ export default class ToggleCol extends React.Component {
 		return (
 			<div>
 				{this.state.columns.map((column, i) => <span key={i}><Column /><Button onClick={this.handleDelete}>-</Button></span>)}
-				<Button onClick={this.handleAdd}>+
+				<Button onClick={this.handleAdd}>Add Column
 				</Button>
 			</div>
 		)
