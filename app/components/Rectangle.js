@@ -35,29 +35,21 @@ const collect = (connect, monitor) => {
 class Rectangle extends Component {
 	constructor (props){
 		super(props)
-		this.state = {
-			id: this.props.id,
-			model: {}
-		}
 	}
 
-	componentWillReceiveProps() {
-		this.props.models.forEach(model => {
-			if(model.id === this.props.id){
-				this.setState({model: model})
-			}
-		})
-	}
 
 	render(){
+		let id = this.props.id
+		let model = this.props.models.length ? this.props.models.filter((model) => {
+			return parseInt(model.id) === parseInt(id)
+		})[0] : ""
 		const {isDragging, connectDragSource} = this.props
-		console.log("MODELSSSSS", this.props.models)
 
 		return connectDragSource(
 			<div className="table" onClick={ () => {
 				this.props.handleClick("POP_UP", this.props.id)}} id={this.props.id} style = {{top:`${this.props.top}`, left:`${this.props.left}`, position:"absolute"}}>
-				<h2>{this.state.model.id}</h2><br />
-				<h4>{this.state.model.name}</h4>
+				<h2>{id}</h2><br />
+				<h4>{model ? model.name : ""}</h4>
 			</div>
 		)
 	}
@@ -74,6 +66,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
 	return {
+		id: state.currRect,
 		models: state.models }
 }
 

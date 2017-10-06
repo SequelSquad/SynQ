@@ -13,8 +13,6 @@ class PopUp extends React.Component {
 		super(props)
 		this.state = {
 			relationships: [],
-			TargetTable: "Table",
-			Relationship: "Relationship",
 			id: this.props.id,
       name: this.props.model ? this.props.model.name : "",
       dataValues: []
@@ -27,7 +25,8 @@ class PopUp extends React.Component {
 		this.handleTableSelect = this.handleTableSelect.bind(this)
 		this.addRelationship = this.addRelationship.bind(this)
 		this.handleChangeRelationshipWrapper = this.handleChangeRelationshipWrapper.bind(this)
-		this.handleChangeTableWrapper = this.handleChangeTableWrapper.bind(this)
+    this.handleChangeTableWrapper = this.handleChangeTableWrapper.bind(this)
+    this.addDataValue = this.addDataValue.bind(this)
 	}
 
 	addRelationship(evt){
@@ -62,7 +61,6 @@ class PopUp extends React.Component {
 			})
 			thisVar.setState({relationships})
 		}
-		this.addDataValue = this.addDataValue.bind(this)
 	}
 
 	addDataValue(){
@@ -88,9 +86,10 @@ class PopUp extends React.Component {
     this.setState({dataValues: dataValues})
   }
 
-	onHandleSubmit(e){
-		e.preventDefault()
-		this.props.handleSubmit(this.state, this.props.key)
+	onHandleSubmit(){
+    this.props.handleSubmit(this.state, this.props.key)
+    this.handleLineCreate()
+    this.props.handleRemoveModal()
 	}
 
 	handleTableSelect(evt){
@@ -107,7 +106,6 @@ class PopUp extends React.Component {
 
 	render() {
     let selectedModel = this.props.models.filter(model => model.id === this.state.id)[0]
-    console.log('SELECTEDMODEL', selectedModel)
 		return (
 			<Modal className="signInModal" dialogClassName="custom-modal" show = {true} onHide = {() => {
 				this.props.handleRemoveModal()}} >
@@ -126,8 +124,6 @@ class PopUp extends React.Component {
 							</Col>
 						</FormGroup>
 						<Col sm = {5}>
-							<Button onClick={this.addRelationship}>Add Relationship
-				    </Button>
 							{this.props.associations.filter((association) => {
 								return (
 									association.Table1 === this.props.id
@@ -145,7 +141,8 @@ class PopUp extends React.Component {
 									}
 									idx = {idx} />
 								)
-							})}
+							})
+              }
 
 							{this.state.relationships.map((relationship, idx) => {
 								return (
@@ -158,27 +155,22 @@ class PopUp extends React.Component {
 										idx = {idx} />
 								)})
 							}
+
+              <Button onClick={this.addRelationship}>Add Relationship
+				    </Button>
+
+
 						</Col>
 						<Col sm = {5}>
-							<ToggleCol />
+              <ToggleCol selectedModel={selectedModel} onHandleCols={this.onHandleCols} addDataValue={this.addDataValue}/>
 						</Col>
-						<ToggleCol selectedModel={selectedModel} onHandleCols={this.onHandleCols} addDataValue={this.addDataValue}/>
-
 					</Modal.Body>
 					<Modal.Footer>
 						<FormGroup>
 							<Col smOffset={2} sm={10}>
-								<Button type="submit" onClick={this.onHandleSubmit}>
+								<Button type="submit" onClick={() => {
+                  this.onHandleSubmit()}}>
 							Submit
-								</Button>
-							</Col>
-						</FormGroup>
-						<FormGroup>
-							<Col smOffset={2} sm={10}>
-								<Button onClick={() => {
-									this.handleLineCreate()
-									this.props.handleRemoveModal()}}>
-							CreateLines
 								</Button>
 							</Col>
 						</FormGroup>
@@ -203,7 +195,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		handleRemoveModal() {
-			dispatch(removeModal())
+      dispatch(removeModal())
 		},
 		handleSubmit(state) {
 			dispatch(setModel(state))
