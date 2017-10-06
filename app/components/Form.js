@@ -13,79 +13,47 @@ class PopUp extends React.Component {
 		this.state = {
 			TargetTable: "Table",
 			Relationship: "Relationship",
-			// name: "H",
-			// dataValues: [{
-			// 	name: "",
-			// 	properties:{
-			// 		type: ""
-			// 	}
-			// }]
 			id: this.props.id,
-			name: this.props.model ? this.props.model.name : ""
+      name: this.props.model ? this.props.model.name : "",
+      dataValues: []
 		}
 		this.onHandleChange = this.onHandleChange.bind(this)
-		this.onHandleChangeDvName = this.onHandleChangeDvName.bind(this)
+		this.onHandleCols = this.onHandleCols.bind(this)
 		this.onHandleSubmit = this.onHandleSubmit.bind(this)
 		this.handleLineCreate = this.handleLineCreate.bind(this)
+		this.addDataValue = this.addDataValue.bind(this)
 	}
+
+	addDataValue(){
+		this.setState({
+      dataValues: [...this.state.dataValues, {name: '', type:""}]
+    })
+	};
 
 	onHandleChange(evt){
 		let newState = {}
 		newState[evt.target.name] = evt.target.value
 		this.setState(newState)
-		// console.log(this.state)
+	};
 
-		// let newState = update(this.state, {
-		// 	name: {$set: evt.target.value}
-		// })
-		// this.setState(newState)
-	}
+	onHandleCols = jdx => evt => {
+		console.log('FUNTION IS CALLED!')
+    const dataValues = this.state.dataValues.map((dataVal, idx) => {
+			console.log('jdx',jdx,'idx', idx)
+      if(jdx === idx){
+				console.log('updating exisiting datavalue field')
+        return {...this.state.dataValues[idx], [evt.target.name] : evt.target.value}
+      } else {
+				console.log('finishing up with new function', dataVal)
+				return dataVal}
+    })
+		// console.log("FORM NEWSTATE", this.state)
 
-	onHandleChangeDvName(evt){
-		let newState = update(this.state, {
-			dataValues:{
-				[0]: {
-					name: {$set: evt.target.value}}
-			}
-		})
-		this.setState(newState)
-	  // let newState = {}
-		// newState[evt.target.name] = evt.target.value
-		// console.log(newState)
-		this.setState(update(this.state, {
-			name: {$set: evt.target.value}
-		}))
-		// this.setState(update(this.state, {
-		// 	dataValues: {
-		// 		[0]: {
-		// 			name: {$set: evt.target.value}
-		// 		}
-		// 	}
-		// }))
-		// this.setState(update(this.state, {
-		// 	dataValues: {
-		// 		[0]: {
-		// 			properties: {
-		// 				type: {$set: evt.target.value}
-		// 			}
-		// 		}
-		// 	}
-		// }))
-		// const newData = update(this.state, {
-		// 	name: {$set: evt.target.modelname.value},
-		// 	dataValues: {
-		// 		[0]: {
-		// 			name: {$set: evt.target.columnName.value},
-		// 			properties: {
-		// 				type: {$set: evt.target.columnType.value}
-		// 			}
-		// 		}
-		// 	}
-		// })
-		// this.setState(newData)
-	}
+    this.setState({dataValues: dataValues})
+  }
 
-	onHandleSubmit(){
+	onHandleSubmit(e){
+		e.preventDefault()
 		this.props.handleSubmit(this.state, this.props.key)
 	}
 
@@ -103,7 +71,7 @@ class PopUp extends React.Component {
 		// console.log("HOMEDNDPROP", this.props.homednd)
 		// console.log("PROPS", this.state)
 		let selectedModel = this.props.models.filter(model => model.id === this.state.id)[0]
-		console.log("SELECTEDMODEL", selectedModel)
+		// console.log("SELECTEDMODEL", selectedModel)
 		return (
 			<Modal className="signInModal" dialogClassName="custom-modal" show = {true} onHide = {() => {
 				this.props.handleRemoveModal()}} >
@@ -165,7 +133,7 @@ class PopUp extends React.Component {
 							</Col>
 						</FormGroup>
 
-						<ToggleCol selectedModel={selectedModel}/>
+						<ToggleCol selectedModel={selectedModel} onHandleCols={this.onHandleCols} addDataValue={this.addDataValue}/>
 
 					</Modal.Body>
 					<Modal.Footer>
@@ -190,6 +158,7 @@ class PopUp extends React.Component {
 		)
 	}
 }
+
 const mapStateToProps = (state) => {
 	return {
 		id: state.currRect,
