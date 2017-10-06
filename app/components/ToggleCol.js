@@ -6,7 +6,8 @@ export default class ToggleCol extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			columns: []
+			columns: [],
+			selectedModel: this.props.selectedModel
 		}
 
 		// This binding is necessary to make `this` work in the callback
@@ -16,11 +17,12 @@ export default class ToggleCol extends React.Component {
 
 	handleAdd() {
 		let newColumns = this.state.columns
+		this.props.addDataValue()
 		newColumns.push("col")
-		this.setState(prevState => ({
-			isToggleOn: !prevState.isToggleOn,
+		this.setState({
 			columns: newColumns
-		}))
+		})
+		// console.log("clicked New State", this.state)
 	}
 
 	handleDelete() {
@@ -31,11 +33,18 @@ export default class ToggleCol extends React.Component {
 	}
 
 	render() {
+		// console.log(this.props, "TOGGLE COL PROPS")
+		// console.log("STATE", this.state)
+		// console.log("selectedModel", this.state.selectedModel)
 		return (
 			<div>
-				{this.state.columns.map((column, i) => <span key={i}><Column /><Button onClick={this.handleDelete}>-</Button></span>)}
-				<Button onClick={this.handleAdd}>+
-				</Button>
+
+				{this.state.selectedModel.dataValues && this.state.selectedModel.dataValues.map((values, index) => <Column dataValue={values} id={index} onHandleCols={this.props.onHandleCols}/>)}
+
+				{this.state.columns.map((column, index) => <span key={index}><Column id={index} onHandleCols={this.props.onHandleCols} />
+
+					<Button onClick={this.handleDelete}>-</Button></span>)}
+				<Button onClick={this.handleAdd}>+</Button>
 			</div>
 		)
 	}
