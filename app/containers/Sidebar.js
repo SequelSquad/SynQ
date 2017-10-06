@@ -46,6 +46,7 @@ class Sidebar extends Component {
 					<Col componentClass={ControlLabel}>
 						<b>File Path:</b>
 					</Col>
+					<br />
 					<input type="text" name="path" placeholder="documents/myproject/db" onChange={this.handleChange}/>
 				</FormGroup>
 				<Button type="button" onClick={this.handleSetPath}>Set Path</Button>

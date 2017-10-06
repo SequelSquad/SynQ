@@ -7,6 +7,9 @@ import {setModel} from "../actions"
 import update from "react-addons-update"
 import ToggleCol from "./ToggleCol"
 import Relationship from "./Relationship"
+import InputError from "./InputError"
+import {dialog} from "electron"
+
 
 class PopUp extends React.Component {
 	constructor (props){
@@ -15,7 +18,8 @@ class PopUp extends React.Component {
 			relationships: [],
 			id: this.props.id,
       name: this.props.model ? this.props.model.name : "",
-      dataValues: []
+      dataValues: [],
+      showError: false
 		}
 		this.onHandleChange = this.onHandleChange.bind(this)
 		this.onHandleCols = this.onHandleCols.bind(this)
@@ -27,6 +31,8 @@ class PopUp extends React.Component {
 		this.handleChangeRelationshipWrapper = this.handleChangeRelationshipWrapper.bind(this)
     this.handleChangeTableWrapper = this.handleChangeTableWrapper.bind(this)
     this.addDataValue = this.addDataValue.bind(this)
+    this.checkNameInput = this.checkNameInput.bind(this)
+    this.closeError = this.closeError.bind(this)
 	}
 
 	addRelationship(evt){
@@ -71,8 +77,8 @@ class PopUp extends React.Component {
 
 	onHandleChange(evt){
 		let newState = {}
-		newState[evt.target.name] = evt.target.value
-		this.setState(newState)
+    newState[evt.target.name] = evt.target.value
+    this.setState(newState)
 	};
 
 	onHandleCols = jdx => evt => {
@@ -90,7 +96,24 @@ class PopUp extends React.Component {
     this.props.handleSubmit(this.state, this.props.key)
     this.handleLineCreate()
     this.props.handleRemoveModal()
-	}
+  }
+
+  checkNameInput() {
+    // var name = this.state.name ? this.state.name : "Table"
+    // console.log("ISTHEREANEWNAME", name)
+    // this.setState({name: name})
+    // console.log("VALIDATE", this.state)
+    if(!this.state.name){
+      // dialog.showMessageBox({ message: "Warning: This table has no name. Do you wish to proceed?", buttons: ["OK"] })
+      this.setState({showError: true})
+    } else {
+      this.onHandleSubmit()
+    }
+  }
+
+  closeError(){
+    this.setState({showError: false})
+  }
 
 	handleTableSelect(evt){
 		this.setState({TargetTable: evt})
@@ -120,7 +143,7 @@ class PopUp extends React.Component {
 						Name
 							</Col>
 							<Col sm={10}>
-								<FormControl type="email" placeholder="Enter table name" name="name" value={this.state.name} onChange = {this.onHandleChange} />
+								<FormControl type="email" placeholder="Enter table name" name="name" value={this.state.name} onChange = {this.onHandleChange} required/>
 							</Col>
 						</FormGroup>
 						<Col sm = {5}>
@@ -168,8 +191,9 @@ class PopUp extends React.Component {
 					<Modal.Footer>
 						<FormGroup>
 							<Col smOffset={2} sm={10}>
-								<Button type="submit" onClick={() => {
-                  this.onHandleSubmit()}}>
+              {this.state.showError ? <InputError onHandleSubmit={this.onHandleSubmit} closeError={this.closeError}/> : <div></div>}
+								<Button type="submit" onClick={() =>
+                  this.checkNameInput()}>
 							Submit
 								</Button>
 							</Col>
