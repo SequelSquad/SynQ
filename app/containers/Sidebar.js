@@ -29,9 +29,9 @@ class Sidebar extends Component {
 	handleSubmit(event) {
 		event.preventDefault()
 
-		console.log("FilePath", this.state.path)
-		// console.log("CLICKEDDDDDD!", this.props.models)
-		// Generator({models: this.props.models, path: this.state.path})
+		// console.log("FilePath", this.state.path)
+		console.log("CLICKEDDDDDD!", this.props.store)
+		Generator(this.props.store)
 	}
 
 	handleSetPath(){
@@ -63,6 +63,7 @@ class Sidebar extends Component {
 const mapStateToProps = (state) => {
 	return {
 		models: state.models,
+		store: state,
 		theme: state.theme
 	}
 }
