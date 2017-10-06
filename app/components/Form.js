@@ -21,7 +21,14 @@ class PopUp extends React.Component {
 		this.onHandleCols = this.onHandleCols.bind(this)
 		this.onHandleSubmit = this.onHandleSubmit.bind(this)
 		this.handleLineCreate = this.handleLineCreate.bind(this)
+		this.addDataValue = this.addDataValue.bind(this)
 	}
+
+	addDataValue(){
+		this.setState({
+      dataValues: [...this.state.dataValues, {name: '', type:""}]
+    })
+	};
 
 	onHandleChange(evt){
 		let newState = {}
@@ -30,16 +37,22 @@ class PopUp extends React.Component {
 	};
 
 	onHandleCols = jdx => evt => {
+		console.log('FUNTION IS CALLED!')
     const dataValues = this.state.dataValues.map((dataVal, idx) => {
       if(jdx === idx){
+				console.log('updating exisiting datavalue field')
         return {[evt.target.name] : evt.target.value}
-      } else return dataVal
+      } else {
+				console.log('finishing up with new function', dataVal)
+				return dataVal}
     })
-    console.log("FORM NEWSTATE", this.state)
+		// console.log("FORM NEWSTATE", this.state)
+
     this.setState({dataValues: dataValues})
   }
 
-	onHandleSubmit(){
+	onHandleSubmit(e){
+		e.preventDefault()
 		this.props.handleSubmit(this.state, this.props.key)
 	}
 
@@ -57,7 +70,7 @@ class PopUp extends React.Component {
 		// console.log("HOMEDNDPROP", this.props.homednd)
 		// console.log("PROPS", this.state)
 		let selectedModel = this.props.models.filter(model => model.id === this.state.id)[0]
-		console.log("SELECTEDMODEL", selectedModel)
+		// console.log("SELECTEDMODEL", selectedModel)
 		return (
 			<Modal className="signInModal" dialogClassName="custom-modal" show = {true} onHide = {() => {
 				this.props.handleRemoveModal()}} >
@@ -119,7 +132,7 @@ class PopUp extends React.Component {
 							</Col>
 						</FormGroup>
 
-						<ToggleCol selectedModel={selectedModel} onHandleCols={this.onHandleCols}/>
+						<ToggleCol selectedModel={selectedModel} onHandleCols={this.onHandleCols} addDataValue={this.addDataValue}/>
 
 					</Modal.Body>
 					<Modal.Footer>

@@ -17,11 +17,12 @@ export default class ToggleCol extends React.Component {
 
 	handleAdd() {
 		let newColumns = this.state.columns
+		this.props.addDataValue()
 		newColumns.push("col")
 		this.setState({
 			columns: newColumns
 		})
-		console.log("clicked New State", this.state)
+		// console.log("clicked New State", this.state)
 	}
 
 	handleDelete() {
@@ -32,11 +33,17 @@ export default class ToggleCol extends React.Component {
 	}
 
 	render() {
-		console.log(this.props, "TOGGLE COL PROPS")
+		// console.log(this.props, "TOGGLE COL PROPS")
+		// console.log("STATE", this.state)
+		// console.log("selectedModel", this.state.selectedModel)
 		return (
 			<div>
+
 				{this.state.selectedModel.dataValues && this.state.selectedModel.dataValues.map((values) => <Column dataValue={values} onHandleCols={this.props.onHandleCols}/>)}
-				{this.state.columns.map((column, i) => <span key={i}><Column onHandleCols={this.props.onHandleCols} dataValue={this.state.selectedModel.dataValues[i].values}/><Button onClick={this.handleDelete}>-</Button></span>)}
+
+				{this.state.columns.map((column, i) => <span key={i}><Column onHandleCols={this.props.onHandleCols} />
+
+					<Button onClick={this.handleDelete}>-</Button></span>)}
 				<Button onClick={this.handleAdd}>+</Button>
 			</div>
 		)

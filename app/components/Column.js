@@ -30,6 +30,7 @@ class Column extends React.Component {
 
 	render() {
 		console.log("COLUMNS PROPS", this.props)
+		console.log("DATAVALUES ON THE COLUMN", this.props.dataValue)
 		return (
 			// <div>
 			// 	<span>
@@ -47,8 +48,8 @@ class Column extends React.Component {
 						New Column
 						</Col>
 						<Col sm={10}>
-							<FormControl type="column" placeholder="Enter column name" name="name" value={this.state.name} onChange = {this.props.onHandleCols(this.state.id)} />
-							<FormControl type="column" placeholder="Enter column type" name="type" value={this.state.type} onChange = {this.props.onHandleCols(this.state.id)} />
+							<FormControl type="column" placeholder="Enter column name" name="name" defaultValue={this.state.name} onChange = {this.props.onHandleCols(this.state.id)} />
+							<FormControl type="column" placeholder="Enter column type" name="type" defaultValue={this.state.type} onChange = {this.props.onHandleCols(this.state.id)} />
 							<Button bsStyle="info" type="button" onClick={this.handleSubmit}>Save</Button>
 						</Col>
 					</FormGroup>
