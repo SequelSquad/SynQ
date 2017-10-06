@@ -14,8 +14,8 @@ export default function models(state = modelsArr, action) {
 		return newArr.concat(updatedModel)
 	}
 	case ADD_COLUMN: {
-		const model = state.filter(model => model.id === action.column.id)[0]
-		const newArr = state.filter(model => model.id !== action.column.id)
+		const model = state.filter(model => parseInt(model.id) === parseInt(action.column.id))[0]
+		const newArr = state.filter(model => parseInt(model.id) !== parseInt(action.column.id))
 		if (!model.dataValues) {
 			model.dataValues = []
 		}

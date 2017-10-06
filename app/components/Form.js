@@ -13,20 +13,14 @@ class PopUp extends React.Component {
 		super(props)
 		this.state = {
 			relationships: [],
-			//[{Table1: , Table2: , Relationship: }, {Table1: , }]
-			// name: "H",
-			// dataValues: [{
-			// 	name: "",
-			// 	properties:{
-			// 		type: ""
-			// 	}
-			// }]
+			TargetTable: "Table",
+			Relationship: "Relationship",
 			id: this.props.id,
-			name: "H"
-
+      name: this.props.model ? this.props.model.name : "",
+      dataValues: []
 		}
 		this.onHandleChange = this.onHandleChange.bind(this)
-		this.onHandleChangeDvName = this.onHandleChangeDvName.bind(this)
+		this.onHandleCols = this.onHandleCols.bind(this)
 		this.onHandleSubmit = this.onHandleSubmit.bind(this)
 		this.handleLineCreate = this.handleLineCreate.bind(this)
 		this.handleRelationshipSelect = this.handleRelationshipSelect.bind(this)
@@ -68,65 +62,34 @@ class PopUp extends React.Component {
 			})
 			thisVar.setState({relationships})
 		}
+		this.addDataValue = this.addDataValue.bind(this)
 	}
+
+	addDataValue(){
+		this.setState({
+      dataValues: [...this.state.dataValues, {name: '', type:""}]
+    })
+	};
 
 	onHandleChange(evt){
 		let newState = {}
 		newState[evt.target.name] = evt.target.value
 		this.setState(newState)
-		// console.log(this.state)
+	};
 
-		// let newState = update(this.state, {
-		// 	name: {$set: evt.target.value}
-		// })
-		// this.setState(newState)
-	}
+	onHandleCols = jdx => evt => {
+    const dataValues = this.state.dataValues.map((dataVal, idx) => {
+      if(jdx === idx){
+        return {...this.state.dataValues[idx], [evt.target.name] : evt.target.value}
+      } else {
+				return dataVal}
+    })
 
-	onHandleChangeDvName(evt){
-		let newState = update(this.state, {
-			dataValues:{
-				[0]: {
-					name: {$set: evt.target.value}}
-			}
-		})
-		this.setState(newState)
-	  // let newState = {}
-		// newState[evt.target.name] = evt.target.value
-		// console.log(newState)
-		this.setState(update(this.state, {
-			name: {$set: evt.target.value}
-		}))
-		// this.setState(update(this.state, {
-		// 	dataValues: {
-		// 		[0]: {
-		// 			name: {$set: evt.target.value}
-		// 		}
-		// 	}
-		// }))
-		// this.setState(update(this.state, {
-		// 	dataValues: {
-		// 		[0]: {
-		// 			properties: {
-		// 				type: {$set: evt.target.value}
-		// 			}
-		// 		}
-		// 	}
-		// }))
-		// const newData = update(this.state, {
-		// 	name: {$set: evt.target.modelname.value},
-		// 	dataValues: {
-		// 		[0]: {
-		// 			name: {$set: evt.target.columnName.value},
-		// 			properties: {
-		// 				type: {$set: evt.target.columnType.value}
-		// 			}
-		// 		}
-		// 	}
-		// })
-		// this.setState(newData)
-	}
+    this.setState({dataValues: dataValues})
+  }
 
-	onHandleSubmit(){
+	onHandleSubmit(e){
+		e.preventDefault()
 		this.props.handleSubmit(this.state, this.props.key)
 	}
 
@@ -139,19 +102,12 @@ class PopUp extends React.Component {
 	}
 
 	handleLineCreate(){
-		// this.props.lineCreate({
-		// 	Table1: this.props.id,
-		// 	Table2: this.props.models.filter((model) => {
-		// 		return model.name === this.state.Table2
-		// 	})[0].id,
-		// 	Relationship: this.state.Relationship
-		// })
 		this.props.lineCreate(this.state.relationships)
 	}
 
 	render() {
-		// console.log("HOMEDNDPROP", this.props.homednd)
-		// console.log("PROPS", this.state)
+    let selectedModel = this.props.models.filter(model => model.id === this.state.id)[0]
+    console.log('SELECTEDMODEL', selectedModel)
 		return (
 			<Modal className="signInModal" dialogClassName="custom-modal" show = {true} onHide = {() => {
 				this.props.handleRemoveModal()}} >
@@ -166,53 +122,9 @@ class PopUp extends React.Component {
 						Name
 							</Col>
 							<Col sm={10}>
-								<FormControl type="email" placeholder="name" name = "name" onChange = {this.onHandleChange} />
+								<FormControl type="email" placeholder="Enter table name" name="name" value={this.state.name} onChange = {this.onHandleChange} />
 							</Col>
 						</FormGroup>
-
-
-						{/* <FormGroup>
-							<Col smOffset={2} sm={10}>
-								<DropdownButton title = {this.state.TargetTable} onSelect = {(evt) => {
-									this.setState({TargetTable: evt})
-								}} >
-									{this.props.models.filter((model) => {
-										return model.id !== this.props.id
-									}).map((model, i) => {
-										return (
-											<MenuItem eventKey = {model.name}>{model.name}</MenuItem>
-										)
-									})}
-								</DropdownButton>
-							</Col>
-						</FormGroup>
-						<FormGroup>
-							<Col smOffset={2} sm={10}>
-								<DropdownButton title = {this.state.Relationship} onSelect = {(evt) => {
-									this.setState({Relationship: evt})}} >
-									<MenuItem eventKey="One-to-One">One-to-One</MenuItem>
-									<MenuItem eventKey="One-to-Many">One-to-Many</MenuItem>
-									<MenuItem eventKey="Many-to-Many">Many-to-Many</MenuItem>
-								</DropdownButton>
-							</Col>
-						</FormGroup> */}
-						{/* <FormGroup controlId="formHorizontalPassword">
-							<Col componentClass={ControlLabel} sm={2}>
-						Table1
-							</Col>
-							<Col sm={10}>
-								<FormControl type="properties" placeholder="properties" name = "Table1" onChange =  {this.onHandleChange} />
-							</Col>
-						</FormGroup> */}
-
-						{/* <FormGroup controlId="formHorizontalEmail">
-							<Col componentClass={ControlLabel} sm={2}>
-						Table2
-							</Col>
-							<Col sm={10}>
-								<FormControl type="email" placeholder="data type" name = "Table2" onChange = {this.onHandleChange} />
-							</Col>
-						</FormGroup> */}
 						<Col sm = {5}>
 							<Button onClick={this.addRelationship}>Add Relationship
 				    </Button>
@@ -226,7 +138,6 @@ class PopUp extends React.Component {
 										return(
 											model.id === currAssoc.Table2
 										)
-
 									})[0].name} Relationship = {currAssoc.Relationship}
 									handleChangeRelationship = {this.handleChangeRelationshipWrapper}
 									handleChangeTable = {
@@ -247,12 +158,11 @@ class PopUp extends React.Component {
 										idx = {idx} />
 								)})
 							}
-							{/* <ToggleRelationships parentState = {this.state} handleChangeRelationship = {this.handleChangeRelationshipWrapper}
-              addRelationship = {this.addRelationship} /> */}
 						</Col>
 						<Col sm = {5}>
 							<ToggleCol />
 						</Col>
+						<ToggleCol selectedModel={selectedModel} onHandleCols={this.onHandleCols} addDataValue={this.addDataValue}/>
 
 					</Modal.Body>
 					<Modal.Footer>
@@ -279,11 +189,13 @@ class PopUp extends React.Component {
 		)
 	}
 }
+
 const mapStateToProps = (state) => {
 	return {
 		id: state.currRect,
 		models: state.models,
-		associations: state.lines
+		associations: state.lines,
+		model: state.models.filter(model => model.id === +state.currRect)[0]
 	}
 }
 
