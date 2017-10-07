@@ -1,21 +1,33 @@
 import React from "react"
 import {Form, FormGroup, Col, FormControl, Button, Checkbox, DropdownButton, ControlLabel, MenuItem, Modal} from "react-bootstrap"
+import Properties from "./properties"
 
 export default class Column extends React.Component {
 	constructor (props){
 		super(props)
 		this.state = {
+			validations: [],
 			id: this.props.id,
 			name: this.props.dataValue ? this.props.dataValue.name : "",
 			type: this.props.dataValue ? this.props.dataValue.type : ""
 		}
 		this.onHandleChange = this.onHandleChange.bind(this)
+		this.addValidate = this.addValidate.bind(this)
 		// this.handleSubmit = this.handleSubmit.bind(this)
 	}
 
 	onHandleChange(evt) {
 		//console.log("CHANGE", evt.target.value)
 		this.setState({[evt.target.name]: evt.target.value})
+	}
+
+	addValidate() {
+		let newValidate = this.state.validations
+		//this.props.addDataValue()
+		newValidate.push("val")
+		this.setState({
+			validations: newValidate
+		})
 	}
 
 	render() {
@@ -54,8 +66,13 @@ export default class Column extends React.Component {
 								<MenuItem eventKey="INTEGER">INTEGER</MenuItem>
 							</DropdownButton> */}
 						</Col>
-						<FormGroup>
-						</FormGroup>
+					</FormGroup>
+					{this.state.validations.map((val, index) => {
+						<span key={index}>
+							<Properties id= {index}/>
+						</span>
+						})}
+					<Button onClick={this.handleAdd}>Add Validation</Button>
 					</FormGroup>
 				</span>
 			</div>

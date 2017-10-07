@@ -1,6 +1,7 @@
 import React from "react"
 import {Button} from "react-bootstrap"
 import Column from "./Column"
+import Properties from "./properties"
 
 export default class ToggleCol extends React.Component {
 	constructor(props) {
@@ -34,12 +35,15 @@ export default class ToggleCol extends React.Component {
 	}
 
 	render() {
-		//console.log("how many columns:toggle 37", this.state.columns.length)
-		//console.log("toggle38: Where is my data coming from?", this.state.selectedModel.dataValues, typeof this.state.selectedModel.dataValues)
 		return (
 			<div>
 
-				{this.state.selectedModel.dataValues && this.state.selectedModel.dataValues.map((values, index) => <Column dataValue={values} id={index} onHandleCols={this.props.onHandleCols}/>)}
+				{this.state.selectedModel.dataValues && this.state.selectedModel.dataValues.map((values, index) => {
+					<Column dataValue={values} id={index} onHandleCols={this.props.onHandleCols}/>
+					values.validate.map((validation, index) => {
+						<Properties dataValue={validation} id={index}/>
+					})}
+				)}
 
 				{this.state.columns.map((column, index) => <span key={index}><Column id={this.state.selectedModel.dataValues ?  this.state.selectedModel.dataValues.length + index : index} onHandleCols={this.props.onHandleCols} />
 					<Button onClick={this.handleDelete}>Remove</Button></span>)}

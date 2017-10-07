@@ -71,7 +71,7 @@ class PopUp extends React.Component {
 
 	addDataValue(){
 		this.setState({
-      dataValues: [...this.state.dataValues, {id: this.state.dataValues.length, name: '', type:""}]
+      dataValues: [...this.state.dataValues, {id: this.state.dataValues.length, name: '', type:"", validate: []}]
 		})
 		//console.log('FORM77 addDataValues', this.state.dataValues)
 	};
@@ -83,17 +83,27 @@ class PopUp extends React.Component {
 	};
 
 	onHandleCols = jdx => evt => {
-		//console.log('Form85: current state at onHandleCold', this.state.dataValues, typeof this.state.dataValues)
     const dataValues = this.state.dataValues.map((dataVal, idx) => {
       if(jdx === idx){
-				//console.log('Form88 found a matching column', idx)
         return {...this.state.dataValues[idx], [evt.target.name] : evt.target.value}
       } else {
-				//console.log('NOT MODIFYING')
 				return dataVal}
 		})
-		//console.log('Form 94 what is datavalues', typeof dataValues)
-		//console.log('Form 95 WHAT I PUSH TO THE STORE', dataValues)
+    this.setState({dataValues: dataValues})
+	}
+
+	onHandleValidate = (columnIndex, propertyIndex) => evt => {
+    const dataValues = this.state.dataValues.map((dataVal, idx) => {
+      if(columnIndex === idx){
+				return this.state.dataValues[idx].validate.map((validation, index) => {
+					if(index === propertyIndex)
+					return {...this.state.dataValues[idx].validate[propertyIndex], [evt.target.name] : evt.target.value}
+					else {
+						return validation}
+				})
+      } else {
+				return dataVal}
+		})
     this.setState({dataValues: dataValues})
   }
 
