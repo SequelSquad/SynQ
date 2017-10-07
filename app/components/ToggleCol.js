@@ -16,13 +16,14 @@ export default class ToggleCol extends React.Component {
 	}
 
 	handleAdd() {
+		//console.log("adding a new column", this.state.columns.length)
 		let newColumns = this.state.columns
 		this.props.addDataValue()
 		newColumns.push("col")
 		this.setState({
 			columns: newColumns
 		})
-		// console.log("clicked New State", this.state)
+		//console.log("handleAdd Toggle26 clicked New State", this.state)
 	}
 
 	handleDelete() {
@@ -33,13 +34,14 @@ export default class ToggleCol extends React.Component {
 	}
 
 	render() {
+		//console.log("how many columns:toggle 37", this.state.columns.length)
+		//console.log("toggle38: Where is my data coming from?", this.state.selectedModel.dataValues, typeof this.state.selectedModel.dataValues)
 		return (
 			<div>
 
 				{this.state.selectedModel.dataValues && this.state.selectedModel.dataValues.map((values, index) => <Column dataValue={values} id={index} onHandleCols={this.props.onHandleCols}/>)}
 
-				{this.state.columns.map((column, index) => <span key={index}><Column id={index} onHandleCols={this.props.onHandleCols} />
-
+				{this.state.columns.map((column, index) => <span key={index}><Column id={this.state.selectedModel.dataValues ?  this.state.selectedModel.dataValues.length + index : index} onHandleCols={this.props.onHandleCols} />
 					<Button onClick={this.handleDelete}>Remove</Button></span>)}
 				<Button onClick={this.handleAdd}>Add Column</Button>
 			</div>

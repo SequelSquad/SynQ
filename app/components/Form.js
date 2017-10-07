@@ -18,7 +18,7 @@ class PopUp extends React.Component {
 			relationships: [],
 			id: this.props.id,
       name: this.props.model ? this.props.model.name : "",
-      dataValues: [],
+      dataValues: this.props.model.dataValues ? this.props.model.dataValues :[],
       showError: false
 		}
 		this.onHandleChange = this.onHandleChange.bind(this)
@@ -72,7 +72,8 @@ class PopUp extends React.Component {
 	addDataValue(){
 		this.setState({
       dataValues: [...this.state.dataValues, {id: this.state.dataValues.length, name: '', type:""}]
-    })
+		})
+		//console.log('FORM77 addDataValues', this.state.dataValues)
 	};
 
 	onHandleChange(evt){
@@ -82,15 +83,17 @@ class PopUp extends React.Component {
 	};
 
 	onHandleCols = jdx => evt => {
+		//console.log('Form85: current state at onHandleCold', this.state.dataValues, typeof this.state.dataValues)
     const dataValues = this.state.dataValues.map((dataVal, idx) => {
       if(jdx === idx){
-				console.log('All the values',this.state.dataValues ,'MODIFYING', idx)
+				//console.log('Form88 found a matching column', idx)
         return {...this.state.dataValues[idx], [evt.target.name] : evt.target.value}
       } else {
 				//console.log('NOT MODIFYING')
 				return dataVal}
-    })
-
+		})
+		//console.log('Form 94 what is datavalues', typeof dataValues)
+		//console.log('Form 95 WHAT I PUSH TO THE STORE', dataValues)
     this.setState({dataValues: dataValues})
   }
 
@@ -130,7 +133,7 @@ class PopUp extends React.Component {
 	}
 
 	render() {
-		//console.log('DATAVALUES', this.state.dataValues)
+		console.log('STATE', this.state)
     let selectedModel = this.props.models.filter(model => model.id === this.state.id)[0]
 		//console.log('selected Model', selectedModel)
 		return (
