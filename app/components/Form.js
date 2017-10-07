@@ -65,7 +65,7 @@ class PopUp extends React.Component {
 
 	addDataValue(){
 		this.setState({
-      dataValues: [...this.state.dataValues, {name: '', type:""}]
+      dataValues: [...this.state.dataValues, {id: this.state.dataValues.length, name: '', type:""}]
     })
 	};
 
@@ -78,8 +78,10 @@ class PopUp extends React.Component {
 	onHandleCols = jdx => evt => {
     const dataValues = this.state.dataValues.map((dataVal, idx) => {
       if(jdx === idx){
+				console.log('All the values',this.state.dataValues ,'MODIFYING', idx)
         return {...this.state.dataValues[idx], [evt.target.name] : evt.target.value}
       } else {
+				//console.log('NOT MODIFYING')
 				return dataVal}
     })
 
@@ -105,7 +107,9 @@ class PopUp extends React.Component {
 	}
 
 	render() {
+		//console.log('DATAVALUES', this.state.dataValues)
     let selectedModel = this.props.models.filter(model => model.id === this.state.id)[0]
+		//console.log('selected Model', selectedModel)
 		return (
 			<Modal className="signInModal" dialogClassName="custom-modal" show = {true} onHide = {() => {
 				this.props.handleRemoveModal()}} >
