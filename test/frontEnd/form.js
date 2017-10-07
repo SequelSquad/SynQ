@@ -68,26 +68,8 @@ describe("<Form /> component", () => {
 	})
 
 })
-////////////
 
-it("form should have a select that lists all the animals as options", () => {
-	expect(animalSelect.find("select").length).to.be.equal(1)
-	// loops through each option in the select
-	// determines if the option's key is equivalent to the animal
-	expect(animalSelect.find("option")).to.have.length(animals.length)
-	animalSelect.find("option").forEach((animalOption, i) => {
-		expect(animalOption.key()).to.be.equal(animals[i])
-		expect(animalOption.text().trim()).to.be.equal(animals[i])
-	})
-})
-
-it("should have a label to describe the select", () => {
-	const selectLabel = animalSelect.find("label")
-	expect(selectLabel.length).to.be.equal(1)
-	expect(selectLabel.text()).to.be.equal("Select an Animal: ")
-})
-
-it("select should have an onChange event that submits the new animal", () => {
+it("select should have an onSubmit event that submits the store to the generator function", () => {
 	expect(animalSelect.props("select").onChange).to.be.function
 	// choosing a random animal
 	let animal = getRandomAnimal()
