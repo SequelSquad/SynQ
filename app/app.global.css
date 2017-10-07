@@ -242,3 +242,8 @@ line {
 .modal-title {
   color: #ff8071;
 }
+
+#input-error {
+  color: #ff8071;
+  font-size:12px;
+}

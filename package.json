@@ -194,6 +194,7 @@
     "react": "^15.6.1",
     "react-addons-update": "^15.6.2",
     "react-bootstrap": "^0.31.3",
+    "react-bootstrap-validation": "^0.1.11",
     "react-dnd": "^2.5.3",
     "react-dnd-html5-backend": "^2.5.3",
     "react-dom": "^15.6.1",
