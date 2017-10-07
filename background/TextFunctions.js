@@ -33,17 +33,17 @@ functions.validate = (validationStr) =>{
 }
 
 functions.associations = (source, target, association) => {
-  return `${source}.${association}(${target})\n`
+	return `${source}.${association}(${target})\n`
 }
 
 functions.requireModel = (name) =>{
-  let fileName = name.toLowerCase()
-  return `const ${name} = require('./${fileName}')\n`
+	let fileName = name.toLowerCase()
+	return `const ${name} = require('./${fileName}')\n`
 }
 
 functions.exportModels = (modelArr) => {
-  let modelList = modelArr.join(', \n')
-  return `\nmodule.export = {\n${modelList}\n}`
+	let modelList = modelArr.join(", \n")
+	return `\nmodule.export = {\n${modelList}\n}`
 }
 //functions.indexSetup = ()
 
