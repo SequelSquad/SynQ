@@ -9,31 +9,14 @@ export default class Column extends React.Component {
 		this.state = {
 			validations: [],
 			id: this.props.id,
-			name: this.props.dataValue ? this.props.dataValue.name : "",
-			type: this.props.dataValue ? this.props.dataValue.type : ""
+			validationType: this.props.values ? this.props.values[0] : "",
+			validationValue: this.props.values ? this.props.values[1] : ""
 		}
-		this.onHandleChange = this.onHandleChange.bind(this)
-		this.addValidate = this.addValidate.bind(this)
-		// this.handleSubmit = this.handleSubmit.bind(this)
-	}
-
-	onHandleChange(evt) {
-		//console.log("CHANGE", evt.target.value)
-		this.setState({[evt.target.name]: evt.target.value})
-	}
-
-	addValidate() {
-		//console.log("adding a new column", this.state.columns.length)
-		let newValidate = this.state.validations
-		this.props.addDataValue()
-		newValidate.push("val")
-		this.setState({
-			validations: newValidate
-		})
-		//console.log("handleAdd Toggle26 clicked New State", this.state)
 	}
 
 	render() {
+		console.log("PROPERTIES PROPS", this.props)
+		console.log("PROPERTY STATE", this.state)
 		return (
 			<div>
 				<span>
@@ -45,7 +28,7 @@ export default class Column extends React.Component {
 							<h2>{this.state.id}</h2>
 
 							{/* <FormControl type="column" placeholder="Enter column type" name="type" defaultValue={this.state.type} onChange = {this.props.onHandleCols(this.state.id)} /> */}
-							<select name="validateType" onChange={this.props.handleValidate(this.props.columnId, this.props.id)}>
+							<select name="validateType" onChange={this.props.handleValidate(this.props.columnId, this.props.id)} defaultValue={this.state.validationType}>
 								<option value="is">Property:</option>
 								<option value="is">is</option>
 								<option value="not">not</option>
@@ -79,13 +62,7 @@ export default class Column extends React.Component {
 								<option value="min">min</option>
 								<option value="isCreditCard">isCreditCard</option>
 							</select>
-							{/* <DropdownButton title = {this.state.type} onSelect = {this.props.onHandleCols(this.state.id)} name = "Relationship" >
-								<MenuItem eventKey="STRING">STRING</MenuItem>
-								<MenuItem eventKey="TEXT">TEXT</MenuItem>
-								<MenuItem eventKey="INTEGER">INTEGER</MenuItem>
-								<MenuItem eventKey="INTEGER">INTEGER</MenuItem>
-							</DropdownButton> */}
-							<FormControl type="text" placeholder="validation" name="validateValue" onChange={this.props.handleValidate(this.props.columnId, this.props.id)}/>
+							<FormControl type="text" placeholder="validation" name="validateValue" onChange={this.props.handleValidate(this.props.columnId, this.props.id)} defaultValue={this.state.validationValue}/>
 						</Col>
 					</FormGroup>
 					)}

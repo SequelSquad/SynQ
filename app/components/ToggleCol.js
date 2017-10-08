@@ -35,6 +35,7 @@ export default class ToggleCol extends React.Component {
 	}
 
 	render() {
+		//console.log("Selected Model", this.state.selectedModel)
 		return (
 			<div>
 				{/* {this.state.selectedModel.dataValues && this.state.selectedModel.dataValues.map((values, index) => {
