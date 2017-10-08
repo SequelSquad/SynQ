@@ -28,9 +28,11 @@ export default class Column extends React.Component {
 		this.setState({
 			validations: newValidate
 		})
+		console.log("adding to the validation array")
 	}
 
 	render() {
+		console.log("column state", this.state.validations.length)
 		return (
 			<div>
 				<span>
@@ -67,13 +69,12 @@ export default class Column extends React.Component {
 							</DropdownButton> */}
 						</Col>
 					</FormGroup>
-					{this.state.validations.map((val, index) => {
-						<span key={index}>
-							<Properties id= {index}/>
-						</span>
-						})}
-					<Button onClick={this.handleAdd}>Add Validation</Button>
-					</FormGroup>
+					{this.state.validations.length && this.state.validations.map((val, index) => {
+						{/* <span key={index}> */}
+						return <Properties id= {index} />
+						{/* </span> */}
+					})}
+					<Button onClick={this.addValidate}>Add Validation</Button>
 				</span>
 			</div>
 		)
