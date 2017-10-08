@@ -45,6 +45,7 @@ export default class Column extends React.Component {
 							<FormControl type="column" placeholder="Enter column name" name="name" defaultValue={this.state.name} onChange = {this.props.onHandleCols(this.state.id)} />
 							{/* <FormControl type="column" placeholder="Enter column type" name="type" defaultValue={this.state.type} onChange = {this.props.onHandleCols(this.state.id)} /> */}
 							<select onChange = {this.props.onHandleCols(this.state.id)} defaultValue={this.state.type} name="type">
+								<option value="Choose Type">Choose Type</option>
 								<option value="STRING">STRING</option>
 								<option value="TEXT">TEXT</option>
 								<option value="INTEGER">INTEGER</option>

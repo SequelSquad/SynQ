@@ -98,9 +98,22 @@ class PopUp extends React.Component {
     const dataValues = this.state.dataValues.map((dataVal, idx) => {
       if(columnIndex === idx){
 				if(!this.state.dataValues[idx].validate){
-					this.state.dataValues[idx].validate = [evt.target.value]
+					this.state.dataValues[idx].validate = [[evt.target.value]]
 				}
-				this.state.dataValues[idx].validate[propertyIndex] = evt.target.value
+				if(evt.target.name === 'validateType'){
+					if(!this.state.dataValues[idx].validate[propertyIndex]){
+						console.log('105', typeof this.state.dataValues[idx].validate)
+						this.state.dataValues[idx].validate[propertyIndex] = [evt.target.value]
+					}
+					console.log('line 108', evt.target.value, this.state.dataValues[idx].validate)
+					this.state.dataValues[idx].validate[propertyIndex][0] = evt.target.value
+				}
+				if(evt.target.name === 'validateValue'){
+					console.log('line 112', propertyIndex, evt.target.value)
+					this.state.dataValues[idx].validate[propertyIndex][1] = evt.target.value
+				}
+				//this.state.dataValues[idx].validate[propertyIndex] = evt.target.value
+				console.log('line 116', this.state.dataValues[idx].validate)
 				return this.state.dataValues[idx]
       } else {
 				return dataVal}
