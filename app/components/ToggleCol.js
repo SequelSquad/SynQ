@@ -44,10 +44,10 @@ export default class ToggleCol extends React.Component {
 					})}
 					)} */}
 
-				{this.state.selectedModel.dataValues && this.state.selectedModel.dataValues.map((values, index) => <Column dataValue={values} id={index} onHandleCols={this.props.onHandleCols}/>)}
+				{this.state.selectedModel.dataValues && this.state.selectedModel.dataValues.map((values, index) => <Column dataValue={values} id={index} onHandleCols={this.props.onHandleCols} handleValidate={this.props.handleValidate} validations={values.validate}/>)}
 
 
-				{this.state.columns.map((column, index) => <span key={index}><Column id={this.state.selectedModel.dataValues ?  this.state.selectedModel.dataValues.length + index : index} onHandleCols={this.props.onHandleCols} />
+				{this.state.columns.map((column, index) => <span key={index}><Column id={this.state.selectedModel.dataValues ?  this.state.selectedModel.dataValues.length + index : index} onHandleCols={this.props.onHandleCols} handleValidate={this.props.handleValidate}/>
 					<Button onClick={this.handleDelete}>Remove</Button></span>)}
 				<Button onClick={this.handleAdd}>Add Column</Button>
 			</div>

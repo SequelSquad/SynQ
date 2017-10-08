@@ -23,6 +23,7 @@ class PopUp extends React.Component {
 		}
 		this.onHandleChange = this.onHandleChange.bind(this)
 		this.onHandleCols = this.onHandleCols.bind(this)
+		this.onHandleValidate = this.onHandleValidate.bind(this)
 		this.onHandleSubmit = this.onHandleSubmit.bind(this)
 		this.handleLineCreate = this.handleLineCreate.bind(this)
 		this.handleRelationshipSelect = this.handleRelationshipSelect.bind(this)
@@ -84,6 +85,7 @@ class PopUp extends React.Component {
 
 	onHandleCols = jdx => evt => {
     const dataValues = this.state.dataValues.map((dataVal, idx) => {
+			console.log("I'm here")
       if(jdx === idx){
         return {...this.state.dataValues[idx], [evt.target.name] : evt.target.value}
       } else {
@@ -95,15 +97,15 @@ class PopUp extends React.Component {
 	onHandleValidate = (columnIndex, propertyIndex) => evt => {
     const dataValues = this.state.dataValues.map((dataVal, idx) => {
       if(columnIndex === idx){
-				return this.state.dataValues[idx].validate.map((validation, index) => {
-					if(index === propertyIndex)
-					return {...this.state.dataValues[idx].validate[propertyIndex], [evt.target.name] : evt.target.value}
-					else {
-						return validation}
-				})
+				if(!this.state.dataValues[idx].validate){
+					this.state.dataValues[idx].validate = [evt.target.value]
+				}
+				this.state.dataValues[idx].validate[propertyIndex] = evt.target.value
+				return this.state.dataValues[idx]
       } else {
 				return dataVal}
 		})
+
     this.setState({dataValues: dataValues})
   }
 
@@ -114,12 +116,7 @@ class PopUp extends React.Component {
   }
 
   checkNameInput() {
-    // var name = this.state.name ? this.state.name : "Table"
-    // console.log("ISTHEREANEWNAME", name)
-    // this.setState({name: name})
-    // console.log("VALIDATE", this.state)
     if(!this.state.name){
-      // dialog.showMessageBox({ message: "Warning: This table has no name. Do you wish to proceed?", buttons: ["OK"] })
       this.setState({showError: true})
     } else {
       this.onHandleSubmit()
@@ -202,7 +199,7 @@ class PopUp extends React.Component {
 
 						</Col>
 						<Col sm = {5}>
-              <ToggleCol selectedModel={selectedModel} onHandleCols={this.onHandleCols} addDataValue={this.addDataValue}/>
+              <ToggleCol selectedModel={selectedModel} onHandleCols={this.onHandleCols} addDataValue={this.addDataValue} handleValidate={this.onHandleValidate}/>
 						</Col>
 					</Modal.Body>
 					<Modal.Footer>

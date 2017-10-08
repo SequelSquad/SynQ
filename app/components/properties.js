@@ -45,7 +45,7 @@ export default class Column extends React.Component {
 							<h2>{this.state.id}</h2>
 
 							{/* <FormControl type="column" placeholder="Enter column type" name="type" defaultValue={this.state.type} onChange = {this.props.onHandleCols(this.state.id)} /> */}
-							<select name="validateType">
+							<select name="validateType" onChange={this.props.handleValidate(this.props.columnId, this.props.id)}>
 								<option value="is">is</option>
 								<option value="not">not</option>
 								<option value="isEmail">isEmail</option>
@@ -84,13 +84,9 @@ export default class Column extends React.Component {
 								<MenuItem eventKey="INTEGER">INTEGER</MenuItem>
 								<MenuItem eventKey="INTEGER">INTEGER</MenuItem>
 							</DropdownButton> */}
-							<FormControl type="validateValue" placeholder="validation" name="name" />
+							<FormControl type="validateValue" placeholder="validation" name="name" onChange={this.props.handleValidate(this.props.columnId, this.props.id)}/>
 						</Col>
 					</FormGroup>
-					{this.state.validations && this.state.validations.map((validation, index) => {
-						<span key={index}>
-							<Properties id={index} onHandleCols={this.props.onHandleCols} />
-						</span>}
 					)}
 				</span>
 			</div>
