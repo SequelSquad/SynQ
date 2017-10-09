@@ -1,6 +1,6 @@
-import { ADD_MODEL, MOVE_POSITION, addModel, movePosition } from "./addModel"
+import { ADD_MODEL, MOVE_POSITION, addModel, movePosition, REMOVE_REC, removeRec } from "./addModel"
 import { SET_MODAL, REMOVE_MODAL, setModal, removeModal } from "./modalAction"
-import { SET_MODEL, setModel, ADD_TABLE, addTable } from "./modelAction"
+import { SET_MODEL, setModel, ADD_TABLE, addTable, REMOVE_MODEL, removeModel } from "./modelAction"
 import {selectLine} from "./lines"
 import { ADD_COLUMN, addColumn } from "./addColumn"
 import { SET_CURR_RECT, setCurrRect } from "./currRectAction"
@@ -18,7 +18,9 @@ export default {
 	ADD_TABLE,
 	SET_PATH,
 	SET_THEME,
-
+	REMOVE_MODEL,
+	REMOVE_REC,
+	removeRec,
 	addModel,
 	addColumn,
 	movePosition,
@@ -29,5 +31,6 @@ export default {
 	addTable,
 	setPath,
 	setTheme,
+	removeModel,
 	selectLine
 }

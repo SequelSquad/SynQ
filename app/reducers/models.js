@@ -1,4 +1,4 @@
-import { SET_MODEL, ADD_COLUMN, ADD_TABLE } from "../actions"
+import { SET_MODEL, ADD_COLUMN, ADD_TABLE, REMOVE_MODEL } from "../actions"
 
 const modelsArr = []
 
@@ -21,6 +21,12 @@ export default function models(state = modelsArr, action) {
 		}
 		model.dataValues.push(action.column)
 		return newArr.concat([model])
+	}
+	case REMOVE_MODEL: {
+		console.log("HEREEEE! 26")
+		const newArr = state.filter(model => parseInt(model.id) !== parseInt(action.modelID))
+		console.log("REDUCER", newArr)
+		return newArr
 	}
 	default:
 		return state
