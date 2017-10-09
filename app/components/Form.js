@@ -33,7 +33,8 @@ class PopUp extends React.Component {
     this.handleChangeTableWrapper = this.handleChangeTableWrapper.bind(this)
     this.addDataValue = this.addDataValue.bind(this)
     this.checkNameInput = this.checkNameInput.bind(this)
-    this.closeError = this.closeError.bind(this)
+		this.closeError = this.closeError.bind(this)
+		this.handleDeleteColumn = this.handleDeleteColumn.bind(this)
 	}
 
 	addRelationship(evt){
@@ -70,11 +71,10 @@ class PopUp extends React.Component {
 		}
 	}
 
-	addDataValue(){
+	addDataValue(id){
 		this.setState({
-      dataValues: [...this.state.dataValues, {id: this.state.dataValues.length, name: '', type:"", validate: []}]
+      dataValues: [...this.state.dataValues, {id: id, name: '', type:"", validate: []}]
 		})
-		//console.log('FORM77 addDataValues', this.state.dataValues)
 	};
 
 	onHandleChange(evt){
@@ -85,8 +85,8 @@ class PopUp extends React.Component {
 
 	onHandleCols = jdx => evt => {
     const dataValues = this.state.dataValues.map((dataVal, idx) => {
-			console.log("I'm here")
-      if(jdx === idx){
+			console.log("I'm here", dataVal)
+      if(jdx === dataVal.id){
         return {...this.state.dataValues[idx], [evt.target.name] : evt.target.value}
       } else {
 				return dataVal}
@@ -152,6 +152,18 @@ class PopUp extends React.Component {
 		this.props.lineCreate(this.state.relationships)
 	}
 
+	handleDeleteColumn(colId){
+		console.log('DELETING COL', colId)
+		const newValues = []
+		const dataValues = this.state.dataValues.forEach((data, index) => {
+			if (colId !== data.id){
+				newValues.push(data)
+			}
+		})
+		console.log('DATAVALUES AFTER DELETING COL', newValues)
+		this.setState({dataValues: newValues})
+	}
+
 	render() {
     const theme = this.props.theme
     let modalTheme = `table-modal-${theme}`
@@ -214,7 +226,7 @@ class PopUp extends React.Component {
 
 						</Col>
 						<Col sm = {5}>
-              <ToggleCol selectedModel={selectedModel} onHandleCols={this.onHandleCols} addDataValue={this.addDataValue} handleValidate={this.onHandleValidate}/>
+              <ToggleCol selectedModel={selectedModel} onHandleCols={this.onHandleCols} addDataValue={this.addDataValue} handleValidate={this.onHandleValidate} handleDeleteColumn={this.handleDeleteColumn}/>
 						</Col>
 					</Modal.Body>
 					<Modal.Footer>
@@ -223,7 +235,7 @@ class PopUp extends React.Component {
               {this.state.showError ? <InputError onHandleSubmit={this.onHandleSubmit} closeError={this.closeError}/> : <div></div>}
 								<Button type="submit" onClick={() =>
                   this.checkNameInput()}>
-							Submit
+							Save
 								</Button>
 							</Col>
 						</FormGroup>

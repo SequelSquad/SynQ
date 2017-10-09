@@ -32,7 +32,7 @@ export default class Column extends React.Component {
 	}
 
 	render() {
-		//console.log("column state", this.props.dataValue)
+		console.log("********* column state ID", this.props.id)
 		return (
 			<div>
 				<span>
