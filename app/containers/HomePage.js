@@ -12,6 +12,9 @@ class HomePage extends Component {
 
 	constructor (props){
 		super(props)
+		this.state = {
+			relationships: []
+		}
 	}
 
 	render(props) {
@@ -58,7 +61,7 @@ class HomePage extends Component {
 					<Sidebar />
 				</div>
 				<div className={`col-xs-9 ${canvasTheme}`}>
-					<Home allProps={this.props} />
+					<Home allProps={this.props}  />
 				</div>
 			</div>
 		)

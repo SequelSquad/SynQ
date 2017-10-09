@@ -12,6 +12,17 @@
   border: 0;
 } */
 
+
+g:hover .line   {
+  stroke: white;
+}
+
+path{
+  pointer-events:all;
+}
+
+
+
 h1 {
   font-weight: bold;
   margin-left: 24px;

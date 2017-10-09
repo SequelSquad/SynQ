@@ -3,8 +3,8 @@ import { Link } from "react-router"
 import {connect} from "react-redux"
 import Rectangle from "../components/Rectangle"
 import Generator from "../../background/Generator"
-import { setPath } from "../actions"
-import { Button, FormGroup, FormControl, Col, ControlLabel } from "react-bootstrap"
+import { setPath, selectLine } from "../actions"
+import { Button, FormGroup, FormControl, Col, ControlLabel, Popover, Checkbox, OverlayTrigger } from "react-bootstrap"
 const remote = require("electron").remote
 const app = remote.app
 
@@ -13,7 +13,8 @@ class Sidebar extends Component {
 		super(props)
 
 		this.state = {
-			path: ""
+			path: "",
+			selectedRelationships: []
 		}
 		this.handleChange = this.handleChange.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
@@ -39,6 +40,17 @@ class Sidebar extends Component {
 	}
 
 	render() {
+
+		let tableArr = []
+		this.props.assoc.forEach((assoc) => {
+			if (!tableArr.includes(assoc.Table1)){
+				tableArr.push(assoc.Table1)
+			}
+			if (!tableArr.includes(assoc.Table2))
+				tableArr.push(assoc.Table2)
+		})
+
+
 		let menuTheme = this.props.theme ? "" : "sidebar-menu-light"
 		return (
 			<div className={`sidebar-menu ${menuTheme}`}>
@@ -63,7 +75,8 @@ class Sidebar extends Component {
 const mapStateToProps = (state) => {
 	return {
 		models: state.models,
-		theme: state.theme
+		theme: state.theme,
+		assoc: state.lines
 	}
 }
 
@@ -71,6 +84,9 @@ const mapDispatchToProps = (dispatch) => {
 	return {
 		handleSetPath: (path) => {
 			return dispatch(setPath(path))
+		},
+		handleFilter(relationships){
+			dispatch(selectLine(relationships))
 		}
 	}
 }
