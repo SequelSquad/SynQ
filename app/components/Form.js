@@ -153,11 +153,13 @@ class PopUp extends React.Component {
 	}
 
 	render() {
-		console.log('STATE', this.state)
+    const theme = this.props.theme
+    let modalTheme = `table-modal-${theme}`
+
     let selectedModel = this.props.models.filter(model => model.id === this.state.id)[0]
 		//console.log('selected Model', selectedModel)
 		return (
-			<Modal className="signInModal" dialogClassName="custom-modal" show = {true} onHide = {() => {
+			<Modal className={`table-modal ${modalTheme}`} dialogClassName="custom-modal" show = {true} onHide = {() => {
 				this.props.handleRemoveModal()}} >
 				<Modal.Header closeButton>
 					<Modal.Title>Create Model</Modal.Title>
@@ -170,7 +172,7 @@ class PopUp extends React.Component {
 						Name
 							</Col>
 							<Col sm={10}>
-								<FormControl type="email" placeholder="Enter table name" name="name" value={this.state.name} onChange = {this.onHandleChange} required/>
+								<FormControl type="name" placeholder="Enter table name" name="name" value={this.state.name} onChange = {this.onHandleChange} required/>
 							</Col>
 						</FormGroup>
 						<Col sm = {5}>
@@ -239,7 +241,8 @@ const mapStateToProps = (state) => {
 		models: state.models,
 		model: state.models.filter(model => model.id === +state.currRect)[0],
 		store: state,
-		associations: state.lines,
+    associations: state.lines,
+    theme: state.theme
 	}
 }
 

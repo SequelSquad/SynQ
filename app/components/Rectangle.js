@@ -45,7 +45,8 @@ class Rectangle extends Component {
 		})[0] : ""
 		const {isDragging, connectDragSource} = this.props
 
-		let tableTheme = this.props.theme ? "" : "table-light"
+		const theme = this.props.theme
+		let tableTheme = `table-${theme}`
 		return connectDragSource(
 			<div className={`table ${tableTheme}`} onClick={ () => {
 				this.props.handleClick("POP_UP", this.props.id)}} id={this.props.id} style = {{top:`${this.props.top}`, left:`${this.props.left}`, position:"fixed"}}>
