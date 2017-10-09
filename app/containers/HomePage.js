@@ -16,9 +16,9 @@ class HomePage extends Component {
 
 	render(props) {
 		const theme = this.props.theme
-		let wrapperTheme = theme ? "" : "wrapper-light"
-		let sidebarTheme = theme ? "" : "sidebar-wrapper-light"
-		let canvasTheme = theme ? "" : "canvas-light"
+		let wrapperTheme = `wrapper-${theme}`
+		let sidebarTheme = `sidebar-wrapper-${theme}`
+		let canvasTheme = `canvas-${theme}`
 		return (
 
 			<div className={`wrapper ${wrapperTheme}`}>

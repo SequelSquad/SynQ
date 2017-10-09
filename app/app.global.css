@@ -79,10 +79,6 @@ nav p {
   width: 100vw;
 }
 
-.wrapper-light {
-  color: black;
-  background-color: #9DCAD6;
-}
 
 .synq-nav {
   position: relative;
@@ -92,9 +88,7 @@ nav p {
   background-color: #1f2732;
 }
 
-.synq-nav-light {
-  background-color: #9DCAD6;
-}
+
 
 .nav-name {
   display: inline-flex;
@@ -112,13 +106,10 @@ nav p {
   height: inherit;
   background-color: #1f2732;
   border-top: 20%;
-  border-right: 2px solid #3b4752;
+  border-right: 1px solid #3b4752;
   z-index: 10;
 }
 
-.sidebar-wrapper-light {
-  background-color: #F3F3F3;
-}
 
 .sidebar-menu {
   padding-top: 30px;
@@ -128,17 +119,7 @@ nav p {
 
 }
 
-.sidebar-menu-light Button {
-  color: #fff;
-  background-color: #9DCAD6;
-  /* border-color: #9DCAD6; */
-}
 
-.sidebar-menu-light input {
-  color: #fff;
-  background-color: white;
-  /* border-color: #9DCAD6; */
-}
 
 
 .canvas {
@@ -147,9 +128,7 @@ nav p {
   color: black;
 }
 
-.canvas-light {
-  background-color: #FFFFFF;
-}
+
 
 #svgchild{
   height: inherit;
@@ -173,11 +152,7 @@ nav p {
   margin-top: 40px;
 }
 
-.table-light {
-  border: 1px solid #8B8989;
-  background-color: #B4DAE5;
-  box-shadow: 0 8px 6px -5x #757272;
-}
+
 
 .table h4 {
   position: absolute;
@@ -215,11 +190,7 @@ nav p {
   border: none;
 }
 
-.btn-light {
-  color: #fff;
-  background-color: #9DCAD6;
-  border-color: #9DCAD6;
-}
+
 
 line {
   stroke: #b2e788;
@@ -232,6 +203,7 @@ line {
 
 .modal-body {
   background-color: #1f2732;
+  color: #ff8071;
 }
 
 .modal-footer {
@@ -246,4 +218,186 @@ line {
 #input-error {
   color: #ff8071;
   font-size:12px;
+}
+
+
+
+.dropdown-content {
+  display: none;
+  position: fixed;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  top: 34px;
+}
+
+.dropdown-content a {
+  float: none;
+  /* color: black; */
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #8A8A8A;
+  color: white;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+
+/* THEMES */
+/* SWITCH */
+
+
+/* Sky */
+
+.wrapper-sky {
+  color: black;
+  background-color: #6CC8DF;
+}
+/* #6CC8DF */
+/* #9DCAD6 */
+
+.synq-nav-sky {
+  background-color: #6CC8DF;
+}
+
+.synq-nav-sky .nav-name {
+  color: white;
+}
+
+.sidebar-wrapper-sky {
+  background-color: #F3F3F3;
+  border-right: 1px solid #CACACA;
+}
+
+
+.sidebar-menu-sky Button {
+  color: #FFFFFF;
+  background-color: #6CC8DF;
+  /* border-color: #6CC8DF; */
+}
+
+.sidebar-menu-sky input {
+  color: #6CC8DF;
+  background-color: white;
+  /* border-color: #6CC8DF; */
+}
+
+.canvas-sky {
+  background-color: #FFFFFF;
+}
+
+.table-sky {
+  border: 1px solid #8B8989;
+  background-color: #6CC8DF;
+  box-shadow: 0 8px 6px -5x #757272;
+}
+/* #B4DAE5 */
+
+.btn-sky {
+  color: #FFFFFF;
+  background-color: #6CC8DF;
+  border-color: #6CC8DF;
+}
+
+.table-modal-sky .modal-header,.table-modal-sky .modal-body, .table-modal-sky .modal-footer {
+  background-color: #F3F3F3;
+  color: #6CC8DF;
+}
+
+.table-modal-sky .modal-title {
+  color: #37BED3;
+}
+
+.table-modal-sky input {
+  background-color: white;
+  color: #6CC8DF;
+}
+.table-modal-sky Button {
+  color: #FFFFFF;
+  background-color: #6CC8DF;
+  border-color: #6e8798;
+}
+
+
+
+
+
+
+/* Crimson */
+
+.wrapper-crimson {
+  color: black;
+  background-color: #8D0101;
+}
+/* #6CC8DF */
+/* #9DCAD6 */
+
+.synq-nav-crimson {
+  background-color: #8D0101;
+}
+
+.synq-nav-crimson .nav-name {
+  color: #111111;
+}
+
+.sidebar-wrapper-crimson {
+  background-color: #F3F3F3;
+  border-right: 1px solid #CACACA;
+}
+
+
+.sidebar-menu-crimson Button {
+  color: #FFFFFF;
+  background-color: #8D0101;
+  /* border-color: #8D0101; */
+}
+
+.sidebar-menu-crimson input {
+  color: #8D0101;
+  background-color: white;
+  /* border-color: #8D0101; */
+}
+
+.canvas-crimson {
+  background-color: #FFFFFF;
+}
+
+.table-crimson {
+  border: 1px solid #8B8989;
+  background-color: #8D0101;
+  box-shadow: 0 8px 6px -5x #757272;
+}
+/* #B4DAE5 */
+
+.btn-crimson {
+  color: #FFFFFF;
+  background-color: #8D0101;
+  border-color: #8D0101;
+}
+
+.table-modal-crimson .modal-header,.table-modal-crimson .modal-body, .table-modal-crimson .modal-footer {
+  background-color: #F3F3F3;
+  color: #8D0101;
+}
+
+.table-modal-crimson .modal-title {
+  color: #8D0101;
+}
+
+.table-modal-crimson input {
+  background-color: white;
+  color: #8D0101;
+}
+.table-modal-crimson Button {
+  color: #FFFFFF;
+  background-color: #8D0101;
+  border-color: #6e8798;
 }
