@@ -7,23 +7,21 @@ import { setTheme } from "../actions"
 class Navbar extends Component {
 	constructor(props) {
 		super(props)
-
 		this.state = {
 		}
-
 		this.handleTheme = this.handleTheme.bind(this)
 	}
 
-	handleTheme() {
+	handleTheme(theme) {
 		console.log("CLICKED THEME CHANGER: DARK IS NOW ", this.props.theme)
-		this.props.handleTheme()
+		this.props.handleTheme(theme)
 	}
 
 
 	render() {
-
-		let navTheme = this.props.theme ? "" : "synq-nav-light"
-		let btnTheme = this.props.theme ? "" : "btn-light"
+		const theme = this.props.theme
+		let navTheme = `synq-nav-${theme}`
+		let btnTheme = `btn-${theme}`
 
 		return (
 			<div>
@@ -32,8 +30,15 @@ class Navbar extends Component {
 						<p><b>S Y N Q</b></p>
 					</div>
 
-					<div className='nav-theme'>
-						<button className={`btn-theme btn-default ${btnTheme}`} onClick={this.handleTheme}>Theme</button>
+					<div className='nav-theme dropdown'>
+						<button className={`dropbtn btn-theme btn-default ${btnTheme}`}>Themes
+							<i className="fa fa-caret-down"></i>
+						</button>
+						<div className='dropdown-content'>
+							<a className={`btn-theme btn-default ${btnTheme}`} onClick={() => this.handleTheme("")}>Dark</a>
+							<a className={`btn-theme btn-default ${btnTheme}`} onClick={() => this.handleTheme("sky")}>Sky Light</a>
+							<a className={`btn-theme btn-default ${btnTheme}`} onClick={() => this.handleTheme("crimson")}>Crimson</a>
+						</div>
 					</div>
 				</nav>
 			</div>
@@ -50,8 +55,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		handleTheme: () => {
-			return dispatch(setTheme())
+		handleTheme: (theme) => {
+			return dispatch(setTheme(theme))
 		}
 	}
 }

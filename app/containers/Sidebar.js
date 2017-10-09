@@ -39,7 +39,9 @@ class Sidebar extends Component {
 	}
 
 	render() {
-		let menuTheme = this.props.theme ? "" : "sidebar-menu-light"
+
+		const theme = this.props.theme
+		let menuTheme = `sidebar-menu-${theme}`
 		return (
 			<div className={`sidebar-menu ${menuTheme}`}>
 				<FormGroup controlId="formHorizontalEmail">

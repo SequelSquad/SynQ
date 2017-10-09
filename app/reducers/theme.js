@@ -1,12 +1,12 @@
 // @flow
 import { SET_THEME } from "../actions"
 
-const DarkOrLight = true
+const theme = ""
 
-export default function addModel(state = DarkOrLight, action) {
+export default function addModel(state = theme, action) {
 	switch (action.type) {
 	case SET_THEME:
-		state = !state
+		state = action.theme
 		return state
 	default:
 		return state
