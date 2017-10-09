@@ -161,22 +161,68 @@ class Home extends Component {
 
 	renderLines(){
 		if(this.props.allProps.lines){
-			return this.props.allProps.lines.map((line) => {
+			let relationshipHash = {}
+
+			return this.props.allProps.lines.map((line, idx) => {
+				if (!(line.Table1 in relationshipHash)){
+					relationshipHash[line.Table1] = [line.Table2]
+				} else {
+					relationshipHash[line.Table1].push(line.Table2)
+				}
+				let targetYArr = []
+
+				let sourceYArr = []
+
+				Object.keys(relationshipHash).forEach((key) => {
+					if (relationshipHash[key].includes(line.Table2)) {
+						targetYArr.push(line.Table2)
+					}})
+
+				Object.keys(relationshipHash).forEach((key) => {
+					if (relationshipHash[key].includes(line.Table1)) {
+						sourceYArr.push(line.Table1)
+					}})
+
+
+
+
+				let y1test = this.props.allProps.model.filter((model) => {
+					return model.id === parseInt(line.Table1)
+				})[0].top + ((sourceYArr.filter((table) => table === line.Table1).length + (relationshipHash[line.Table1] ? relationshipHash[line.Table1].length - 1 : 0))
+								*20)
+
+
+				let y1reg = this.props.allProps.model.filter((model) => {
+					return model.id === parseInt(line.Table1)
+				})[0].top
+
+
+				let y2test = this.props.allProps.model.filter((model) => {
+					return model.id === parseInt(line.Table2)
+				})[0].top + ((targetYArr.filter((table) => table === line.Table2).length -1 + (relationshipHash[line.Table2] ? relationshipHash[line.Table2].length : 0))
+								*20)
+
+				let y2reg = this.props.allProps.model.filter((model) => {
+					return model.id === parseInt(line.Table2)
+				})[0].top
+
+				let y2final = y2test > y2reg ? y2test : y2reg
+				let y1final = y1test > y1reg ? y1test : y1reg
 				return (
 					<Line
+						key = {idx}
+						idx = {idx}
+						relationship = {line}
 						x1 = {this.props.allProps.model.filter((model) => {
 							return model.id === parseInt(line.Table1)
 						})[0].left}
 						x2 = {this.props.allProps.model.filter((model) => {
 							return model.id === parseInt(line.Table2)
 						})[0].left}
-						y1 = {this.props.allProps.model.filter((model) => {
-							return model.id === parseInt(line.Table1)
-						})[0].top}
-						y2 = {this.props.allProps.model.filter((model) => {
-							return model.id === parseInt(line.Table2)
-						})[0].top}
+						y1 = {y1final}
+						y2 = {y2final}
 					/>
+
 				)
 			})
 		} else {
@@ -185,6 +231,7 @@ class Home extends Component {
 	}
 
 	render() {
+		console.log("STATERelationships", this.props.relationships)
 		const newBox = this.renderBox()
 		const newLines = this.renderLines()
   	// These props are injected by React DnD,
