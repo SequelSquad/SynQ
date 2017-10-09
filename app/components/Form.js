@@ -278,6 +278,7 @@ const mapDispatchToProps = (dispatch) => {
 		removeModelWrapper(modelId){
 			dispatch(removeRec(modelId))
 			dispatch(removeModel(modelId))
+			dispatch(removeModal())
 		}
 	}
 }
