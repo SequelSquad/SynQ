@@ -154,13 +154,10 @@ class PopUp extends React.Component {
 	}
 
 	render() {
-<<<<<<< HEAD
-    console.log('RELATIONSHIPSFORM', this.state.relationships)
-=======
+    console.log('HERE!')
     const theme = this.props.theme
     let modalTheme = `table-modal-${theme}`
 
->>>>>>> master
     let selectedModel = this.props.models.filter(model => model.id === this.state.id)[0]
 		//console.log('selected Model', selectedModel)
 		return (
