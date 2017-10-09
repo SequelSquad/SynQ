@@ -30,9 +30,9 @@ class Sidebar extends Component {
 	handleSubmit(event) {
 		event.preventDefault()
 
-		console.log("FilePath", this.state.path)
-		// console.log("CLICKEDDDDDD!", this.props.models)
-		// Generator({models: this.props.models, path: this.state.path})
+		// console.log("FilePath", this.state.path)
+		console.log("CLICKEDDDDDD!", this.props.store)
+		Generator(this.props.store)
 	}
 
 	handleSetPath(){
@@ -41,23 +41,15 @@ class Sidebar extends Component {
 
 	render() {
 
-		let tableArr = []
-		this.props.assoc.forEach((assoc) => {
-			if (!tableArr.includes(assoc.Table1)){
-				tableArr.push(assoc.Table1)
-			}
-			if (!tableArr.includes(assoc.Table2))
-				tableArr.push(assoc.Table2)
-		})
-
-
-		let menuTheme = this.props.theme ? "" : "sidebar-menu-light"
+		const theme = this.props.theme
+		let menuTheme = `sidebar-menu-${theme}`
 		return (
 			<div className={`sidebar-menu ${menuTheme}`}>
 				<FormGroup controlId="formHorizontalEmail">
 					<Col componentClass={ControlLabel}>
-						<b>File Path:</b>
+						<b>File Path: </b>
 					</Col>
+					<br />
 					<input type="text" name="path" placeholder="documents/myproject/db" onChange={this.handleChange}/>
 				</FormGroup>
 				<Button type="button" onClick={this.handleSetPath}>Set Path</Button>
@@ -75,8 +67,8 @@ class Sidebar extends Component {
 const mapStateToProps = (state) => {
 	return {
 		models: state.models,
-		theme: state.theme,
-		assoc: state.lines
+		store: state,
+		theme: state.theme
 	}
 }
 
