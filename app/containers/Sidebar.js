@@ -3,8 +3,8 @@ import { Link } from "react-router"
 import {connect} from "react-redux"
 import Rectangle from "../components/Rectangle"
 import Generator from "../../background/Generator"
-import { setPath } from "../actions"
-import { Button, FormGroup, FormControl, Col, ControlLabel } from "react-bootstrap"
+import { setPath, selectLine } from "../actions"
+import { Button, FormGroup, FormControl, Col, ControlLabel, Popover, Checkbox, OverlayTrigger } from "react-bootstrap"
 const remote = require("electron").remote
 const app = remote.app
 
@@ -13,7 +13,8 @@ class Sidebar extends Component {
 		super(props)
 
 		this.state = {
-			path: ""
+			path: "",
+			selectedRelationships: []
 		}
 		this.handleChange = this.handleChange.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
@@ -22,15 +23,11 @@ class Sidebar extends Component {
 
 	handleChange(e){
 		const path = app.getPath("home")+"/"
-		console.log("value", e.target.value,"path", path)
 		this.setState({path: path + e.target.value})
 	}
 
 	handleSubmit(event) {
 		event.preventDefault()
-
-		// console.log("FilePath", this.state.path)
-		console.log("CLICKEDDDDDD!", this.props.store)
 		Generator(this.props.store)
 	}
 
@@ -39,7 +36,6 @@ class Sidebar extends Component {
 	}
 
 	render() {
-
 		const theme = this.props.theme
 		let menuTheme = `sidebar-menu-${theme}`
 		return (
@@ -75,6 +71,9 @@ const mapDispatchToProps = (dispatch) => {
 	return {
 		handleSetPath: (path) => {
 			return dispatch(setPath(path))
+		},
+		handleFilter(relationships){
+			dispatch(selectLine(relationships))
 		}
 	}
 }
