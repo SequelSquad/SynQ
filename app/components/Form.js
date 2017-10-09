@@ -3,7 +3,7 @@ import {Form, FormGroup, Col, FormControl, Button, Checkbox, ControlLabel, Modal
 import {connect} from "react-redux"
 import {removeModal} from "../actions/modalAction"
 import {addLine} from "../actions/lines"
-import {setModel} from "../actions"
+import {setModel, removeModel, removeRec} from "../actions"
 import update from "react-addons-update"
 import ToggleCol from "./ToggleCol"
 import Relationship from "./Relationship"
@@ -35,6 +35,7 @@ class PopUp extends React.Component {
     this.checkNameInput = this.checkNameInput.bind(this)
 		this.closeError = this.closeError.bind(this)
 		this.handleDeleteColumn = this.handleDeleteColumn.bind(this)
+		this.handleRemoveModel = this.handleRemoveModel.bind(this)
 	}
 
 	addRelationship(evt){
@@ -164,21 +165,25 @@ class PopUp extends React.Component {
 		this.setState({dataValues: newValues})
 	}
 
+	handleRemoveModel(id){
+		this.props.removeModelWrapper(id)
+	}
+
 	render() {
+		console.log('PROPS ID', this.props.id, this.state.id)
     const theme = this.props.theme
     let modalTheme = `table-modal-${theme}`
-
     let selectedModel = this.props.models.filter(model => model.id === this.state.id)[0]
 		//console.log('selected Model', selectedModel)
 		return (
 			<Modal className={`table-modal ${modalTheme}`} dialogClassName="custom-modal" show = {true} onHide = {() => {
-				this.props.handleRemoveModal()}} >
+				this.props.handleRemoveModal(this.state.id)}} >
 				<Modal.Header closeButton>
 					<Modal.Title>Create Model</Modal.Title>
 				</Modal.Header>
 				<Form horizontal>
 					<Modal.Body>
-
+						<button type="button" onClick={() => this.handleRemoveModel(this.props.id)}>Remove Model</button>
 						<FormGroup controlId="formHorizontalEmail">
 							<Col componentClass={ControlLabel} sm={2}>
 						Name
@@ -269,6 +274,10 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		lineCreate(line){
 			dispatch(addLine(line))
+		},
+		removeModelWrapper(modelId){
+			dispatch(removeRec(modelId))
+			dispatch(removeModel(modelId))
 		}
 	}
 }
