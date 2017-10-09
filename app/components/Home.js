@@ -11,10 +11,13 @@ import Rectangle from "./Rectangle"
 import Line from "./Line"
 import Generator from "../../background/Generator"
 
+const width = Math.max(document.documentElement.clientWidth, window.innderWidth || 0)
+const height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
+
+// const { w, h } = electron.screen.getPrimaryDisplay().workAreaSize
 
 const canvasTarget = {
 	drop(props, monitor, component) {
-
 		// You can disallow drop based on props or item
 		if (!monitor.getItem().id && monitor.getItem().id !== 0) {
 			props.allProps.handleAddModel({id: props.allProps.model.length + 1, top: monitor.getSourceClientOffset().y - 60, left: monitor.getSourceClientOffset().x - (window.innerWidth/4)})
@@ -122,10 +125,8 @@ class Home extends Component {
 		// 		}]
 		// }
 		this.handleChange = this.handleChange.bind(this)
-		// this.handleSubmit = this.handleSubmit.bind(this)
 		this.renderBox = this.renderBox.bind(this)
-		this.onHoverLine = this.onHoverLine.bind(this)
-		this.offHoverLine = this.offHoverLine.bind(this)
+		// this.handleSubmit = this.handleSubmit.bind(this)
 	}
 
 	movePosition(x, y){
@@ -136,20 +137,6 @@ class Home extends Component {
 		//this.setState({ [event.target.name]: event.target.value })
 	}
 
-	// handleSubmit(event) {
-	// 	event.preventDefault()
-	// 	console.log("CLICKEDDDDDD!")
-	// 	Generator(this.state)
-	// }
-
-	onHoverLine(e){
-		console.log("HERE!")
-		e.target.setAttribute("stroke", "white")
-	}
-
-	offHoverLine(e){
-		e.target.setAttribute("stroke", "green")
-	}
 	renderBox(){
 		if (this.props.allProps.model.length){
 			return this.props.allProps.model.map((model) => {
@@ -245,7 +232,7 @@ class Home extends Component {
 
 			<div id = "canvaschild">
 				{newBox}
-				<svg height="1000" width="100%">
+				<svg height="1440" width="100%">
 					{newLines}
 				</svg>
 
@@ -255,8 +242,5 @@ class Home extends Component {
 	}
 }
 
-// <form onSubmit={this.handleSubmit}>
-// <button type="submit">Submit</button>
-// </form>
 
 export default DropTarget(Type.RECTANGLE, canvasTarget, collect)(Home)

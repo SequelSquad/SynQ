@@ -24,26 +24,26 @@ functions.type = (type) =>{
 //Column properties: Boolean value property (etc allowNull, isEmail, isURL)
 functions.boolean = (property, bool) => {
 	console.log("creating allowNull")
-	return `\n\t\t${property}: ${bool}`
+	return `\n\t\t${property}: ${bool},`
 }
 //Column properties: VALIDATE
 functions.validate = (validationStr) =>{
 	console.log("Creating validation")
-	return `,\n\t\tvalidate: {\t${validationStr}}`
+	return `\n\t\tvalidate: {\t${validationStr}}`
 }
 
 functions.associations = (source, target, association) => {
-  return `${source}.${association}(${target})\n`
+	return `${source}.${association}(${target})\n`
 }
 
 functions.requireModel = (name) =>{
-  let fileName = name.toLowerCase()
-  return `const ${name} = require('./${fileName}')\n`
+	let fileName = name.toLowerCase()
+	return `const ${name} = require('./${fileName}')\n`
 }
 
 functions.exportModels = (modelArr) => {
-  let modelList = modelArr.join(', \n')
-  return `\nmodule.export = {\n${modelList}\n}`
+	let modelList = modelArr.join(", \n")
+	return `\nmodule.export = {\n${modelList}\n}`
 }
 //functions.indexSetup = ()
 

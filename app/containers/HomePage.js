@@ -18,39 +18,10 @@ class HomePage extends Component {
 	}
 
 	render(props) {
-		// if (this.props.theme) {
-		// 	const themeButton = document.getElementById("theme-button")
-		// 	const body = document.getElementById("body")
-		// 	const sidebar = document.getElementById("main")
-		// 	const canvas = document.getElementById("canvas")
-		// 	const table = document.getElementsByClassName("table")
-
-		// 	console.log("TRYING TO CHANGE THEMES!!!_!_!_!_!")
-		// 	body.style.color = "black"
-		// 	body.style["background-color"] = "#9DCAD6"
-		// 	sidebar.style["background-color"] = "#F3F3F3"
-		// 	canvas.style["background-color"] = "#FFFFFF"
-		// 	table.style.border = "1px solid #8B8989"
-		// 	table.style["background-color"] = "#B4DAE5"
-		// 	table.style["box-shadow"] = "0 8px 6px -5x #757272"
-		// 	themeButton.style["background-color"] = ""
-		// 	themeButton.style.color = ""
-		// }
-
-		// else {
-		// 	DarkOrLight = !DarkOrLight
-
-		// 	body.style.("color", "#6e8798")
-		// 	body.style.("background-color", "#1f2732")
-		// 	sidebar.style.("background-color", "#1f2732")
-		// 	table.style.("border", "1px solid #3b4752")
-		// 	table.style.("background-color","#8A7DA0")
-		// 	table.style.("box-shadow", "0 8px 6px -5px #615475")
-		// }r
 		const theme = this.props.theme
-		let wrapperTheme = this.props.theme ? "" : "wrapper-light"
-		let sidebarTheme = this.props.theme ? "" : "sidebar-wrapper-light"
-		let canvasTheme = this.props.theme ? "" : "canvas-light"
+		let wrapperTheme = `wrapper-${theme}`
+		let sidebarTheme = `sidebar-wrapper-${theme}`
+		let canvasTheme = `canvas-${theme}`
 		return (
 
 			<div className={`wrapper ${wrapperTheme}`}>
