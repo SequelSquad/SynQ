@@ -4,26 +4,32 @@ const assert = chai.assert
 const Generator = require("../../background/generator")
 
 describe("Tests for generator function", function(){
+	//check
+	let store ={
+		path: "",
+		models: [{
+			id: 0,
+			name: "Puppies",
+			dataValues: [{
+				name: "Owner",
+				type: "STRING",
+				boolean: "",
+				validate: [{}]
+			}]
+		}]
+	}
 
-  let store = ""
-  Generator(store)
+	Generator(store)
 
 	describe("generator function creates a directory", function(){
 		it("should take in the store state as an input and create a single directory database folder", function(){
-      assert.isDirectory(store.path, ?msg)
+			assert.isDirectory(store.path)
 		})
-  })
+	})
 
-  describe("generator function creates a file for each model", function(){
+	describe("generator function creates a file for each model", function(){
 		it("should take in the store state as an input and create files for each model", function(){
-      assert.isDirectory(store.path, ?msg)
+			assert.isDirectory(store.path + "/puppies")
 		})
-  })
-
-  describe("generator function creates a file for each model that contains content about the respective model", function(){
-		it("should take in the store state as an input and create content about the model for each file", function(){
-      expect(store.path).to.be.a.file(?msg).with.content(data, ?msg);
-		})
-  })
-
+	})
 })
