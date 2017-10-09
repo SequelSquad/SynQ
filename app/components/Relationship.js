@@ -26,13 +26,12 @@ class Relationship extends React.Component {
 	}
 
 	render() {
-		console.log("RELATIONSHIP PROPS", this.props)
+
+		console.log("RELATIONSHIP", this.props.relationship)
+
 		let currentTable = this.props.models.filter((model) => {
 			return model.id === this.props.id
 		})[0].name
-		console.log("currentTable", this.props.models.filter((model) => {
-			return model.id === this.props.id
-		})[0])
 		return (
 			<div>
 
@@ -49,7 +48,7 @@ class Relationship extends React.Component {
 				</FormGroup>
 				<FormGroup>
 					<Col smOffset={2} sm={10}>
-						<DropdownButton title = {this.props.relationship ? this.props.relationship.relationship : this.props.Relationship} onSelect = {this.props.handleChangeRelationship(this.props.idx)} name = "Relationship" >
+						<DropdownButton title = {this.props.relationship.Relationship} onSelect = {this.props.handleChangeRelationship(this.props.relationship.id)} name = "Relationship" >
 							<MenuItem eventKey="hasOne">hasOne</MenuItem>
 							<MenuItem eventKey="hasMany">hasMany</MenuItem>
 							<MenuItem eventKey="belongsTo">belongsTo</MenuItem>
@@ -59,13 +58,21 @@ class Relationship extends React.Component {
 				</FormGroup>
 				<FormGroup>
 					<Col smOffset={2} sm={10}>
-						<DropdownButton title = {this.props.relationship ? this.props.relationship.Table2 : this.props.Table2}  onSelect = {this.props.handleChangeTable(this.props.idx)}>
+						<DropdownButton title = {this.props.relationship.Table2 === "Table" ?  "Table" : this.props.models.filter((model) => {
+							return model.id === this.props.relationship.Table2
+						})[0].name}  onSelect = {this.props.handleChangeTable(this.props.relationship.id)}>
 							{this.props.models.map((model, i) => {
 								return (
 									<MenuItem eventKey = {model.name}>{model.name}</MenuItem>
 								)
 							})}
 						</DropdownButton>
+					</Col>
+				</FormGroup>
+				<FormGroup>
+					<Col smOffset={2} sm={10}>
+						<Button onClick = {() => {
+							this.props.handleRemoveLine(this.props.relationship.id)}}>X</Button>
 					</Col>
 				</FormGroup>
 			</div>

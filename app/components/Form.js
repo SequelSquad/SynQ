@@ -2,7 +2,7 @@ import React from "react"
 import {Form, FormGroup, Col, FormControl, Button, Checkbox, ControlLabel, Modal, DropdownButton, MenuItem} from "react-bootstrap"
 import {connect} from "react-redux"
 import {removeModal} from "../actions/modalAction"
-import {addLine} from "../actions/lines"
+import {addLine, removeLine} from "../actions/lines"
 import {setModel} from "../actions"
 import update from "react-addons-update"
 import ToggleCol from "./ToggleCol"
@@ -15,7 +15,7 @@ class PopUp extends React.Component {
 	constructor (props){
 		super(props)
 		this.state = {
-			relationships: [],
+			relationships: this.props.associations,
 			id: this.props.id,
       name: this.props.model ? this.props.model.name : "",
       dataValues: this.props.model.dataValues ? this.props.model.dataValues :[],
@@ -39,15 +39,16 @@ class PopUp extends React.Component {
 	addRelationship(evt){
 		evt.preventDefault()
 		this.setState({
-			relationships: [...this.state.relationships, {Table1: this.props.id, Table2: 0, Relationship: ""}]
+			relationships: [...this.state.relationships, {id: this.state.relationships.length + 1, Table1: this.props.id, Table2: "Table", Relationship: "Relationship"}]
 		})
 	}
 
 	handleChangeRelationshipWrapper(jdx){
 		const thisVar = this
 		return function (evt) {
-			const relationships = thisVar.state.relationships.map((relationship, idx) => {
-				if (jdx === idx){
+      console.log("state", thisVar.state.relationships, "evt", evt)
+			const relationships = thisVar.state.relationships.map((relationship) => {
+				if (jdx === relationship.id){
 					return Object.assign({}, relationship, {Relationship: evt})
 				} else return relationship
 			})
@@ -61,8 +62,8 @@ class PopUp extends React.Component {
 			const tableId = thisVar.props.models.filter((model) => {
 				return model.name === evt
 			})[0].id
-			const relationships = thisVar.state.relationships.map((relationship, idx) => {
-				if (jdx === idx){
+			const relationships = thisVar.state.relationships.map((relationship) => {
+				if (jdx === relationship.id){
 					return Object.assign({}, relationship, {Table2: tableId})
 				} else return relationship
 			})
@@ -153,6 +154,7 @@ class PopUp extends React.Component {
 	}
 
 	render() {
+    console.log('HERE!')
     const theme = this.props.theme
     let modalTheme = `table-modal-${theme}`
 
@@ -176,7 +178,7 @@ class PopUp extends React.Component {
 							</Col>
 						</FormGroup>
 						<Col sm = {5}>
-							{this.props.associations.filter((association) => {
+							{/* {this.props.associations.filter((association) => {
 								return (
 									association.Table1 === this.props.id
 								)
@@ -194,9 +196,12 @@ class PopUp extends React.Component {
 									idx = {idx} />
 								)
 							})
-              }
+              } */}
 
-							{this.state.relationships.map((relationship, idx) => {
+							{this.state.relationships.filter((relationship) => {
+               return relationship.Table1 === this.props.id
+              }).
+                map((relationship, idx) => {
 								return (
 									<Relationship key = {idx}
 										relationship = {relationship}
@@ -204,6 +209,9 @@ class PopUp extends React.Component {
 										handleChangeTable = {
 											this.handleChangeTableWrapper
 										}
+                    handleRemoveLine = {
+                      this.props.handleRemoveLine
+                    }
 										idx = {idx} />
 								)})
 							}
@@ -257,7 +265,10 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		lineCreate(line){
 			dispatch(addLine(line))
-		}
+    },
+    handleRemoveLine(id){
+      dispatch(removeLine(id))
+    }
 	}
 }
 

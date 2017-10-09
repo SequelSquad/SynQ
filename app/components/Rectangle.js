@@ -49,11 +49,10 @@ class Rectangle extends Component {
 		let tableTheme = `table-${theme}`
 		return connectDragSource(
 			<div className={`table ${tableTheme}`} onClick={ () => {
-				this.props.handleClick("POP_UP", this.props.id)}} id={this.props.id} style = {{top:`${this.props.top}`, left:`${this.props.left}`, position:"fixed"}}>
+				this.props.handleClick("POP_UP", this.props.id)}} id={this.props.id} style = {{top:`${this.props.top}`, left:`${this.props.left}`, position:"absolute"}}>
 				<h2>{model ? model.name : id ? "unnamed model" : "drag new model"}</h2>
 				<ul>
 					{model && model.dataValues.length && model.dataValues.map(column => {
-						console.log("something went right", column.name)
 						return <li>{column.name}</li>
 					})}
 				</ul>
