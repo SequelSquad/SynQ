@@ -36,7 +36,8 @@ class PopUp extends React.Component {
 		this.closeError = this.closeError.bind(this)
 		this.handleDeleteColumn = this.handleDeleteColumn.bind(this)
     this.handleRemoveModel = this.handleRemoveModel.bind(this)
-    this.handleRemoveLineWrapper = this.handleRemoveLineWrapper.bind(this)
+		this.handleRemoveLineWrapper = this.handleRemoveLineWrapper.bind(this)
+		this.addNewValidate = this.addNewValidate.bind(this)
   }
 
   handleRemoveLineWrapper(id){
@@ -56,7 +57,7 @@ class PopUp extends React.Component {
 	handleChangeRelationshipWrapper(jdx){
 		const thisVar = this
 		return function (evt) {
-      console.log("state", thisVar.state.relationships, "evt", evt)
+      //console.log("state", thisVar.state.relationships, "evt", evt)
 			const relationships = thisVar.state.relationships.map((relationship) => {
 				if (jdx === relationship.id){
 					return Object.assign({}, relationship, {Relationship: evt})
@@ -82,9 +83,11 @@ class PopUp extends React.Component {
 	}
 
 	addDataValue(id){
+		//console.log('WHAT IS WRONG', this.state.dataValues)
 		this.setState({
       dataValues: [...this.state.dataValues, {id: id, name: '', type:"", validate: []}]
 		})
+		console.log('WHAT IS WRONG', this.state.dataValues)
 	};
 
 	onHandleChange(evt){
@@ -95,7 +98,7 @@ class PopUp extends React.Component {
 
 	onHandleCols = jdx => evt => {
     const dataValues = this.state.dataValues.map((dataVal, idx) => {
-			console.log("I'm here", dataVal)
+			//console.log("I'm here", dataVal)
       if(jdx === dataVal.id){
         return {...this.state.dataValues[idx], [evt.target.name] : evt.target.value}
       } else {
@@ -104,31 +107,37 @@ class PopUp extends React.Component {
     this.setState({dataValues: dataValues})
 	}
 
-	onHandleValidate = (columnIndex, propertyIndex) => evt => {
-    const dataValues = this.state.dataValues.map((dataVal, idx) => {
-      if(columnIndex === idx){
-				if(!this.state.dataValues[idx].validate){
-					this.state.dataValues[idx].validate = [[evt.target.value]]
-				}
-				if(evt.target.name === 'validateType'){
-					if(!this.state.dataValues[idx].validate[propertyIndex]){
-						//console.log('105', typeof this.state.dataValues[idx].validate)
-						this.state.dataValues[idx].validate[propertyIndex] = [evt.target.value]
-					}
-					//console.log('line 108', evt.target.value, this.state.dataValues[idx].validate)
-					this.state.dataValues[idx].validate[propertyIndex][0] = evt.target.value
-				}
-				if(evt.target.name === 'validateValue'){
-					//console.log('line 112', propertyIndex, evt.target.value)
-					this.state.dataValues[idx].validate[propertyIndex][1] = evt.target.value
-				}
-				//this.state.dataValues[idx].validate[propertyIndex] = evt.target.value
-				//console.log('line 116', this.state.dataValues[idx].validate)
+	addNewValidate(columnId, validateId){
+		const dataValues = this.state.dataValues.map((dataVal, idx) => {
+			//console.log("I'm here", dataVal)
+      if(columnId === dataVal.id){
+				this.state.dataValues[idx].validate.push([validateId])
 				return this.state.dataValues[idx]
       } else {
 				return dataVal}
 		})
+    this.setState({dataValues: dataValues})
+	}
 
+	onHandleValidate = (columnIndex, propertyIndex) => evt => {
+    const dataValues = this.state.dataValues.map((dataVal, idx) => {
+      if(columnIndex === dataVal.id){
+				const validations = dataVal.validate.map( validation => {
+					if (validation[0] === propertyIndex){
+						if(evt.target.name === 'validateType'){
+							validation[1] = evt.target.value
+						}
+						if(evt.target.name === 'validateValue'){
+							validation[2] = evt.target.value
+						}
+					}
+					return validation
+				})
+				dataVal.validate = validations
+				return dataVal
+      } else {
+				return dataVal}
+		})
     this.setState({dataValues: dataValues})
   }
 
@@ -180,6 +189,7 @@ class PopUp extends React.Component {
     const theme = this.props.theme
     let modalTheme = `table-modal-${theme}`
     let selectedModel = this.props.models.filter(model => model.id === this.state.id)[0]
+		console.log('FORM STATE', this.state)
 
 		return (
 			<Modal className={`table-modal ${modalTheme}`} dialogClassName="custom-modal" show = {true} onHide = {() => {
@@ -246,7 +256,7 @@ class PopUp extends React.Component {
 
 						</Col>
 						<Col sm = {5}>
-              <ToggleCol selectedModel={selectedModel} onHandleCols={this.onHandleCols} addDataValue={this.addDataValue} handleValidate={this.onHandleValidate} handleDeleteColumn={this.handleDeleteColumn}/>
+              <ToggleCol selectedModel={selectedModel} onHandleCols={this.onHandleCols} addDataValue={this.addDataValue} handleValidate={this.onHandleValidate} handleDeleteColumn={this.handleDeleteColumn} addNewValidate={this.addNewValidate}/>
 						</Col>
 					</Modal.Body>
 					<Modal.Footer>

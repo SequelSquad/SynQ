@@ -9,14 +9,12 @@ export default class Column extends React.Component {
 		this.state = {
 			validations: [],
 			id: this.props.id,
-			validationType: this.props.values ? this.props.values[0] : "",
-			validationValue: this.props.values ? this.props.values[1] : ""
+			validationType: this.props.values ? this.props.values[1] : "",
+			validationValue: this.props.values ? this.props.values[2] : ""
 		}
 	}
 
 	render() {
-		console.log("PROPERTIES PROPS", this.props)
-		console.log("PROPERTY STATE", this.state)
 		return (
 			<div>
 				<span>
