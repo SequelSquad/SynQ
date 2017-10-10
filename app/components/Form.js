@@ -35,8 +35,16 @@ class PopUp extends React.Component {
     this.checkNameInput = this.checkNameInput.bind(this)
 		this.closeError = this.closeError.bind(this)
 		this.handleDeleteColumn = this.handleDeleteColumn.bind(this)
-		this.handleRemoveModel = this.handleRemoveModel.bind(this)
-	}
+    this.handleRemoveModel = this.handleRemoveModel.bind(this)
+    this.handleRemoveLineWrapper = this.handleRemoveLineWrapper.bind(this)
+  }
+
+  handleRemoveLineWrapper(id){
+    this.props.handleRemoveLine(id)
+    this.setState({
+      relationships: this.state.relationships.filter((relationship) => relationship.id !== id)
+    })
+  }
 
 	addRelationship(evt){
 		evt.preventDefault()
@@ -155,14 +163,12 @@ class PopUp extends React.Component {
 	}
 
 	handleDeleteColumn(colId){
-		console.log('DELETING COL', colId)
 		const newValues = []
 		const dataValues = this.state.dataValues.forEach((data, index) => {
 			if (colId !== data.id){
 				newValues.push(data)
 			}
 		})
-		console.log('DATAVALUES AFTER DELETING COL', newValues)
 		this.setState({dataValues: newValues})
 	}
 
@@ -174,7 +180,7 @@ class PopUp extends React.Component {
     const theme = this.props.theme
     let modalTheme = `table-modal-${theme}`
     let selectedModel = this.props.models.filter(model => model.id === this.state.id)[0]
-		//console.log('selected Model', selectedModel)
+
 		return (
 			<Modal className={`table-modal ${modalTheme}`} dialogClassName="custom-modal" show = {true} onHide = {() => {
 				this.props.handleRemoveModal(this.state.id)}} >
@@ -183,7 +189,10 @@ class PopUp extends React.Component {
 				</Modal.Header>
 				<Form horizontal>
 					<Modal.Body>
-						<button type="button" onClick={() => this.handleRemoveModel(this.props.id)}>Remove Model</button>
+            {this.props.associations.filter((association) => {
+              return (association.Table1 === this.props.id || association.Table2 === this.props.id)
+            }).length ? 	<Button disabled type="button" onClick={() => this.handleRemoveModel(this.props.id)}>Remove Model</Button> : <Button type="button" onClick={() => this.handleRemoveModel(this.props.id)}>Remove Model</Button>
+            }
 						<FormGroup controlId="formHorizontalEmail">
 							<Col componentClass={ControlLabel} sm={2}>
 						Name
@@ -225,7 +234,7 @@ class PopUp extends React.Component {
 											this.handleChangeTableWrapper
 										}
                     handleRemoveLine = {
-                      this.props.handleRemoveLine
+                      this.handleRemoveLineWrapper
                     }
 										idx = {idx} />
 								)})
