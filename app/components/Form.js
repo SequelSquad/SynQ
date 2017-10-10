@@ -40,6 +40,7 @@ class PopUp extends React.Component {
 		this.addNewValidate = this.addNewValidate.bind(this)
 		this.onHandleColType = this.onHandleColType.bind(this)
 		this.onHandleValType = this.onHandleValType.bind(this)
+		this.handleDeleteValidation = this.handleDeleteValidation.bind(this)
   }
 
   handleRemoveLineWrapper(id){
@@ -212,6 +213,30 @@ class PopUp extends React.Component {
 		this.setState({dataValues: newValues})
 	}
 
+	handleDeleteValidation(colId, valId){
+		console.log('I WAS HERE')
+		const dataValues = this.state.dataValues.map((data, index) => {
+			if (colId === data.id){
+				const newValidate = []
+				const validates = data.validate.forEach((validation, index) => {
+					if (validation[0] !== valId){
+						newValidate.push(validation)
+					}
+				})
+				data.validate = newValidate
+				console.log('228', data)
+				return data
+			}
+			else{
+				console.log('231', data)
+				return data
+			}
+			return data
+		})
+		console.log('234 datavalues', dataValues)
+		this.setState({dataValues: dataValues})
+	}
+
 	handleRemoveModel(id){
 		this.props.removeModelWrapper(id)
 	}
@@ -259,7 +284,7 @@ class PopUp extends React.Component {
               </Col>
 						</Col>
 						<Col sm = {6}>
-              <ToggleCol dataValues={this.state.dataValues} onHandleCols={this.onHandleCols} onHandleColType={this.onHandleColType} addDataValue={this.addDataValue} handleValidate={this.onHandleValidate} handleDeleteColumn={this.handleDeleteColumn} addNewValidate={this.addNewValidate} onHandleValType={this.onHandleValType}/>
+              <ToggleCol dataValues={this.state.dataValues} onHandleCols={this.onHandleCols} onHandleColType={this.onHandleColType} addDataValue={this.addDataValue} handleValidate={this.onHandleValidate} handleDeleteColumn={this.handleDeleteColumn} addNewValidate={this.addNewValidate} onHandleValType={this.onHandleValType} handleDeleteValidation={this.handleDeleteValidation}/>
 							</Col>
 					</Modal.Body>
 					<Modal.Footer>

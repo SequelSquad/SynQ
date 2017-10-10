@@ -72,11 +72,11 @@ export default class Column extends React.Component {
 					{
 						this.props.validations.length ? this.props.validations.map((val) => {
 							console.log("COLUMN 75", val)
-							return <Properties id= {val[0]} columnId={this.state.id} handleValidate={this.props.handleValidate} onHandleValType={this.props.onHandleValType} values={val[1]} input={val[2]}/>
+							return <Properties id= {val[0]} columnId={this.state.id} handleValidate={this.props.handleValidate} onHandleValType={this.props.onHandleValType} values={val[1]} input={val[2]} handleDeleteValidation={this.props.handleDeleteValidation}/>
 						}) : <div></div>
 					}
 					{this.state.validations.length ? this.state.validations.map((val) => {
-						return <Properties id= {val.id} columnId={this.state.id} handleValidate={this.props.handleValidate} onHandleValType={this.props.onHandleValType}/>
+						return <Properties id= {val.id} columnId={this.state.id} handleValidate={this.props.handleValidate} onHandleValType={this.props.onHandleValType} handleDeleteValidation={this.props.handleDeleteValidation}/>
 					}) : <div></div>}
 					<Row>
 						<Col smOffset={8}>

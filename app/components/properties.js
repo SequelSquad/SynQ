@@ -22,6 +22,9 @@ export default class Column extends React.Component {
 						<Col componentClass={ControlLabel} smOffset={1} sm={6}>
 						New Validation
 						</Col>
+						<Col smOffset={3} sm={2}>
+							<Button className="delete-button" bsSize="small" onClick={() => this.props.handleDeleteValidation(this.props.columnId, this.props.id)}>X</Button>
+						</Col>
 						<Col smOffset={1}sm={11}>
 
 							<DropdownButton title={this.props.values ? this.props.values : "Choose Validation"} onSelect={this.props.onHandleValType(this.props.columnId, this.props.id)} defaultValue={this.state.validationType}>
