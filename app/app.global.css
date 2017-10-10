@@ -412,3 +412,8 @@ line {
   background-color: #8D0101;
   border-color: #6e8798;
 }
+
+.form-horizontal .control-label {
+  text-align: left;
+  padding-bottom: 2px;
+}

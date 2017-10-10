@@ -1,5 +1,5 @@
 import React from "react"
-import {Button} from "react-bootstrap"
+import {Button, Col} from "react-bootstrap"
 import Column from "./Column"
 import Properties from "./properties"
 
@@ -38,20 +38,16 @@ export default class ToggleCol extends React.Component {
 		//console.log("Selected Model", this.state.selectedModel)
 		return (
 			<div>
-				{/* {this.state.selectedModel.dataValues && this.state.selectedModel.dataValues.map((values, index) => {
-					return (<Column dataValue={values} id={index} onHandleCols={this.props.onHandleCols}/>
-					{values.validate.map((validation, index) => {
-						return <Properties dataValue={validation} id={index}/>})
-					})}
-					)} */}
-
 				{this.state.selectedModel.dataValues && this.state.selectedModel.dataValues.map((values, index) => <Column dataValue={values} id={index} onHandleCols={this.props.onHandleCols} handleValidate={this.props.handleValidate} validations={values.validate}/>)}
 
-
 				{this.state.columns.map((column, index) => <span key={index}><Column id={this.state.selectedModel.dataValues ?  this.state.selectedModel.dataValues.length + index : index} onHandleCols={this.props.onHandleCols} handleValidate={this.props.handleValidate}/>
-					<Button onClick={this.handleDelete}>Remove</Button></span>)}
-				<Button onClick={this.handleAdd}>Add Column</Button>
+					{/* <Button onClick={this.handleDelete}>X</Button> */}
+				</span>)}
+				<Col sm={10}>
+					<Button onClick={this.handleAdd}>Add Column</Button>
+				</Col>
 			</div>
+
 		)
 	}
 }

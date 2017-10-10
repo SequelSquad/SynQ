@@ -36,18 +36,19 @@ class Relationship extends React.Component {
 			<div>
 
 				<FormGroup>
-					<Col componentClass={ControlLabel} sm={2}>
+					<Col componentClass={ControlLabel} sm={6}>
 						New Relationship
 					</Col>
-					<Col smOffset={2} sm={10}>
+					<Col sm={12}>
 						<FormControl
 							type="text"
+							placeholder="Enter table name"
 							value={currentTable}
 						/>
 					</Col>
 				</FormGroup>
 				<FormGroup>
-					<Col smOffset={2} sm={10}>
+					<Col sm={10}>
 						<DropdownButton title = {this.props.relationship.Relationship} onSelect = {this.props.handleChangeRelationship(this.props.relationship.id)} name = "Relationship" >
 							<MenuItem eventKey="hasOne">hasOne</MenuItem>
 							<MenuItem eventKey="hasMany">hasMany</MenuItem>
@@ -57,7 +58,7 @@ class Relationship extends React.Component {
 					</Col>
 				</FormGroup>
 				<FormGroup>
-					<Col smOffset={2} sm={10}>
+					<Col sm={10}>
 						<DropdownButton title = {this.props.relationship.Table2 === "Table" ?  "Table" : this.props.models.filter((model) => {
 							return model.id === this.props.relationship.Table2
 						})[0].name}  onSelect = {this.props.handleChangeTable(this.props.relationship.id)}>
@@ -70,7 +71,7 @@ class Relationship extends React.Component {
 					</Col>
 				</FormGroup>
 				<FormGroup>
-					<Col smOffset={2} sm={10}>
+					<Col sm={10}>
 						<Button onClick = {() => {
 							this.props.handleRemoveLine(this.props.relationship.id)}}>X</Button>
 					</Col>

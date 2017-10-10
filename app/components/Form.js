@@ -163,41 +163,20 @@ class PopUp extends React.Component {
 		return (
 			<Modal className={`table-modal ${modalTheme}`} dialogClassName="custom-modal" show = {true} onHide = {() => {
 				this.props.handleRemoveModal()}} >
-				<Modal.Header closeButton>
+
+        <Modal.Header closeButton>
 					<Modal.Title>Create Model</Modal.Title>
 				</Modal.Header>
-				<Form horizontal>
-					<Modal.Body>
 
+        <Form horizontal>
+					<Modal.Body>
 						<FormGroup controlId="formHorizontalEmail">
-							<Col componentClass={ControlLabel} sm={2}>
-						Name
-							</Col>
-							<Col sm={10}>
+							<Col componentClass={ControlLabel} sm={4}>Name</Col>
+							<Col sm={12}>
 								<FormControl type="name" placeholder="Enter table name" name="name" value={this.state.name} onChange = {this.onHandleChange} required/>
 							</Col>
 						</FormGroup>
-						<Col sm = {5}>
-							{/* {this.props.associations.filter((association) => {
-								return (
-									association.Table1 === this.props.id
-								)
-							}).map((currAssoc, idx) => {
-								return(
-									<Relationship key = {idx} Table2 = {this.props.models.filter((model) => {
-										return(
-											model.id === currAssoc.Table2
-										)
-									})[0].name} Relationship = {currAssoc.Relationship}
-									handleChangeRelationship = {this.handleChangeRelationshipWrapper}
-									handleChangeTable = {
-										this.handleChangeTableWrapper
-									}
-									idx = {idx} />
-								)
-							})
-              } */}
-
+						<Col sm = {6}>
 							{this.state.relationships.filter((relationship) => {
                return relationship.Table1 === this.props.id
               }).
@@ -215,13 +194,12 @@ class PopUp extends React.Component {
 										idx = {idx} />
 								)})
 							}
-
-              <Button onClick={this.addRelationship}>Add Relationship
-				    </Button>
-
-
+              <Col sm={10}>
+                <Button onClick={this.addRelationship}>Add Relationship
+				        </Button>
+              </Col>
 						</Col>
-						<Col sm = {5}>
+						<Col sm = {6}>
               <ToggleCol selectedModel={selectedModel} onHandleCols={this.onHandleCols} addDataValue={this.addDataValue} handleValidate={this.onHandleValidate}/>
 						</Col>
 					</Modal.Body>

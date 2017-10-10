@@ -37,11 +37,11 @@ export default class Column extends React.Component {
 			<div>
 				<span>
 					<FormGroup>
-						<Col componentClass={ControlLabel} sm={2}>
-						New Column
+						<Col componentClass={ControlLabel} sm={6}>
+							New Column
 						</Col>
-						<Col sm={10}>
-							<h2>{this.state.id}</h2>
+						<Col sm={12}>
+							{/* <h2>{this.state.id}</h2> */}
 							<FormControl type="column" placeholder="Enter column name" name="name" defaultValue={this.state.name} onChange = {this.props.onHandleCols(this.state.id)} />
 							{/* <FormControl type="column" placeholder="Enter column type" name="type" defaultValue={this.state.type} onChange = {this.props.onHandleCols(this.state.id)} /> */}
 							<select onChange = {this.props.onHandleCols(this.state.id)} defaultValue={this.state.type} name="type">
@@ -79,7 +79,9 @@ export default class Column extends React.Component {
 					{this.state.validations.length && this.state.validations.map((val, index) => {
 						return <Properties id= {this.props.validations ?  this.props.validations.length + index : index} columnId={this.state.id} handleValidate={this.props.handleValidate}/>
 					})}
-					<Button onClick={this.addValidate}>Add Validation</Button>
+					<Col sm={10} smOffset={8}>
+						<Button onClick={this.addValidate}>Add Validation</Button>
+					</Col>
 				</span>
 			</div>
 		)

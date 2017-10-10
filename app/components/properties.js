@@ -21,11 +21,11 @@ export default class Column extends React.Component {
 			<div>
 				<span>
 					<FormGroup>
-						<Col componentClass={ControlLabel} sm={2}>
-						New Column
+						<Col componentClass={ControlLabel} sm={4} smOffset={1}>
+						New Validation
 						</Col>
-						<Col sm={10}>
-							<h2>{this.state.id}</h2>
+						<Col sm={11} smOffset={1}>
+							{/* <h2>{this.state.id}</h2> */}
 
 							{/* <FormControl type="column" placeholder="Enter column type" name="type" defaultValue={this.state.type} onChange = {this.props.onHandleCols(this.state.id)} /> */}
 							<select name="validateType" onChange={this.props.handleValidate(this.props.columnId, this.props.id)} defaultValue={this.state.validationType}>
@@ -62,10 +62,9 @@ export default class Column extends React.Component {
 								<option value="min">min</option>
 								<option value="isCreditCard">isCreditCard</option>
 							</select>
-							<FormControl type="text" placeholder="validation" name="validateValue" onChange={this.props.handleValidate(this.props.columnId, this.props.id)} defaultValue={this.state.validationValue}/>
+							<FormControl type="text" placeholder="Enter validation value" name="validateValue" onChange={this.props.handleValidate(this.props.columnId, this.props.id)} defaultValue={this.state.validationValue}/>
 						</Col>
 					</FormGroup>
-					)}
 				</span>
 			</div>
 		)
