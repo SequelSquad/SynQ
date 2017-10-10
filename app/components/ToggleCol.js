@@ -45,7 +45,7 @@ export default class ToggleCol extends React.Component {
 
 		return (
 			<div>
-				{this.props.dataValues && this.props.dataValues.map((values) => <div><Column dataValue={values} id={values.id} onHandleColType={this.props.onHandleColType} onHandleCols={this.props.onHandleCols} handleValidate={this.props.handleValidate} validations={values.validate} handleDelete={this.props.handleDeleteColumn} addNewValidate={this.props.addNewValidate} onHandleValType={this.props.onHandleValType}/>
+				{this.props.dataValues && this.props.dataValues.map((values) => <div><Column dataValue={values} id={values.id} onHandleColType={this.props.onHandleColType} onHandleCols={this.props.onHandleCols} handleValidate={this.props.handleValidate} validations={values.validate} handleDelete={this.props.handleDeleteColumn} addNewValidate={this.props.addNewValidate} onHandleValType={this.props.onHandleValType} handleDeleteValidation={this.props.handleDeleteValidation}/>
 				</div>)}
 				<Col smOffset={4}>
 					<Button className="add-button" onClick={this.handleAdd}>+ Add Column</Button>
