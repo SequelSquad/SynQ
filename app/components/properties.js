@@ -22,7 +22,7 @@ export default class Column extends React.Component {
 						<Col componentClass={ControlLabel} smOffset={1} sm={6}>
 						New Validation
 						</Col>
-						<Col smOffset={4} sm={2}>
+						<Col smOffset={3} sm={2}>
 							<Button className="delete-button" bsSize="small" onClick={() => this.props.handleDeleteValidation(this.props.columnId, this.props.id)}>X</Button>
 						</Col>
 						<Col smOffset={1}sm={11}>
