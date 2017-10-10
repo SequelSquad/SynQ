@@ -23,9 +23,7 @@ export default function models(state = modelsArr, action) {
 		return newArr.concat([model])
 	}
 	case REMOVE_MODEL: {
-		console.log("HEREEEE! 26")
 		const newArr = state.filter(model => parseInt(model.id) !== parseInt(action.modelID))
-		console.log("REDUCER", newArr)
 		return newArr
 	}
 	default:

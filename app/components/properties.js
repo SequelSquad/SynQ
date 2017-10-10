@@ -9,14 +9,12 @@ export default class Column extends React.Component {
 		this.state = {
 			validations: [],
 			id: this.props.id,
-			validationType: this.props.values ? this.props.values[0] : "",
-			validationValue: this.props.values ? this.props.values[1] : ""
+			validationType: this.props.values ? this.props.values[1] : "",
+			validationValue: this.props.values ? this.props.values[2] : ""
 		}
 	}
 
 	render() {
-		console.log("PROPERTIES PROPS", this.props)
-		console.log("PROPERTY STATE", this.state)
 		return (
 			<div>
 				<span>
@@ -25,9 +23,8 @@ export default class Column extends React.Component {
 						New Validation
 						</Col>
 						<Col smOffset={1}sm={11}>
-            	{/* <h2>{this.state.id}</h2> */}
-							{/* <FormControl type="column" placeholder="Enter column type" name="type" defaultValue={this.state.type} onChange = {this.props.onHandleCols(this.state.id)} /> */}
-							<DropdownButton title={this.state.validationType ? this.state.validationType : "Choose Validation"} onSelect={this.props.handleValidate(this.props.columnId, this.props.id)} defaultValue={this.state.validationType}>
+
+							<DropdownButton title={this.props.values ? this.props.values : "Choose Validation"} onSelect={this.props.onHandleValType(this.props.columnId, this.props.id)} defaultValue={this.state.validationType}>
 								<MenuItem eventKey="is">Property:</MenuItem>
 								<MenuItem eventKey="is">is</MenuItem>
 								<MenuItem eventKey="not">not</MenuItem>
@@ -61,7 +58,7 @@ export default class Column extends React.Component {
 								<MenuItem eventKey="min">min</MenuItem>
 								<MenuItem eventKey="isCreditCard">isCreditCard</MenuItem>
 							</DropdownButton>
-							<FormControl type="text" placeholder="Enter validation value" name="validateValue" onChange={this.props.handleValidate(this.props.columnId, this.props.id)} defaultValue={this.state.validationValue}/>
+							<FormControl type="text" placeholder="Enter validation value" name="validateValue" onChange={this.props.handleValidate(this.props.columnId, this.props.id)} defaultValue={this.props.input}/>
 						</Col>
 					</FormGroup>
 				</span>

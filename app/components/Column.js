@@ -13,22 +13,25 @@ export default class Column extends React.Component {
 		}
 		this.onHandleChange = this.onHandleChange.bind(this)
 		this.addValidate = this.addValidate.bind(this)
-		// this.handleSubmit = this.handleSubmit.bind(this)
 	}
 
 	onHandleChange(evt) {
-		//console.log("CHANGE", evt.target.value)
 		this.setState({[evt.target.name]: evt.target.value})
 	}
 
 	addValidate() {
+		const newId = this.createValID()
 		let newValidate = this.state.validations
-		//this.props.addDataValue()
-		newValidate.push("val")
+		this.props.addNewValidate(this.state.id, newId)
+		// newValidate.push({ id: newId})
 		this.setState({
 			validations: newValidate
 		})
-		//console.log("adding to the validation array")
+	}
+
+	createValID(){
+		const newValId = Date.parse(new Date)
+		return newValId
 	}
 
 	render() {
@@ -67,13 +70,13 @@ export default class Column extends React.Component {
 						</Col>
 					</FormGroup>
 					{
-						this.props.validations && this.props.validations.map((val, index) => {
+						this.props.validations && this.props.validations.length && this.props.validations.map((val) => {
 							console.log("COLUMN 75", val)
-							return <Properties id={index} columnId={this.state.id} handleValidate={this.props.handleValidate} values={val}/>
+							return <Properties id= {val[0]} columnId={this.state.id} handleValidate={this.props.handleValidate} onHandleValType={this.props.onHandleValType} values={val[1]} input={val[2]}/>
 						})
 					}
-					{this.state.validations.length ? this.state.validations.map((val, index) => {
-						return <Properties id={this.props.validations ?  this.props.validations.length + index : index} columnId={this.state.id} handleValidate={this.props.handleValidate}/>
+					{this.state.validations.length ? this.state.validations.map((val) => {
+						return <Properties id= {val.id} columnId={this.state.id} handleValidate={this.props.handleValidate} onHandleValType={this.props.onHandleValType}/>
 					}) : <div></div>}
 					<Row>
 						<Col smOffset={8}>
@@ -85,22 +88,3 @@ export default class Column extends React.Component {
 		)
 	}
 }
-
-// const mapStateToProps = (state) => {
-// 	return {
-// 		//id: state.currRect,
-// 		// dataValues: ownProps.dataValues,
-// 		// onHandleCols: ownProps.onHandleCols
-// 	}
-// }
-
-// const mapDispatchToProps = (dispatch) => {
-// 	return {
-// 		onSave(state) {
-// 			console.log("^^^^^^^^^^^^^^",state)
-// 			dispatch(addColumn(state))
-// 		}
-// 	}
-// }
-
-// export default connect(mapStateToProps, mapDispatchToProps)(Column)
