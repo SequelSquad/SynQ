@@ -35,7 +35,6 @@ export default class Column extends React.Component {
 	}
 
 	render() {
-		console.log("********* TYPE", this.props.dataValue)
 		return (
 			<div>
 				<span>
@@ -71,14 +70,14 @@ export default class Column extends React.Component {
 						</Col>
 					</FormGroup>
 					{
-						this.props.validations && this.props.validations.length && this.props.validations.map((val) => {
+						this.props.validations.length ? this.props.validations.map((val) => {
 							console.log("COLUMN 75", val)
 							return <Properties id= {val[0]} columnId={this.state.id} handleValidate={this.props.handleValidate} onHandleValType={this.props.onHandleValType} values={val[1]} input={val[2]} handleDeleteValidation={this.props.handleDeleteValidation}/>
-						})
+						}) : <div></div>
 					}
-					{this.state.validations.length && this.state.validations.map((val) => {
+					{this.state.validations.length ? this.state.validations.map((val) => {
 						return <Properties id= {val.id} columnId={this.state.id} handleValidate={this.props.handleValidate} onHandleValType={this.props.onHandleValType} handleDeleteValidation={this.props.handleDeleteValidation}/>
-					})}
+					}) : <div></div>}
 					<Row>
 						<Col smOffset={8}>
 							<Button onClick={this.addValidate}>+ Add Validation</Button>

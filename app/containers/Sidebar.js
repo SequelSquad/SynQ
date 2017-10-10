@@ -4,7 +4,7 @@ import {connect} from "react-redux"
 import Rectangle from "../components/Rectangle"
 import Generator from "../../background/Generator"
 import { setPath, selectLine } from "../actions"
-import { Button, FormGroup, FormControl, Col, ControlLabel, Popover, Checkbox, OverlayTrigger } from "react-bootstrap"
+import { Button, Tooltip, Popover, ButtonToolbar, FormGroup, FormControl, Col, Row, ControlLabel, Checkbox, OverlayTrigger } from "react-bootstrap"
 const remote = require("electron").remote
 const app = remote.app
 
@@ -18,7 +18,6 @@ class Sidebar extends Component {
 		}
 		this.handleChange = this.handleChange.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
-		this.handleSetPath = this.handleSetPath.bind(this)
 	}
 
 	handleChange(e){
@@ -28,16 +27,17 @@ class Sidebar extends Component {
 
 	handleSubmit(event) {
 		event.preventDefault()
+		this.props.handleSetPath(this.state.path)
 		Generator(this.props.store)
 	}
-
-	handleSetPath(){
-		this.props.handleSetPath(this.state.path)
-	}
-
 	render() {
 		const theme = this.props.theme
 		let menuTheme = `sidebar-menu-${theme}`
+		const popoverTop = (
+			<Popover id="popover-positioned-top" title="Instructions">
+				Drag a square from the sidebar to the canvas to create your first model! Clicking on the model will give you the ability to fill out your model. Type in your File Path to generate the appropriate Sequelize files.
+			</Popover>
+		)
 		return (
 			<div className={`sidebar-menu ${menuTheme}`}>
 				<FormGroup controlId="formHorizontalEmail">
@@ -45,15 +45,20 @@ class Sidebar extends Component {
 						<b>File Path: </b>
 					</Col>
 					<br />
-					<input type="text" name="path" placeholder="documents/myproject/db" onChange={this.handleChange}/>
+					<FormControl type="text" name="path" placeholder="documents/myproject/db" onChange={this.handleChange}/>
 				</FormGroup>
-				<Button type="button" onClick={this.handleSetPath}>Set Path</Button>
-				<Button type="submit" onClick={this.handleSubmit}>Create Database</Button>
+				<Button type="submit" onClick={this.handleSubmit}>Create Files</Button>
 				<ul className = "nav sidebar-nav">
 					<li>
 						<Rectangle />
 					</li>
 				</ul>
+
+				<ButtonToolbar className="instructions">
+					<OverlayTrigger placement="top" overlay={popoverTop}>
+						<Button bsStyle="default">Help?</Button>
+					</OverlayTrigger>
+				</ButtonToolbar>
 			</div>
 		)
 	}
