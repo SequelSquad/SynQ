@@ -1,5 +1,5 @@
 import React from "react"
-import {Form, FormGroup, Col, FormControl, Button, Checkbox, ControlLabel, Modal, DropdownButton, MenuItem} from "react-bootstrap"
+import {Form, FormGroup, Col, Row, FormControl, Button, Checkbox, ControlLabel, Modal, DropdownButton, MenuItem} from "react-bootstrap"
 import {connect} from "react-redux"
 import {removeModal} from "../actions/modalAction"
 import {setModel, removeModel, removeRec} from "../actions"
@@ -18,8 +18,8 @@ class PopUp extends React.Component {
 			relationships: this.props.associations,
 			id: this.props.id,
       name: this.props.model ? this.props.model.name : "",
-      dataValues: this.props.model.dataValues ? this.props.model.dataValues :[],
-      showError: false
+      dataValues: this.props.model.dataValues ? this.props.model.dataValues : [],
+      showError: false,
 		}
 		this.onHandleChange = this.onHandleChange.bind(this)
 		this.onHandleCols = this.onHandleCols.bind(this)
@@ -38,6 +38,8 @@ class PopUp extends React.Component {
     this.handleRemoveModel = this.handleRemoveModel.bind(this)
 		this.handleRemoveLineWrapper = this.handleRemoveLineWrapper.bind(this)
 		this.addNewValidate = this.addNewValidate.bind(this)
+		this.onHandleColType = this.onHandleColType.bind(this)
+		this.onHandleValType = this.onHandleValType.bind(this)
   }
 
   handleRemoveLineWrapper(id){
@@ -97,14 +99,28 @@ class PopUp extends React.Component {
 	};
 
 	onHandleCols = jdx => evt => {
+    console.log("ONHANGLECOLS HERE", evt.target)
     const dataValues = this.state.dataValues.map((dataVal, idx) => {
-			//console.log("I'm here", dataVal)
       if(jdx === dataVal.id){
         return {...this.state.dataValues[idx], [evt.target.name] : evt.target.value}
       } else {
 				return dataVal}
 		})
     this.setState({dataValues: dataValues})
+  }
+
+  onHandleColType = jdx => evt => {
+    console.log("JDX", jdx)
+    const dataValues = this.state.dataValues.map((dataVal, idx) => {
+			console.log("dataIDX", dataVal.id)
+      if(jdx === dataVal.id){
+        return {...this.state.dataValues[idx], ["type"] : evt}
+      } else {
+				return dataVal}
+    })
+    console.log("DATAVALS BEFORE SET STATE", this.state)
+    this.setState({dataValues: dataValues})
+    console.log("DATAVALS STATE", this.state.dataValues)
 	}
 
 	addNewValidate(columnId, validateId){
@@ -124,10 +140,8 @@ class PopUp extends React.Component {
       if(columnIndex === dataVal.id){
 				const validations = dataVal.validate.map( validation => {
 					if (validation[0] === propertyIndex){
-						if(evt.target.name === 'validateType'){
-							validation[1] = evt.target.value
-						}
 						if(evt.target.name === 'validateValue'){
+							console.log('144' ,evt.target.value)
 							validation[2] = evt.target.value
 						}
 					}
@@ -139,7 +153,24 @@ class PopUp extends React.Component {
 				return dataVal}
 		})
     this.setState({dataValues: dataValues})
-  }
+	}
+
+	onHandleValType = (columnIndex, propertyIndex) => evt => {
+    const dataValues = this.state.dataValues.map((dataVal, idx) => {
+      if(columnIndex === dataVal.id){
+        const validations = dataVal.validate.map( validation => {
+					if (validation[0] === propertyIndex){
+						validation[1] = evt
+					}
+					return validation
+				})
+				dataVal.validate = validations
+				return dataVal
+      } else {
+				return dataVal}
+		})
+    this.setState({dataValues: dataValues})
+	}
 
 	onHandleSubmit(){
     this.props.handleSubmit(this.state, this.props.key)
@@ -199,39 +230,13 @@ class PopUp extends React.Component {
 				</Modal.Header>
 				<Form horizontal>
 					<Modal.Body>
-            {this.props.associations.filter((association) => {
-              return (association.Table1 === this.props.id || association.Table2 === this.props.id)
-            }).length ? 	<Button disabled type="button" onClick={() => this.handleRemoveModel(this.props.id)}>Remove Model</Button> : <Button type="button" onClick={() => this.handleRemoveModel(this.props.id)}>Remove Model</Button>
-            }
 						<FormGroup controlId="formHorizontalEmail">
-							<Col componentClass={ControlLabel} sm={2}>
-						Name
-							</Col>
-							<Col sm={10}>
+							<Col componentClass={ControlLabel} sm={6}>Name</Col>
+							<Col sm={12}>
 								<FormControl type="name" placeholder="Enter table name" name="name" value={this.state.name} onChange = {this.onHandleChange} required/>
 							</Col>
 						</FormGroup>
-						<Col sm = {5}>
-							{/* {this.props.associations.filter((association) => {
-								return (
-									association.Table1 === this.props.id
-								)
-							}).map((currAssoc, idx) => {
-								return(
-									<Relationship key = {idx} Table2 = {this.props.models.filter((model) => {
-										return(
-											model.id === currAssoc.Table2
-										)
-									})[0].name} Relationship = {currAssoc.Relationship}
-									handleChangeRelationship = {this.handleChangeRelationshipWrapper}
-									handleChangeTable = {
-										this.handleChangeTableWrapper
-									}
-									idx = {idx} />
-								)
-							})
-              } */}
-
+						<Col sm = {6}>
 							{this.state.relationships.filter((relationship) => {
                return relationship.Table1 === this.props.id
               }).
@@ -249,26 +254,26 @@ class PopUp extends React.Component {
 										idx = {idx} />
 								)})
 							}
-
-              <Button onClick={this.addRelationship}>Add Relationship
-				    </Button>
-
-
+              <Col smOffset={3}>
+                <Button className="add-button" onClick={this.addRelationship}>+ Add Relationship</Button>
+              </Col>
 						</Col>
-						<Col sm = {5}>
-              <ToggleCol selectedModel={selectedModel} onHandleCols={this.onHandleCols} addDataValue={this.addDataValue} handleValidate={this.onHandleValidate} handleDeleteColumn={this.handleDeleteColumn} addNewValidate={this.addNewValidate}/>
-						</Col>
+						<Col sm = {6}>
+              <ToggleCol dataValues={this.state.dataValues} onHandleCols={this.onHandleCols} onHandleColType={this.onHandleColType} addDataValue={this.addDataValue} handleValidate={this.onHandleValidate} handleDeleteColumn={this.handleDeleteColumn} addNewValidate={this.addNewValidate} onHandleValType={this.onHandleValType}/>
+							</Col>
 					</Modal.Body>
 					<Modal.Footer>
-						<FormGroup>
-							<Col smOffset={2} sm={10}>
-              {this.state.showError ? <InputError onHandleSubmit={this.onHandleSubmit} closeError={this.closeError}/> : <div></div>}
-								<Button type="submit" onClick={() =>
-                  this.checkNameInput()}>
-							Save
-								</Button>
-							</Col>
-						</FormGroup>
+                  {this.props.associations.filter((association) => {
+                    return (association.Table1 === this.props.id || association.Table2 === this.props.id)
+                  }).length ? <span><Button disabled type="button" onClick={() => this.handleRemoveModel(this.props.id)}>Delete</Button><Button className="save-button" type="submit" onClick={() =>
+                      this.checkNameInput()}>
+                  Save
+                    </Button></span> : <span><Button className="save-button" type="button" onClick={() => this.handleRemoveModel(this.props.id)}>Delete</Button><Button className="save-button" type="submit" onClick={() =>
+                      this.checkNameInput()}>
+                  Save
+                    </Button></span>
+                  }
+                  {this.state.showError ? <InputError onHandleSubmit={this.onHandleSubmit} closeError={this.closeError}/> : <div></div>}
 					</Modal.Footer>
 				</Form>
 			</Modal>

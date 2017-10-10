@@ -1,5 +1,5 @@
 import React from "react"
-import {Button} from "react-bootstrap"
+import {Button, Col} from "react-bootstrap"
 import Column from "./Column"
 import Properties from "./properties"
 
@@ -8,7 +8,8 @@ export default class ToggleCol extends React.Component {
 		super(props)
 		this.state = {
 			columns: [],
-			selectedModel: this.props.selectedModel,
+			// selectedModel: this.props.selectedModel,
+			// columnID: 0
 		}
 
 		// This binding is necessary to make `this` work in the callback
@@ -40,27 +41,17 @@ export default class ToggleCol extends React.Component {
 	}
 
 	render() {
-		//console.log("Selected Model", this.state.selectedModel)
+		console.log("datavalues", this.props.dataValues)
 
 		return (
 			<div>
-				{/* {this.state.selectedModel.dataValues && this.state.selectedModel.dataValues.map((values, index) => {
-					return (<Column dataValue={values} id={index} onHandleCols={this.props.onHandleCols}/>
-					{values.validate.map((validation, index) => {
-						return <Properties dataValue={validation} id={index}/>})
-					})}
-					)} */}
-
-				{this.state.selectedModel.dataValues && this.state.selectedModel.dataValues.map((values) => <div><Column dataValue={values} id={values.id} onHandleCols={this.props.onHandleCols} handleValidate={this.props.handleValidate} validations={values.validate} addNewValidate={this.props.addNewValidate}/>
-					<Button onClick={() => this.handleDelete(values.id)}>Remove</Button></div>)}
-
-
-				{this.state.columns.map((column) => {
-					return <span key={column.id}><Column id={column.id} onHandleCols={this.props.onHandleCols} handleValidate={this.props.handleValidate} addNewValidate={this.props.addNewValidate}/>
-						<Button onClick={() => this.handleDelete(column.id)}>Remove</Button></span>})
-				}
-				<Button onClick={this.handleAdd}>Add Column</Button>
+				{this.props.dataValues && this.props.dataValues.map((values) => <div><Column dataValue={values} id={values.id} onHandleColType={this.props.onHandleColType} onHandleCols={this.props.onHandleCols} handleValidate={this.props.handleValidate} validations={values.validate} handleDelete={this.props.handleDeleteColumn} addNewValidate={this.props.addNewValidate} onHandleValType={this.props.onHandleValType}/>
+				</div>)}
+				<Col smOffset={4}>
+					<Button className="add-button" onClick={this.handleAdd}>+ Add Column</Button>
+				</Col>
 			</div>
+
 		)
 	}
 }
