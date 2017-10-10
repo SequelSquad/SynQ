@@ -18,6 +18,7 @@ const height = Math.max(document.documentElement.clientHeight, window.innerHeigh
 
 const canvasTarget = {
 	drop(props, monitor, component) {
+		console.log("monitorID", monitor.getItem().id)
 		// You can disallow drop based on props or item
 		if (!monitor.getItem().id && monitor.getItem().id !== 0) {
 			props.allProps.handleAddModel({id: props.allProps.model.length + 1, top: monitor.getSourceClientOffset().y - 60, left: monitor.getSourceClientOffset().x - (window.innerWidth/4)})
