@@ -1,5 +1,5 @@
 import React from "react"
-import {Form, FormGroup, Col, FormControl, Button, Checkbox, DropdownButton, ControlLabel, MenuItem, Modal} from "react-bootstrap"
+import {Form, FormGroup, Col, Row, FormControl, Button, Checkbox, DropdownButton, ControlLabel, MenuItem, Modal} from "react-bootstrap"
 import Properties from "./properties"
 
 export default class Column extends React.Component {
@@ -32,42 +32,39 @@ export default class Column extends React.Component {
 	}
 
 	render() {
-		console.log("********* column state ID", this.props.id)
+		console.log("********* TYPE", this.props.dataValue)
 		return (
 			<div>
 				<span>
 					<FormGroup>
-						<Col componentClass={ControlLabel} sm={2}>
-						New Column
+						<Col componentClass={ControlLabel} sm={6}>New Column</Col>
+						<Col smOffset={4} sm={2}>
+							<Button className="delete-button" bsSize="small" onClick={() => this.props.handleDelete(this.state.id)}>X</Button>
 						</Col>
-						<Col sm={10}>
-							<h2>{this.state.id}</h2>
+						<Col sm={12}>
+							{/* <h2>{this.state.id}</h2> */}
 							<FormControl type="column" placeholder="Enter column name" name="name" defaultValue={this.state.name} onChange = {this.props.onHandleCols(this.state.id)} />
-							{/* <FormControl type="column" placeholder="Enter column type" name="type" defaultValue={this.state.type} onChange = {this.props.onHandleCols(this.state.id)} /> */}
-							<select onChange = {this.props.onHandleCols(this.state.id)} defaultValue={this.state.type} name="type">
-								<option value="Choose Type">Choose Type</option>
-								<option value="STRING">STRING</option>
-								<option value="TEXT">TEXT</option>
-								<option value="INTEGER">INTEGER</option>
-								<option value="INTEGER">INTEGER</option>
-								<option value="REAL">REAL</option>
-								<option value="DOUBLE">DOUBLE</option>
-								<option value="DECIMAL">DECIMAL</option>
-								<option value="DATE">DATE</option>
-								<option value="BOOLEAN">BOOLEAN</option>
-								<option value="JSON">JSON</option>
-								<option value="BLOB">BLOB</option>
-								<option value="FLOAT">FLOAT</option>
-								<option value="RANGE">RANGE</option>
-								<option value="ARRAY">ARRAY</option>
-								<option value="GEOMETRY">GEOMETRY</option>
-							</select>
-							{/* <DropdownButton title = {this.state.type} onSelect = {this.props.onHandleCols(this.state.id)} name = "Relationship" >
+						</Col>
+					</FormGroup>
+					<FormGroup>
+						<Col sm={10}>
+							<DropdownButton title={this.props.dataValue ? this.props.dataValue === "" ? "Choose Type" : this.props.dataValue.type : "Choose Type"} onSelect = {this.props.onHandleColType(this.props.id)} name="type">
 								<MenuItem eventKey="STRING">STRING</MenuItem>
 								<MenuItem eventKey="TEXT">TEXT</MenuItem>
 								<MenuItem eventKey="INTEGER">INTEGER</MenuItem>
 								<MenuItem eventKey="INTEGER">INTEGER</MenuItem>
-							</DropdownButton> */}
+								<MenuItem eventKey="REAL">REAL</MenuItem>
+								<MenuItem eventKey="DOUBLE">DOUBLE</MenuItem>
+								<MenuItem eventKey="DECIMAL">DECIMAL</MenuItem>
+								<MenuItem eventKey="DATE">DATE</MenuItem>
+								<MenuItem eventKey="BOOLEAN">BOOLEAN</MenuItem>
+								<MenuItem eventKey="JSON">JSON</MenuItem>
+								<MenuItem eventKey="BLOB">BLOB</MenuItem>
+								<MenuItem eventKey="FLOAT">FLOAT</MenuItem>
+								<MenuItem eventKey="RANGE">RANGE</MenuItem>
+								<MenuItem eventKey="ARRAY">ARRAY</MenuItem>
+								<MenuItem eventKey="GEOMETRY">GEOMETRY</MenuItem>
+							</DropdownButton>
 						</Col>
 					</FormGroup>
 					{
@@ -79,7 +76,11 @@ export default class Column extends React.Component {
 					{this.state.validations.length && this.state.validations.map((val, index) => {
 						return <Properties id= {this.props.validations ?  this.props.validations.length + index : index} columnId={this.state.id} handleValidate={this.props.handleValidate}/>
 					})}
-					<Button onClick={this.addValidate}>Add Validation</Button>
+					<Row>
+						<Col smOffset={8}>
+							<Button onClick={this.addValidate}>+ Add Validation</Button>
+						</Col>
+					</Row>
 				</span>
 			</div>
 		)
