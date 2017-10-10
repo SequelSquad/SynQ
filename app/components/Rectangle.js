@@ -66,8 +66,10 @@ class Rectangle extends Component {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		handleClick (modalType, id) {
-			dispatch(setModal(modalType))
-			dispatch(setCurrRect(id))
+			if(id){
+				dispatch(setModal(modalType))
+				dispatch(setCurrRect(id))
+			}
 		}
 	}
 }
