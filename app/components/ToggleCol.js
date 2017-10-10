@@ -40,10 +40,10 @@ export default class ToggleCol extends React.Component {
 			<div>
 				{this.state.selectedModel.dataValues && this.state.selectedModel.dataValues.map((values, index) => <Column dataValue={values} id={index} onHandleCols={this.props.onHandleCols} handleValidate={this.props.handleValidate} validations={values.validate}/>)}
 
-				{this.state.columns.map((column, index) => <span key={index}><Column id={this.state.selectedModel.dataValues ?  this.state.selectedModel.dataValues.length + index : index} onHandleCols={this.props.onHandleCols} handleValidate={this.props.handleValidate}/>
+				{this.state.columns.map((column, index) => <span key={index}><Column id={this.state.selectedModel.dataValues ?  this.state.selectedModel.dataValues.length + index : index} onHandleCols={this.props.onHandleCols} handleValidate={this.props.handleValidate} handleDelete={this.handleDelete}/>
 					{/* <Button onClick={this.handleDelete}>X</Button> */}
 				</span>)}
-				<Col sm={10}>
+				<Col sm={10} smOffset={3}>
 					<Button onClick={this.handleAdd}>Add Column</Button>
 				</Col>
 			</div>

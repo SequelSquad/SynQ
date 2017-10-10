@@ -194,7 +194,7 @@ class PopUp extends React.Component {
 										idx = {idx} />
 								)})
 							}
-              <Col sm={10}>
+              <Col sm={10} smOffset={3}>
                 <Button onClick={this.addRelationship}>Add Relationship
 				        </Button>
               </Col>

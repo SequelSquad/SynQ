@@ -1,5 +1,5 @@
 import React from "react"
-import {Form, FormGroup, Col, FormControl, Button, Checkbox, ControlLabel, Modal, DropdownButton, MenuItem} from "react-bootstrap"
+import {Form, FormGroup, Col, Row, FormControl, Button, Checkbox, ControlLabel, Modal, DropdownButton, MenuItem} from "react-bootstrap"
 import {connect} from "react-redux"
 import {removeModal} from "../actions/modalAction"
 import {setModel} from "../actions"
@@ -36,9 +36,14 @@ class Relationship extends React.Component {
 			<div>
 
 				<FormGroup>
-					<Col componentClass={ControlLabel} sm={6}>
+					<Row>
+						<Col componentClass={ControlLabel} sm={6}>
 						New Relationship
-					</Col>
+						</Col>
+						<Col componentClass={ControlLabel} smOffset={4} sm={2}>
+							<Button bsSize="xsmall">x</Button>
+						</Col>
+					</Row>
 					<Col sm={12}>
 						<FormControl
 							type="text"
