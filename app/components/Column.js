@@ -32,7 +32,6 @@ export default class Column extends React.Component {
 	}
 
 	render() {
-		console.log("********* TYPE", this.props.dataValue)
 		return (
 			<div>
 				<span>
@@ -70,12 +69,12 @@ export default class Column extends React.Component {
 					{
 						this.props.validations && this.props.validations.map((val, index) => {
 							console.log("COLUMN 75", val)
-							return <Properties id= {index} columnId={this.state.id} handleValidate={this.props.handleValidate} values={val}/>
+							return <Properties id={index} columnId={this.state.id} handleValidate={this.props.handleValidate} values={val}/>
 						})
 					}
-					{this.state.validations.length && this.state.validations.map((val, index) => {
-						return <Properties id= {this.props.validations ?  this.props.validations.length + index : index} columnId={this.state.id} handleValidate={this.props.handleValidate}/>
-					})}
+					{this.state.validations.length ? this.state.validations.map((val, index) => {
+						return <Properties id={this.props.validations ?  this.props.validations.length + index : index} columnId={this.state.id} handleValidate={this.props.handleValidate}/>
+					}) : <div></div>}
 					<Row>
 						<Col smOffset={8}>
 							<Button onClick={this.addValidate}>+ Add Validation</Button>
