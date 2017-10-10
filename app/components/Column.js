@@ -70,10 +70,10 @@ export default class Column extends React.Component {
 						</Col>
 					</FormGroup>
 					{
-						this.props.validations && this.props.validations.length && this.props.validations.map((val) => {
+						this.props.validations.length ? this.props.validations.map((val) => {
 							console.log("COLUMN 75", val)
 							return <Properties id= {val[0]} columnId={this.state.id} handleValidate={this.props.handleValidate} onHandleValType={this.props.onHandleValType} values={val[1]} input={val[2]}/>
-						})
+						}) : <div></div>
 					}
 					{this.state.validations.length ? this.state.validations.map((val) => {
 						return <Properties id= {val.id} columnId={this.state.id} handleValidate={this.props.handleValidate} onHandleValType={this.props.onHandleValType}/>

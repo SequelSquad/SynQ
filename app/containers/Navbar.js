@@ -31,7 +31,7 @@ class Navbar extends Component {
 					</div>
 
 					<div className='nav-theme dropdown'>
-						<button className={`dropbtn btn-theme btn-default ${btnTheme}`}>Themes
+						<button className={`dropbtn btn-theme btn-default ${btnTheme}`}>Pick a Theme
 							<i className="fa fa-caret-down"></i>
 						</button>
 						<div className='dropdown-content'>
