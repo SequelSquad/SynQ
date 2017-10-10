@@ -412,3 +412,24 @@ line {
   background-color: #8D0101;
   border-color: #6e8798;
 }
+
+.form-horizontal .control-label {
+  text-align: left;
+  padding-bottom: 2px;
+}
+
+.delete-button {
+  border: none;
+  color:#000000;
+  text-shadow: 0px 1px 0 #FFFFFF;
+  opacity: 0.2;
+}
+
+.add-button, .save-button {
+  margin-top:25px;
+  margin-bottom:25px;
+}
+
+.modal-footer .btn+.btn {
+  margin-bottom:25px;
+}
