@@ -1,30 +1,31 @@
-# SequelSquad
-Capstone
-## NORMS
-### Communication
-- Be open and honest, don't feel bad about criticizing. No safe words needed
+# SynQ
 
-### Group Work
-- Rotational pair programming (every day or half day)
-- If you work outside of class time, make sure to communicate so to the team, including the specific files
-- If you want to continue after pair programming, notify your pair
-- Working on weekends will be probably be required
+## Download
 
-### Asking for help
-- 15 to 20 min -> ask instructor/fellow/help ticket for help
+## Using SynQ
 
-### Issues and Progress Management
-#### StandUp
-- Prioritize for the day
-- review work done
-- stick to the issues system on github
-- Manage pull requests
+## Team
 
-### GitHub and Merge Conflict
-- Work on branches at all time
-- Before making a pull request, merge with latest master on your computer
-- Submit pull request and ask teammate to review and approve
+SynQ was built as a capstone project at [FullStack Academy](https://www.fullstackacademy.com/), over a period of 2 weeks.
 
-### Code Syntax
-- Linter: ES Lint from Doris
-- Semi-colon: no
+Watch our presentation on Youtube - coming soon!
+
+Doris Cheng
+* [LinkedIn](https://www.linkedin.com/in/dorcheng/)
+* [Github] (https://github.com/dorcheng)
+* Website
+
+Peter Kang
+* [LinkedIn](https://www.linkedin.com/in/peter-kang-28a17091/)
+* [Github](https://github.com/Sunjin-Kang)
+* Website
+
+David Ko
+* [LinkedIn](https://www.linkedin.com/in/david-ko-93286bb9/)
+* [Github] (https://github.com/daveyko)
+* Website
+
+Elisabeth Seite
+* [LinkedIn](https://www.linkedin.com/in/eseite/)
+* [Github](https://github.com/eseite47)
+* [Website](https://eseite47.github.io/)
