@@ -30,11 +30,11 @@ h1 {
   font-size: 410%;
 }
 h2 {
-  margin: 0;
-  font-size: 2.25rem;
+  margin: 15px;
+  font-size: 1.5rem;
   font-weight: bold;
   letter-spacing: -0.025em;
-  color: #fff;
+  color: #292833;
 }
 
 p {
@@ -77,7 +77,8 @@ nav p {
   position: relative;
   font-size: 14px;
   height: 100vh;
-  font-family: 'Raleway', sans-serif;
+  /* font-family: 'Raleway', sans-serif; */
+  font-family: 'Quicksand', sans-serif;
   overflow-y: hidden;
   margin: 0;
   border: 0;
@@ -199,6 +200,7 @@ nav p {
   border-color: #6e8798;
   border-radius: 0px;
   border: none;
+  font-size: 14px;
 }
 
 
@@ -411,4 +413,32 @@ line {
   color: #FFFFFF;
   background-color: #8D0101;
   border-color: #6e8798;
+}
+
+.form-horizontal .control-label {
+  text-align: left;
+  padding-bottom: 2px;
+}
+
+.delete-button {
+  border: none;
+  color:#000000;
+  text-shadow: 0px 1px 0 #FFFFFF;
+  opacity: 0.2;
+}
+
+.add-button, .save-button {
+  margin-top:25px;
+  margin-bottom:25px;
+}
+
+.modal-footer .btn+.btn {
+  margin-bottom:25px;
+}
+
+.instructions {
+  position: absolute;
+  margin-left:32vh;
+  margin-top: 78vh;
+  font-weight: bold;
 }

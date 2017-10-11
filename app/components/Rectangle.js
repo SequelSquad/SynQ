@@ -50,7 +50,7 @@ class Rectangle extends Component {
 		return connectDragSource(
 			<div className={`table ${tableTheme}`} onClick={ () => {
 				this.props.handleClick("POP_UP", this.props.id)}} id={this.props.id} style = {{top:`${this.props.top}`, left:`${this.props.left}`, position:"absolute"}}>
-				<h2>{model ? model.name ? model.name : "unnamed model" : "drag new model"}</h2>
+				<h2>{model ? model.name ? model.name : "UNDEFINED" : "DRAG NEW MODEL"}</h2>
 				<ul>
 					{model ? model.dataValues ?
 						model.dataValues.map(column => {
@@ -66,8 +66,10 @@ class Rectangle extends Component {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		handleClick (modalType, id) {
-			dispatch(setModal(modalType))
-			dispatch(setCurrRect(id))
+			if(id){
+				dispatch(setModal(modalType))
+				dispatch(setCurrRect(id))
+			}
 		}
 	}
 }

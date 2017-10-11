@@ -48,7 +48,7 @@ functions.exportModels = (modelArr) => {
 //functions.indexSetup = ()
 
 functions.columnArrays = (model) => {
-	let columnArrStr = `let ${model.name}Promises = []\n`
+	let columnArrStr = `\nlet ${model.name}Promises = []\n`
 	model.dataValues.forEach((value) => {
 		columnArrStr += `let ${value.name} = []`
 	})
@@ -121,7 +121,7 @@ functions.setupSeed = (state) => {
 		setupStr += `\nconst ${model.name} = db.model(${model.name})`
 	})
 
-	setupStr += "\n const Chance = require(chance) \n const chance = new Chance()\n const chalk = require(chalk)"
+	setupStr += "\nconst Chance = require(chance) \nconst chance = new Chance()\nconst chalk = require(chalk)"
 
 	return setupStr
 }
