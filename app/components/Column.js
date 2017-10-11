@@ -38,6 +38,7 @@ export default class Column extends React.Component {
 		return (
 			<div>
 				<span>
+					<div>{this.state.id}</div>
 					<FormGroup>
 						<Col componentClass={ControlLabel} sm={6}>New Column</Col>
 						<Col smOffset={4} sm={2}>
@@ -77,7 +78,7 @@ export default class Column extends React.Component {
 						}) : <div></div>
 					}
 					{this.state.validations.length ? this.state.validations.map((val) => {
-						return <Properties id= {val.id} columnId={this.state.id} handleValidate={this.props.handleValidate} onHandleValType={this.props.onHandleValType} handleDeleteValidation={this.props.handleDeleteValidation}/>
+						return <Properties key={val.id} id= {val.id} columnId={this.state.id} handleValidate={this.props.handleValidate} onHandleValType={this.props.onHandleValType} handleDeleteValidation={this.props.handleDeleteValidation}/>
 					}) : <div></div>}
 					<Row>
 						<Col smOffset={8}>
