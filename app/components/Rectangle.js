@@ -6,6 +6,7 @@ import Type from "./Type"
 import Form from "./Form"
 import {connect} from "react-redux"
 import {setModal, setCurrRect} from "../actions"
+import TreeView from "react-treeview"
 
 const rectangleSource = {
 
@@ -43,16 +44,20 @@ class Rectangle extends Component {
 		const theme = this.props.theme
 		let tableTheme = `table-${theme}`
 		return connectDragSource(
-			<div className={`table ${tableTheme}`} onClick={ () => {
-				this.props.handleClick("POP_UP", this.props.id)}} id={this.props.id} style = {{top:`${this.props.top}`, left:`${this.props.left}`, position:"absolute"}}>
-				<h2>{model ? model.name ? model.name : "UNDEFINED" : "DRAG NEW MODEL"}</h2>
-				<ul>
+			<div className={`table ${tableTheme}`}  id={this.props.id} style = {{top:`${this.props.top}`, left:`${this.props.left}`, position:"absolute"}}>
+				<div id = "edit" onClick={ () => {
+					this.props.handleClick("POP_UP", this.props.id)}}>EDIT</div>
+				<TreeView key = {1} nodeLabel = {<span className = "node">{model ? model.name ? model.name : "UNDEFINED" : "DRAG NEW MODEL"}</span>} defaultCollapsed = {false}>
 					{model ? model.dataValues ?
 						model.dataValues.map(column => {
-							return <li>{column.name}</li>
+							return (
+								<TreeView nodeLabel = {<span className = "node">{column.name}</span>} defaultCollapsed = {false}>
+									<div className = "info">type: {column.type}</div>
+								</TreeView>
+							)
 						}) : <div></div> : <div></div>
 					}
-				</ul>
+				</TreeView>
 			</div>
 		)
 	}

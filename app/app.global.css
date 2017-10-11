@@ -149,12 +149,18 @@ nav p {
 /* div#rect{
   background-color: black;
 } */
+#edit {
+  text-align: center;
+  color: #319cb9;
+  font-weight: bold;
+}
+
 
 .table {
   border: 1px solid #3b4752;
-  width: 120px;
-  height: 120px;
-  text-align: center;
+  width: 135px;
+  height: 135px;
+  text-align: left;
   border-radius: 10px;
   background-color: #ADA1BB;
   color: black;
@@ -162,6 +168,7 @@ nav p {
   position: relative;
   box-shadow: 0 8px 6px -5px #615475;
   margin-top: 40px;
+  overflow: scroll;
 }
 
 
