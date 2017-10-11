@@ -32,14 +32,6 @@ const modelCreator = (state) => {
 			//Store the boolean strings
 			let booleanArr= []
 
-			//if it has boolean elements
-			if (data.boolean){
-				data.boolean.forEach( bool => {
-					let val = functions.boolean(bool[1], bool[2])
-					booleanArr.push(val)
-				})
-			}
-
 			//if it has validation elements
 			if (data.validate){
 				let validateArr = []
@@ -58,16 +50,20 @@ const modelCreator = (state) => {
 
 			//Store the type string
 			const type = functions.type(data.type)
+			let defaultValue = ""
+			if(data.defaultValue){
+				defaultValue = functions.defaultValues(data.defaultValue)
+			}
+
 
 			//Join everything together!
 			const booleanStr = booleanArr.join("")
 			let parameters = ""
-			console.log("GENERATOR60", validateStr)
 			if (validateStr !== " "){
-				parameters = type.concat(booleanStr, validateStr)
+				parameters = type.concat(defaultValue, booleanStr, validateStr)
 			}
 			else {
-				parameters = type.concat(booleanStr)
+				parameters = type.concat(defaultValue, booleanStr)
 			}
 
 			//create the column string
@@ -101,12 +97,11 @@ const modelCreator = (state) => {
 }
 
 const indexCreator = (state) => {
-	console.log("state at index creator", state)
-	if (state.lines.length){
-		let assoArr = []
-		let modelsArr = []
-		let tablesArr = []
+	let assoArr = []
+	let modelsArr = []
+	let tablesArr = []
 
+	if(state.lines.length){
 		state.lines.forEach(line => {
 			let source = ""
 			let target = ""
@@ -120,36 +115,36 @@ const indexCreator = (state) => {
 					target = model.name
 				}
 			})
-			console.log("source", source, "target", target)
 			let str = functions.associations(source, target, "belongsTo")
 			assoArr.push(str)
 		})
-
-		state.models.map(model => {
-			modelsArr.push(model.name)
-		})
-
-		modelsArr.forEach(model => {
-			let modelRequire = functions.requireModel(model)
-			tablesArr.push(modelRequire)
-		})
-		console.log("modelsArr ", modelsArr)
-		let exportString = functions.exportModels(modelsArr)
-
-		let modelsRequireStatement = tablesArr.join("")
-		let fileContent = assoArr.join("")
-		let finalFile = modelsRequireStatement.concat(fileContent, exportString)
-
-		fs.writeFile(state.path + "/index.js", finalFile, (err) => {
-			if (err) {
-				console.log("Where's the input?")
-			}
-			else {
-				console.log("wrote file")
-			}
-		})
 	}
+
+	state.models.map(model => {
+		modelsArr.push(model.name)
+	})
+
+	modelsArr.forEach(model => {
+		let modelRequire = functions.requireModel(model)
+		tablesArr.push(modelRequire)
+	})
+
+	let exportString = functions.exportModels(modelsArr)
+
+	let modelsRequireStatement = tablesArr.join("")
+	let fileContent = assoArr.join("")
+	let finalFile = modelsRequireStatement.concat(fileContent, exportString)
+
+	fs.writeFile(state.path + "/index.js", finalFile, (err) => {
+		if (err) {
+			console.log("Where's the input?")
+		}
+		else {
+			console.log("wrote file")
+		}
+	})
 }
+
 
 
 const seedCreator = (state) => {

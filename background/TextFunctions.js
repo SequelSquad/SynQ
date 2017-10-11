@@ -19,6 +19,10 @@ functions.column = (ColumnName, ColumnProperties) => {
 functions.type = (type) =>{
 	return `\t\ttype: Sequelize.${type},`
 }
+
+functions.defaultValues = (values) =>{
+	return `\n\t\tdefaultValues: ${values},`
+}
 //Column properties: Boolean value property (etc allowNull, isEmail, isURL)
 functions.boolean = (property, bool) => {
 	return `\n\t\t${property}: ${bool},`

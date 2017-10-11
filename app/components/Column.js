@@ -9,7 +9,8 @@ export default class Column extends React.Component {
 			validations: [],
 			id: this.props.id,
 			name: this.props.dataValue ? this.props.dataValue.name : "",
-			type: this.props.dataValue ? this.props.dataValue.type : "Choose type"
+			type: this.props.dataValue ? this.props.dataValue.type : "Choose type",
+			defaultValue: this.props.dataValue ? this.props.dataValue.defaultValue : ""
 		}
 		this.onHandleChange = this.onHandleChange.bind(this)
 		this.addValidate = this.addValidate.bind(this)
@@ -44,6 +45,9 @@ export default class Column extends React.Component {
 						</Col>
 						<Col sm={12}>
 							<FormControl type="column" placeholder="Enter column name" name="name" defaultValue={this.state.name} onChange = {this.props.onHandleCols(this.state.id)} />
+						</Col>
+						<Col sm={12}>
+							<FormControl type="defaultValue" placeholder="Enter default Values" name="defaultValue" defaultValue={this.state.defaultValue} onChange = {this.props.onHandleCols(this.state.id)} />
 						</Col>
 					</FormGroup>
 					<FormGroup>
