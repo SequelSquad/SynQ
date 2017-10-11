@@ -231,7 +231,7 @@ class PopUp extends React.Component {
     const theme = this.props.theme
     let modalTheme = `table-modal-${theme}`
     let selectedModel = this.props.models.filter(model => model.id === this.state.id)[0]
-
+		console.log('FORM STATE ',this.state)
 		return (
 			<Modal className={`table-modal ${modalTheme}`} dialogClassName="custom-modal" show = {true} onHide = {() => {
 				this.props.handleRemoveModal(this.state.id)}} >
