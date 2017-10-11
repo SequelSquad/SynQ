@@ -29,7 +29,6 @@ class Sidebar extends Component {
 		event.preventDefault()
 		this.props.handleSetPath(this.state.path)
 			.then(() => {
-				console.log("INSIDE!")
 				Generator(this.props.store)
 			})
 	}

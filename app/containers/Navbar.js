@@ -13,7 +13,6 @@ class Navbar extends Component {
 	}
 
 	handleTheme(theme) {
-		console.log("CLICKED THEME CHANGER: DARK IS NOW ", this.props.theme)
 		this.props.handleTheme(theme)
 	}
 

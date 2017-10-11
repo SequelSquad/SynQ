@@ -69,7 +69,6 @@ export default class Column extends React.Component {
 					</FormGroup>
 					{
 						this.props.validations.length ? this.props.validations.map((val) => {
-							console.log("COLUMN 75", val)
 							return <Properties id= {val[0]} columnId={this.state.id} handleValidate={this.props.handleValidate} onHandleValType={this.props.onHandleValType} values={val[1]} input={val[2]} handleDeleteValidation={this.props.handleDeleteValidation}/>
 						}) : <div></div>
 					}
