@@ -222,7 +222,6 @@ class Home extends Component {
 	}
 
 	render() {
-		console.log("WIDTH", window.innerWidth, "HEIGHT", window.innerHeight, "SCREEN", document.width)
 		const newBox = this.renderBox()
 		const newLines = this.renderLines()
   	// These props are injected by React DnD,

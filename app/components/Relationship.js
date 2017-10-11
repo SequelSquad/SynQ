@@ -27,7 +27,6 @@ class Relationship extends React.Component {
 
 	render() {
 
-		console.log("RELATIONSHIP", this.props.relationship)
 
 		let currentTable = this.props.models.filter((model) => {
 			return model.id === this.props.id
