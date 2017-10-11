@@ -25,7 +25,7 @@ functions.boolean = (property, bool) => {
 }
 //Column properties: VALIDATE
 functions.validate = (validationStr) =>{
-	return `\n\t\tvalidate: {\t${validationStr}}`
+	return `\n\t\tvalidate: {\t${validationStr}\n\t}\n`
 }
 
 functions.associations = (source, target, association) => {

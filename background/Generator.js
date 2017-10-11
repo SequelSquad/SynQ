@@ -47,16 +47,28 @@ const modelCreator = (state) => {
 					let val = functions.boolean(validation[1], validation[2])
 					validateArr.push(val)
 				})
-				let validateJoin = validateArr.join()
-				validateStr = functions.validate(validateJoin)
+				let validateJoin = validateArr.join("")
+				if(validateJoin === ""){
+					validateStr = " "
+				}
+				else {
+					validateStr = functions.validate(validateJoin)
+				}
 			}
 
 			//Store the type string
 			const type = functions.type(data.type)
 
 			//Join everything together!
-			const booleanStr = booleanArr.join()
-			const parameters = type.concat(booleanStr, validateStr)
+			const booleanStr = booleanArr.join("")
+			let parameters = ""
+			console.log("GENERATOR60", validateStr)
+			if (validateStr !== " "){
+				parameters = type.concat(booleanStr, validateStr)
+			}
+			else {
+				parameters = type.concat(booleanStr)
+			}
 
 			//create the column string
 			const column = functions.column(data.name,parameters)
