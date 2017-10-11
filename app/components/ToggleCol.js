@@ -26,11 +26,9 @@ export default class ToggleCol extends React.Component {
 		this.setState({
 			columns: newColumns,
 		})
-		console.log("******************* datavalue added", newId)
 	}
 
 	handleDelete(id) {
-		console.log("TOTALLY RESETTING THE STATE")
 		this.props.handleDeleteColumn(id)
 		this.setState({})
 	}
@@ -41,7 +39,6 @@ export default class ToggleCol extends React.Component {
 	}
 
 	render() {
-		console.log("datavalues", this.props.dataValues)
 
 		return (
 			<div>

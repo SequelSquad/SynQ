@@ -13,23 +13,23 @@ functions.table = (TableName, TableProperties) => {
 }
 //create column
 functions.column = (ColumnName, ColumnProperties) => {
-	console.log("creating column")
 	return `\n\t${ColumnName}:{\n${ColumnProperties}}`
 }
 //column properties: Sequelize.TYPE
 functions.type = (type) =>{
-	console.log("creating type")
 	return `\t\ttype: Sequelize.${type},`
+}
+
+functions.defaultValues = (values) =>{
+	return `\n\t\tdefaultValues: ${values},`
 }
 //Column properties: Boolean value property (etc allowNull, isEmail, isURL)
 functions.boolean = (property, bool) => {
-	console.log("creating allowNull")
 	return `\n\t\t${property}: ${bool},`
 }
 //Column properties: VALIDATE
 functions.validate = (validationStr) =>{
-	console.log("Creating validation")
-	return `\n\t\tvalidate: {\t${validationStr}}`
+	return `\n\t\tvalidate: {\t${validationStr}\n\t}\n`
 }
 
 functions.associations = (source, target, association) => {
@@ -45,12 +45,11 @@ functions.exportModels = (modelArr) => {
 	let modelList = modelArr.join(", \n")
 	return `\nmodule.export = {\n${modelList}\n}`
 }
-//functions.indexSetup = ()
 
 functions.columnArrays = (model) => {
 	let columnArrStr = `\nlet ${model.name}Promises = []\n`
 	model.dataValues.forEach((value) => {
-		columnArrStr += `let ${value.name} = []`
+		columnArrStr += `let ${value.name} = []\n`
 	})
 	return columnArrStr
 }

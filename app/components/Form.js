@@ -85,11 +85,9 @@ class PopUp extends React.Component {
 	}
 
 	addDataValue(id){
-		//console.log('WHAT IS WRONG', this.state.dataValues)
 		this.setState({
       dataValues: [...this.state.dataValues, {id: id, name: '', type:"", validate: []}]
 		})
-		console.log('WHAT IS WRONG', this.state.dataValues)
 	};
 
 	onHandleChange(evt){
@@ -99,7 +97,6 @@ class PopUp extends React.Component {
 	};
 
 	onHandleCols = jdx => evt => {
-    console.log("ONHANGLECOLS HERE", evt.target)
     const dataValues = this.state.dataValues.map((dataVal, idx) => {
       if(jdx === dataVal.id){
         return {...this.state.dataValues[idx], [evt.target.name] : evt.target.value}
@@ -110,22 +107,17 @@ class PopUp extends React.Component {
   }
 
   onHandleColType = jdx => evt => {
-    console.log("JDX", jdx)
     const dataValues = this.state.dataValues.map((dataVal, idx) => {
-			console.log("dataIDX", dataVal.id)
       if(jdx === dataVal.id){
         return {...this.state.dataValues[idx], ["type"] : evt}
       } else {
 				return dataVal}
     })
-    console.log("DATAVALS BEFORE SET STATE", this.state)
     this.setState({dataValues: dataValues})
-    console.log("DATAVALS STATE", this.state.dataValues)
 	}
 
 	addNewValidate(columnId, validateId){
 		const dataValues = this.state.dataValues.map((dataVal, idx) => {
-			//console.log("I'm here", dataVal)
       if(columnId === dataVal.id){
 				this.state.dataValues[idx].validate.push([validateId])
 				return this.state.dataValues[idx]
@@ -141,7 +133,6 @@ class PopUp extends React.Component {
 				const validations = dataVal.validate.map( validation => {
 					if (validation[0] === propertyIndex){
 						if(evt.target.name === 'validateValue'){
-							console.log('144' ,evt.target.value)
 							validation[2] = evt.target.value
 						}
 					}
@@ -213,7 +204,6 @@ class PopUp extends React.Component {
 	}
 
 	handleDeleteValidation(colId, valId){
-		console.log('I WAS HERE')
 		const dataValues = this.state.dataValues.map((data, index) => {
 			if (colId === data.id){
 				const newValidate = []
@@ -223,16 +213,13 @@ class PopUp extends React.Component {
 					}
 				})
 				data.validate = newValidate
-				console.log('228', data)
 				return data
 			}
 			else{
-				console.log('231', data)
 				return data
 			}
 			return data
 		})
-		console.log('234 datavalues', dataValues)
 		this.setState({dataValues: dataValues})
 	}
 
@@ -244,7 +231,6 @@ class PopUp extends React.Component {
     const theme = this.props.theme
     let modalTheme = `table-modal-${theme}`
     let selectedModel = this.props.models.filter(model => model.id === this.state.id)[0]
-		console.log('FORM STATE', this.state)
 
 		return (
 			<Modal className={`table-modal ${modalTheme}`} dialogClassName="custom-modal" show = {true} onHide = {() => {

@@ -8,23 +8,19 @@ import {connect} from "react-redux"
 import {setModal, setCurrRect} from "../actions"
 import TreeView from "react-treeview"
 
-
 const rectangleSource = {
 
 	beginDrag(props, monitor, component) {
-		// Return the data describing the dragged item
 		return {id: props.id}
 	},
 
 	isDragging(props, monitor){
-
 	},
 
 	endDrag(props,monitor,component){
 		return {component}
 	}
 }
-
 
 const collect = (connect, monitor) => {
 	return {
@@ -37,7 +33,6 @@ class Rectangle extends Component {
 	constructor (props){
 		super(props)
 	}
-
 
 	render(){
 		let id = this.props.id
@@ -78,8 +73,6 @@ const mapDispatchToProps = (dispatch) => {
 		}
 	}
 }
-
-
 
 const rectangleWrapper = connect(state => state, mapDispatchToProps)(Rectangle)
 export default DragSource(Type.RECTANGLE, rectangleSource, collect)(rectangleWrapper)
