@@ -23,7 +23,6 @@ export default class Column extends React.Component {
 		const newId = this.createValID()
 		let newValidate = this.state.validations
 		this.props.addNewValidate(this.state.id, newId)
-		// newValidate.push({ id: newId})
 		this.setState({
 			validations: newValidate
 		})
@@ -44,7 +43,6 @@ export default class Column extends React.Component {
 							<Button className="delete-button" bsSize="small" onClick={() => this.props.handleDelete(this.state.id)}>X</Button>
 						</Col>
 						<Col sm={12}>
-							{/* <h2>{this.state.id}</h2> */}
 							<FormControl type="column" placeholder="Enter column name" name="name" defaultValue={this.state.name} onChange = {this.props.onHandleCols(this.state.id)} />
 						</Col>
 					</FormGroup>

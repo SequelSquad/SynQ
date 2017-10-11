@@ -50,7 +50,7 @@ functions.exportModels = (modelArr) => {
 functions.columnArrays = (model) => {
 	let columnArrStr = `\nlet ${model.name}Promises = []\n`
 	model.dataValues.forEach((value) => {
-		columnArrStr += `let ${value.name} = []`
+		columnArrStr += `let ${value.name} = []\n`
 	})
 	return columnArrStr
 }

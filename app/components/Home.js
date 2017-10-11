@@ -14,15 +14,20 @@ import Generator from "../../background/Generator"
 const width = Math.max(document.documentElement.clientWidth, window.innderWidth || 0)
 const height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
 
-// const { w, h } = electron.screen.getPrimaryDisplay().workAreaSize
+function createModelID(){
+	const newModelId = Date.parse(new Date)
+	return newModelId
+}
 
 const canvasTarget = {
+
 	drop(props, monitor, component) {
+		const modelId = createModelID()
 		console.log("monitorID", monitor.getItem().id)
 		// You can disallow drop based on props or item
 		if (!monitor.getItem().id && monitor.getItem().id !== 0) {
-			props.allProps.handleAddModel({id: props.allProps.model.length + 1, top: monitor.getSourceClientOffset().y - 60, left: monitor.getSourceClientOffset().x - (window.innerWidth/4)})
-			props.allProps.handleAddTable({id: props.allProps.model.length + 1})
+			props.allProps.handleAddModel({id: modelId, top: monitor.getSourceClientOffset().y - 60, left: monitor.getSourceClientOffset().x - (window.innerWidth/4)})
+			props.allProps.handleAddTable({id: modelId})
 		} else {
 			props.allProps.handleMovePosition({id: monitor.getItem().id, top: monitor.getSourceClientOffset().y - 60, left: monitor.getSourceClientOffset().x - (window.innerWidth/4)})
 		}
@@ -34,10 +39,7 @@ const canvasTarget = {
  */
 function collect(connect, monitor) {
 	return {
-		// Call this function inside render()
-		// to let React DnD handle the drag events:
 		connectDropTarget: connect.dropTarget(),
-		// You can ask the monitor about the current drag state:
 		isOver: monitor.isOver(),
 		isOverCurrent: monitor.isOver({ shallow: true }),
 		canDrop: monitor.canDrop(),
@@ -45,7 +47,6 @@ function collect(connect, monitor) {
 		onDrop: canvasTarget.drop
 	}
 }
-
 
 class Home extends Component {
 	constructor(props) {
@@ -55,92 +56,18 @@ class Home extends Component {
 			left: "0"
 		}
 		this.movePosition = this.movePosition.bind(this)
-		// this.state = {
-		// 	path: "./db2",
-		// 	models: [{
-		// 		name: "Puppies",
-		// 		dataValue:[
-		// 			{
-		// 				name: "breed",
-		// 				properties: {
-		// 					type: "STRING",
-		// 					boolean: [
-		// 						["allowNull", false],
-		// 						["isEmail", false]
-		// 					]
-		// 				}
-		// 			},
-		// 			{
-		// 				name: "breeders",
-		// 				properties: {
-		// 					type: "STRING",
-		// 					boolean: [
-		// 						["allowNull", false],
-		// 						["isEmail", false]
-		// 					],
-		// 					validate: [
-		// 						["is", "[\"^[a-z]+$\"]"]
-		// 					]
-		// 				}
-		// 			}
-		// 		]
-		// 	},
-		// 	{
-		// 		name: "breeders",
-		// 		dataValue:[
-		// 			{
-		// 				name: "breed",
-		// 				properties: {
-		// 					type: "STRING",
-		// 					boolean: [
-		// 						["allowNull", false],
-		// 						["isEmail", false]
-		// 					]
-		// 				}
-		// 			},
-		// 			{
-		// 				name: "breeders",
-		// 				properties: {
-		// 					type: "STRING",
-		// 					boolean: [
-		// 						["allowNull", false],
-		// 						["isEmail", false]
-		// 					],
-		// 					validate: [
-		// 						["is", "[\"^[a-z]+$\"]"]
-		// 					]
-		// 				}
-		// 			}
-		// 		]
-		// 	}
-		// 	],
-		// 	associations: [
-		// 		{
-		// 			source: "player",
-		// 			target: "team",
-		// 			relationship: "belongsTo",
-		// 		}, {
-		// 			source: "player2",
-		// 			target: "team2",
-		// 			relationship: "belongsTo"
-		// 		}]
-		// }
-		this.handleChange = this.handleChange.bind(this)
+		//this.handleChange = this.handleChange.bind(this)
 		this.renderBox = this.renderBox.bind(this)
-		// this.handleSubmit = this.handleSubmit.bind(this)
 	}
 
 	movePosition(x, y){
 		this.setState({top: x, left: y})
 	}
 
-	handleChange(event) {
-		//this.setState({ [event.target.name]: event.target.value })
-	}
-
 	renderBox(){
 		if (this.props.allProps.model.length){
 			return this.props.allProps.model.map((model) => {
+				console.log("HOME", model.id)
 				return (
 					<Rectangle key={model.id} id={model.id} top={model.top} left={model.left} />
 				)
@@ -174,19 +101,14 @@ class Home extends Component {
 						sourceYArr.push(line.Table1)
 					}})
 
-
-
-
 				let y1test = this.props.allProps.model.filter((model) => {
 					return model.id === parseInt(line.Table1)
 				})[0].top + ((sourceYArr.filter((table) => table === line.Table1).length + (relationshipHash[line.Table1] ? relationshipHash[line.Table1].length - 1 : 0))
 								*20)
 
-
 				let y1reg = this.props.allProps.model.filter((model) => {
 					return model.id === parseInt(line.Table1)
 				})[0].top
-
 
 				let y2test = this.props.allProps.model.filter((model) => {
 					return model.id === parseInt(line.Table2)
@@ -224,9 +146,6 @@ class Home extends Component {
 	render() {
 		const newBox = this.renderBox()
 		const newLines = this.renderLines()
-  	// These props are injected by React DnD,
-		// as defined by your `collect` function above:
-		// const {testProp} = this.props
 		const { isOver, canDrop, connectDropTarget } = this.props
 		return connectDropTarget(
 
@@ -235,12 +154,10 @@ class Home extends Component {
 				<svg height="1440" width="100%">
 					{newLines}
 				</svg>
-
 			</div>
 
 		)
 	}
 }
-
 
 export default DropTarget(Type.RECTANGLE, canvasTarget, collect)(Home)

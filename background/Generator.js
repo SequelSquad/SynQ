@@ -20,10 +20,6 @@ export default (state) => {
 }
 
 const modelCreator = (state) => {
-	// if (err) {
-	//   console.log("failed to create dir", err)
-
-	// } else {
 	state.models.forEach(model => {
 		//initiates array of columns to join at the end
 		let columnArr = []
@@ -48,7 +44,7 @@ const modelCreator = (state) => {
 			if (data.validate){
 				let validateArr = []
 				data.validate.forEach( validation => {
-					let val = functions.boolean(validation[0], validation[1])
+					let val = functions.boolean(validation[1], validation[2])
 					validateArr.push(val)
 				})
 				let validateJoin = validateArr.join()
@@ -103,16 +99,12 @@ const indexCreator = (state) => {
 			let source = ""
 			let target = ""
 			state.models.forEach(model => {
-				//console.log("SOURCE lineID", line.Table1, "modelId", model.id)
 				if(line.Table1 === model.id){
-					//console.log("WHAT I AM PUSHING SOURCE", model.name)
 					source = model.name
 				}
 			})
 			state.models.forEach(model => {
-				//console.log("TARGET lineID", line.Table2, "modelId", model.id)
 				if(line.Table2 === model.id){
-					//console.log("WHAT I AM PUSHING TARGET", model.name)
 					target = model.name
 				}
 			})
