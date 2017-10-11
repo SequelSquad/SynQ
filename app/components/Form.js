@@ -49,14 +49,13 @@ class PopUp extends React.Component {
 	addRelationship(evt){
 		evt.preventDefault()
 		this.setState({
-			relationships: [...this.state.relationships, {id: this.state.relationships.length + 1, Table1: this.props.id, Table2: "Table", Relationship: "Relationship"}]
+			relationships: [...this.state.relationships, {id: Date.parse(new Date), Table1: this.props.id, Table2: "Table", Relationship: "Relationship"}]
 		})
 	}
 
 	handleChangeRelationshipWrapper(jdx){
 		const thisVar = this
 		return function (evt) {
-      console.log("state", thisVar.state.relationships, "evt", evt)
 			const relationships = thisVar.state.relationships.map((relationship) => {
 				if (jdx === relationship.id){
 					return Object.assign({}, relationship, {Relationship: evt})

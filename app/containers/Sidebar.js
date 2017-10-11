@@ -19,6 +19,7 @@ class Sidebar extends Component {
 		this.handleChange = this.handleChange.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
 		this.handleSetPath = this.handleSetPath.bind(this)
+
 	}
 
 	handleChange(e){
@@ -35,7 +36,10 @@ class Sidebar extends Component {
 		this.props.handleSetPath(this.state.path)
 	}
 
+
+
 	render() {
+
 		const theme = this.props.theme
 		let menuTheme = `sidebar-menu-${theme}`
 		return (
@@ -63,7 +67,8 @@ const mapStateToProps = (state) => {
 	return {
 		models: state.models,
 		store: state,
-		theme: state.theme
+		theme: state.theme,
+		associations: state.lines
 	}
 }
 

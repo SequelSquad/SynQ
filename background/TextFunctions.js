@@ -47,4 +47,82 @@ functions.exportModels = (modelArr) => {
 }
 //functions.indexSetup = ()
 
+functions.columnArrays = (model) => {
+	let columnArrStr = `let ${model.name}Promises = []\n`
+	model.dataValues.forEach((value) => {
+		columnArrStr += `let ${value.name} = []`
+	})
+	return columnArrStr
+}
+
+functions.seedColumns = (model) => {
+	let columnSeedLoopStr = "for (var i = 0; i < 50; i++) {"
+	model.dataValues.forEach((value) => {
+		if (value.type === "STRING" ||
+				value.type === "TEXT"){
+			columnSeedLoopStr += `\n\t${value.name}.push(chance.string())`
+		}
+		else if (value.type === "INTEGER" ||
+				value.type === "REAL" ||
+				value.type === "DOUBLE" ||
+				value.type === "DECIMAL" ||
+				value.type === "FLOAT"){
+			columnSeedLoopStr += `\n\t${value.name}.push(chance.integer())`
+		}
+		else if (value.type === "BOOLEAN"){
+			columnSeedLoopStr += `\n\t${value.name}.push(chance.bool())`
+		}
+		else if (value.type === "DATE"){
+			columnSeedLoopStr += `\n\t${value.name}.push(chance.date())`
+		}
+		else{
+			columnSeedLoopStr += `\n\t${value.name}.push(chance.string())`
+		}
+	})
+	columnSeedLoopStr += "\n}"
+	return columnSeedLoopStr
+}
+
+functions.createModelPromises = (model) => {
+	let promisesStr =
+				`\n${model.dataValues[0].name}.map((val, idx) => {\n\t${model.name}Promises.push(${model.name}.create({`
+	model.dataValues.forEach((value) => {
+		promisesStr += `\n\t ${value.name}: ${value.name}[idx],`
+	})
+	promisesStr += "\n\t}))\n})"
+	return promisesStr
+}
+
+functions.resolvePromises = (modelsArr, state) => {
+	let modelsNameArr = modelsArr.map((id) => {
+		return state.models.filter((model) => model.id === id)[0].name
+	})
+
+	let resolvePromisesStr = ""
+
+	modelsNameArr.forEach((model) => {
+		if (resolvePromisesStr !== ""){
+			resolvePromisesStr += `\nPromise.all(${model}Promises))\n\t.then(() => `
+		}
+		else {
+			resolvePromisesStr += `\nPromise.all(${model}Promises)\n\t.then(() => `
+		}
+	})
+
+	resolvePromisesStr += "{\n\t process.exit(0)\n})"
+
+	return resolvePromisesStr
+}
+
+functions.setupSeed = (state) => {
+	let setupStr = "const db = require('../db')"
+
+	state.models.forEach(model => {
+		setupStr += `\nconst ${model.name} = db.model(${model.name})`
+	})
+
+	setupStr += "\n const Chance = require(chance) \n const chance = new Chance()\n const chalk = require(chalk)"
+
+	return setupStr
+}
 export default functions

@@ -9,11 +9,13 @@ export default (state) => {
 		fs.mkdir(gState.path, () => {
 			modelCreator(gState)
 			indexCreator(gState)
+			seedCreator(gState)
 		})
 	}
 	else {
 		modelCreator(gState)
 		indexCreator(gState)
+		seedCreator(gState)
 	}
 }
 
@@ -37,7 +39,7 @@ const modelCreator = (state) => {
 			//if it has boolean elements
 			if (data.boolean){
 				data.boolean.forEach( bool => {
-					let val = functions.boolean(bool[0], bool[1])
+					let val = functions.boolean(bool[1], bool[2])
 					booleanArr.push(val)
 				})
 			}
@@ -143,4 +145,69 @@ const indexCreator = (state) => {
 			}
 		})
 	}
+}
+
+
+const seedCreator = (state) => {
+	const generateOrder = (state) => {
+		let result = []
+
+		const reorder = (arr, b, a) => {
+			let indexA = arr.indexOf(a)
+			let indexB = arr.indexOf(b)
+			let temp = arr[indexB]
+			arr.splice(indexB, 1)
+			arr.splice(indexA, 0, temp)
+		}
+
+		state.models.forEach((model) => {
+			result.push(model.id)
+		})
+
+		let associations = state.lines
+
+		associations.forEach((association) => {
+			switch (association.Relationship) {
+			case "hasOne": {
+				if (result.indexOf(association.Table1) > result.indexOf(association.Table2)) {
+					reorder(result, association.Table1, association.Table2)
+				}
+				break
+			}
+			case "hasMany": {
+				if (result.indexOf(association.Table1) > result.indexOf(association.Table2)) {
+					reorder(result, association.Table1, association.Table2)
+				}
+				break
+			}
+			case "belongsTo": {
+				if (result.indexOf(association.Table1) < result.indexOf(association.Table2)) {
+					reorder(result, association.Table1, association.Table2)
+				}
+				break
+			}
+			case "belongsToMany":
+			}
+
+		})
+
+		return result
+	}
+	let seedFileStr = functions.setupSeed(state)
+	state.models.forEach((model) => {
+		seedFileStr += functions.columnArrays(model) + "\n" + functions.seedColumns(model) + "\n" + functions.createModelPromises(model)
+	})
+
+	seedFileStr += functions.resolvePromises(generateOrder(state), state)
+
+
+	fs.writeFile(state.path + "/seed.js", seedFileStr, (err) => {
+		if (err) {
+			console.log("Where's the input?")
+		}
+		else {
+			console.log("wrote file")
+		}
+	})
+
 }
