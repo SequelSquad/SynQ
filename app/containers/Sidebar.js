@@ -28,7 +28,10 @@ class Sidebar extends Component {
 	handleSubmit(event) {
 		event.preventDefault()
 		this.props.handleSetPath(this.state.path)
-		Generator(this.props.store)
+			.then(() => {
+				console.log("INSIDE!")
+				Generator(this.props.store)
+			})
 	}
 
 	render() {
@@ -78,7 +81,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		handleSetPath: (path) => {
-			return dispatch(setPath(path))
+			return Promise.resolve(dispatch(setPath(path)))
 		},
 		handleFilter(relationships){
 			dispatch(selectLine(relationships))
