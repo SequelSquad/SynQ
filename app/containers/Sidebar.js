@@ -28,9 +28,14 @@ class Sidebar extends Component {
 	handleSubmit(event) {
 		event.preventDefault()
 		this.props.handleSetPath(this.state.path)
-		Generator(this.props.store)
+			.then(() => {
+				console.log("INSIDE!")
+				Generator(this.props.store)
+			})
 	}
+
 	render() {
+
 		const theme = this.props.theme
 		let menuTheme = `sidebar-menu-${theme}`
 		const popoverTop = (
@@ -68,14 +73,15 @@ const mapStateToProps = (state) => {
 	return {
 		models: state.models,
 		store: state,
-		theme: state.theme
+		theme: state.theme,
+		associations: state.lines
 	}
 }
 
 const mapDispatchToProps = (dispatch) => {
 	return {
 		handleSetPath: (path) => {
-			return dispatch(setPath(path))
+			return Promise.resolve(dispatch(setPath(path)))
 		},
 		handleFilter(relationships){
 			dispatch(selectLine(relationships))
@@ -84,3 +90,5 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Sidebar)
+
+
