@@ -115,7 +115,7 @@ const indexCreator = (state) => {
 					target = model.name
 				}
 			})
-			let str = functions.associations(source, target, "belongsTo")
+			let str = functions.associations(source, target, line.Relationship)
 			assoArr.push(str)
 		})
 	}

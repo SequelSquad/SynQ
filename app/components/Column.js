@@ -38,7 +38,6 @@ export default class Column extends React.Component {
 		return (
 			<div>
 				<span>
-					<div>{this.state.id}</div>
 					<FormGroup>
 						<Col componentClass={ControlLabel} sm={6}>New Column</Col>
 						<Col smOffset={4} sm={2}>

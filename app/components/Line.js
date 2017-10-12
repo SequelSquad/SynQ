@@ -20,11 +20,11 @@ export default class Line extends Component {
 		if(x1 - x2 < 0){
 			return(
 				<g>
-					<text x = {x1+125} y = {y1+50} fill = "white" textAnchor = "middle">
+					<text x = {x1+145} y = {y1+50} fill = "white" textAnchor = "middle">
 						<tspan fontSize = "10">{this.props.relationship.Relationship}</tspan>
 					</text>
-					<path className = "line" ref = "markerEndNode" d = {`M${x1+100},${y1 + 55} L${x1 + 130}, ${y1 + 55}`} stroke = "green" strokeWidth = "5"/>
-					<path className = "line" id = "main" ref = "markerEndNode" d = {`M${x1+131},${y1 + 55} L${x2 - 45}, ${y2+55}`} stroke = "green" />
+					<path className = "line" ref = "markerEndNode" d = {`M${x1+120},${y1 + 55} L${x1 + 150}, ${y1 + 55}`} stroke = "green" strokeWidth = "5"/>
+					<path className = "line" id = "main" ref = "markerEndNode" d = {`M${x1+151},${y1 + 55} L${x2 - 45}, ${y2+55}`} stroke = "green" />
 					<path className = "line" ref = "markerEndNode" d = {`M${x2 - 44},${y2 + 55} L${x2 - 15}, ${y2+55}`} stroke = "green" strokeWidth = "5" />
 				</g>
 			)
@@ -35,9 +35,9 @@ export default class Line extends Component {
 					<text x = {x1-50} y = {y1+50} fill = "white" textAnchor = "middle">
 						<tspan fontSize = "10">{this.props.relationship.Relationship}</tspan>
 					</text>
-					<path className = "line" ref = "markerEndNode" d = {`M${x1-10},${y1 + 55} L${x1 - 40}, ${y1 + 55}`} stroke = "green" strokeWidth = "5"/>
-					<path className = "line" ref = "markerEndNode" d = {`M${x1-41},${y1 + 55} L${x2 + 131}, ${y2+55}`} stroke = "green" />
-					<path className = "line" ref = "markerEndNode" d = {`M${x2 + 130},${y2 + 55} L${x2 + 100}, ${y2+55}`} stroke = "green" strokeWidth = "5" />
+					<path className = "line" ref = "markerEndNode" d = {`M${x1 - 10},${y1 + 55} L${x1 - 45}, ${y1 + 55}`} stroke = "green" strokeWidth = "5"/>
+					<path className = "line" ref = "markerEndNode" d = {`M${x1-46},${y1 + 55} L${x2 + 150}, ${y2+55}`} stroke = "green" />
+					<path className = "line" ref = "markerEndNode" d = {`M${x2 + 151},${y2 + 55} L${x2}, ${y2+55}`} stroke = "green" strokeWidth = "5" />
 				</g>
 
 			)
