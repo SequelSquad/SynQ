@@ -4,6 +4,8 @@ SynQ is an interactive GUI built in Electron. Its main purpose is to auto-genera
 
 ## Download
 
+Download here: https://github.com/SequelSquad/SynQ/blob/master/download/ElectronReact-1.0.0.dmg
+
 ## Using SynQ
 
 1. Drag a square from the sidebar to the canvas to create your first model.
