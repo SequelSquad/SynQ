@@ -4,7 +4,7 @@ SynQ is an interactive GUI built in Electron. Its main purpose is to auto-genera
 
 ## Download
 
-Download here: https://github.com/SequelSquad/SynQ/blob/master/download/ElectronReact-1.0.0.dmg
+Download here: https://drive.google.com/file/d/0B9eJb9BMLTYBaHpGMlhzNjJRYzA/view?usp=sharing
 
 ## Using SynQ
 
