@@ -192,8 +192,11 @@
     "devtron": "^1.4.0",
     "electron-debug": "^1.2.0",
     "font-awesome": "^4.7.0",
-    "history": "^4.6.3",
+    "history": "^4.7.2",
     "mocha": "^4.0.1",
+    "pg": "^7.3.0",
+    "pg-hstore": "^2.3.2",
+    "pg-native": "^2.2.0",
     "react": "^15.6.1",
     "react-addons-update": "^15.6.2",
     "react-bootstrap": "^0.31.3",
@@ -209,6 +212,7 @@
     "react-treeview": "^0.4.7",
     "redux": "^3.7.1",
     "redux-thunk": "^2.2.0",
+    "sequelize": "^4.15.0",
     "source-map-support": "^0.4.15"
   },
   "devEngines": {

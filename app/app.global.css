@@ -31,14 +31,14 @@ h1 {
 }
 h2 {
   margin: 15px;
-  font-size: 1.5rem;
+  font-size: 2.5rem;
   font-weight: bold;
   letter-spacing: -0.025em;
   color: #292833;
 }
 
 p {
-  font-size: 24px;
+  font-size: 48px;
 }
 
 li {
@@ -61,7 +61,7 @@ nav {
   height: 1.7em;
   color: #319cb9;
   font-family: 'Quicksand', sans-serif;
-  font-size: 20px;
+  font-size: 40px;
   text-align: auto;
   border-bottom:1px solid #6e8798;
   z-index: 10;
@@ -75,7 +75,7 @@ nav p {
 
 .wrapper {
   position: relative;
-  font-size: 14px;
+  font-size: 28px;
   height: 100vh;
   /* font-family: 'Raleway', sans-serif; */
   font-family: 'Quicksand', sans-serif;
@@ -158,8 +158,8 @@ nav p {
 
 .table {
   border: 1px solid #3b4752;
-  width: 135px;
-  height: 135px;
+  width: 275px;
+  height: 275px;
   text-align: left;
   border-radius: 10px;
   background-color: #ADA1BB;
@@ -175,7 +175,7 @@ nav p {
 
 .table h4 {
   position: absolute;
-  font-size:16px;
+  font-size:32px;
   top: 20%;
   left: 8%;
 }
@@ -183,7 +183,7 @@ nav p {
 
 
 .custom-modal {
-  width: 75vw
+  width: 90vw
 }
 
 .form-control {
@@ -207,7 +207,7 @@ nav p {
   border-color: #6e8798;
   border-radius: 0px;
   border: none;
-  font-size: 14px;
+  font-size: 28px;
 }
 
 
@@ -237,7 +237,7 @@ line {
 
 #input-error {
   color: #ff8071;
-  font-size:12px;
+  font-size:24px;
 }
 
 
@@ -445,7 +445,27 @@ line {
 
 .instructions {
   position: absolute;
-  margin-left:32vh;
-  margin-top: 78vh;
+  margin-left:30vh;
+  margin-top: 70vh;
   font-weight: bold;
+}
+
+.form-control {
+  font-size: 28px;
+}
+
+.btn {
+  font-size: 28px;
+}
+
+.h4, h4 {
+  font-size:32px;
+}
+
+body {
+  font-size: 28px;
+}
+
+.dropdown-menu {
+  font-size: 28px;
 }
