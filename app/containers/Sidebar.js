@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Link } from "react-router"
+import { Link } from "react-router-dom"
 import {connect} from "react-redux"
 import Rectangle from "../components/Rectangle"
 import Generator from "../../background/Generator"
@@ -52,6 +52,9 @@ class Sidebar extends Component {
 					<FormControl type="text" name="path" placeholder="documents/myproject/db" onChange={this.handleChange}/>
 				</FormGroup>
 				<Button type="submit" onClick={this.handleSubmit}>Create Files</Button>
+				<div>	<Link to = "/">Home</Link></div>
+
+
 				<ul className = "nav sidebar-nav">
 					<li>
 						<Rectangle />

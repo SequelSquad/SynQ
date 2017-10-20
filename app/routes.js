@@ -1,7 +1,7 @@
 /* eslint flowtype-errors/show-errors: 0 */
 import React, {Component} from "react"
 import {connect} from "react-redux"
-import { Switch, Route, Router } from "react-router"
+import { Switch, Route, withRouter } from "react-router-dom"
 import App from "./containers/App"
 import HomePage from "./containers/HomePage"
 import CounterPage from "./containers/CounterPage"
@@ -17,9 +17,8 @@ class Routes extends Component {
 			<App>
 				<Modal currentModal = {this.props.currentModal} />
 				<Switch>
-					<Route path="/" component={Landing} />
-					<Route path="/counter" component={CounterPage} />
-					{/* <Route exact path="/create" component={HomePage} /> */}
+					<Route exact path="/create" component={HomePage} />
+					<Route exact path="/" component={Landing} />
 				</Switch>
 			</App>
 		)
@@ -32,4 +31,4 @@ const mapState = (state) => {
 	}
 }
 
-export default connect(mapState)(Routes)
+export default withRouter(connect(mapState)(Routes))
