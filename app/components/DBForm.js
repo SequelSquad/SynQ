@@ -2,7 +2,7 @@ import React from "react"
 import {Form, FormGroup, Col, Row, FormControl, Button, Checkbox, ControlLabel, Modal, DropdownButton, MenuItem} from "react-bootstrap"
 import {connect} from "react-redux"
 import {removeModal} from "../actions/modalAction"
-import {setModel, removeModel, removeRec} from "../actions"
+import {setModel, removeModel, removeRec, setCurrDB} from "../actions"
 import update from "react-addons-update"
 import {dialog} from "electron"
 import {Link} from "react-router-dom"
@@ -30,7 +30,7 @@ class DBForm extends React.Component {
 					<ul>
 						{this.props.databases.map((database, i)=> {
 							return (
-								<li key={i}><Link to="/create">{database.datname}</Link></li>
+								<li key={i}><Link to="/create" onClick={() => this.props.handleSetDB(i)}>{database.datname}</Link></li>
 							)
 						})}
 					</ul>
@@ -50,6 +50,9 @@ const mapDispatchToProps = (dispatch) => {
 	return {
 		handleRemoveModal() {
 			dispatch(removeModal())
+		},
+		handleSetDB(id){
+			dispatch(setCurrDB(id))
 		}
 	}
 }

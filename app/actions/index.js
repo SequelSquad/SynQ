@@ -6,6 +6,7 @@ import { ADD_COLUMN, addColumn } from "./addColumn"
 import { SET_CURR_RECT, setCurrRect } from "./currRectAction"
 import { SET_PATH, setPath } from "./setPath"
 import { SET_THEME, setTheme } from "./setTheme"
+import { SET_CURR_DB, setCurrDB } from "./currDBAction"
 
 export default {
 	ADD_MODEL,
@@ -20,6 +21,8 @@ export default {
 	SET_THEME,
 	REMOVE_MODEL,
 	REMOVE_REC,
+	SET_CURR_DB,
+	setCurrDB,
 	removeRec,
 	addModel,
 	addColumn,

@@ -20,10 +20,8 @@ export class Landing extends React.Component {
 		return (
 			<div>
 				<p>Choose whether you would like to connect to an existing database or create a new database:</p>
-				<Button onClick={() => this.props.handleClick("DB_HOME")}>Connect</Button><Button onClick={this.props.closeError}>Create</Button>
-				<div>
-					<Link to="/create">Create</Link>
-				</div>
+				<Button onClick={() => this.props.handleClick("DB_HOME")}>Connect</Button>
+				<Button><Link to="/create">Create</Link></Button>
 			</div>
 		)
 	}
