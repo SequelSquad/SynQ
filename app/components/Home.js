@@ -63,6 +63,7 @@ class Home extends Component {
 	}
 
 	renderBox(){
+
 		if (this.props.allProps.model.length){
 			return this.props.allProps.model.map((model) => {
 				return (
