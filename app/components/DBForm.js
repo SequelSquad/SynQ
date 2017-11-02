@@ -30,14 +30,11 @@ class DBForm extends React.Component {
 					<ul>
 						{this.props.databases.map((database, i)=> {
 							return (
-								<li key={i}><Link to= {`/create/${database.datname}`}>{database.datname}</Link></li>
+								<li key={i}><Link to= {`/create/${database.datname}`} onClick={()=>this.props.handleSetDB(database.datname)}>{database.datname}</Link></li>
 							)
 						})}
 					</ul>
 				</Modal.Body>
-				<Modal.Footer>
-					<div>Hi</div>
-				</Modal.Footer>
 			</Modal>
 		)
 	}

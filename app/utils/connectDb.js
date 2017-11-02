@@ -39,7 +39,6 @@ export const loadColumns = (settings) => {
 		.catch(err => console.log(err))
 }
 
-
 export const loadTableForeignKeys = (settings) => {
 	const postgresUrl = portSetting + settings.db
 	const client = new pg.Client(postgresUrl)
@@ -61,6 +60,26 @@ export const loadTableForeignKeys = (settings) => {
 				return result.rows
 			}
 			// return result.rows
+		})
+		.catch(err => console.log(err))
+}
+
+export const queryData = (settings) => {
+	const postgresUrl = portSetting + settings.currentDatabase
+	const client = new pg.Client(postgresUrl)
+	console.log("SETTINGS", settings)
+	let querySearch = settings.SQLquery
+	if (querySearch.includes("DROP DATABASE")
+				|| querySearch.includes("DROP TABLE")
+				|| querySearch.includes("DELETE FROM")
+	) querySearch = ""
+
+	client.connect()
+
+	return client.query(querySearch)
+		.then(result => {
+			if (!result) return []
+			return result.rows
 		})
 		.catch(err => console.log(err))
 }

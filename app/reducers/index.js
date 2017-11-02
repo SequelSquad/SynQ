@@ -11,6 +11,7 @@ import path from "./path"
 import theme from "./theme"
 import databases from "./initDb"
 import currDB from "./currDB"
+import queryResult from "./Query"
 
 
 const rootReducer = combineReducers({
@@ -24,7 +25,8 @@ const rootReducer = combineReducers({
 	path,
 	theme,
 	databases,
-	currDB
+	currDB,
+	queryResult
 })
 
 export default rootReducer
