@@ -20,6 +20,9 @@ class HomePage extends Component {
 	componentDidMount() {
 		let db = this.props.match.params.dbName
 		this.props.handleAddPgTable(db)
+			.then(() => {
+				console.log("PROMISE RESOLVED!", this.props.models)
+			})
 	}
 
 	render(props) {
@@ -69,7 +72,7 @@ const mapDispatchToProps = (dispatch) => {
 			return dispatch(addTable(table))
 		},
 		handleAddPgTable: (db) => {
-			return dispatch(addModelThunk(db))
+			return Promise.resolve(dispatch(addModelThunk(db)))
 		}
 	}
 }

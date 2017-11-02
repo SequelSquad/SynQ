@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import {connect} from "react-redux"
 import Rectangle from "../components/Rectangle"
 import Generator from "../../background/Generator"
-import { setPath, selectLine } from "../actions"
+import { setPath, selectLine, removeAllLines, removeAllModels, removeAllRecs } from "../actions"
 import { Button, Tooltip, Popover, ButtonToolbar, FormGroup, FormControl, Col, Row, ControlLabel, Checkbox, OverlayTrigger } from "react-bootstrap"
 const remote = require("electron").remote
 const app = remote.app
@@ -52,7 +52,7 @@ class Sidebar extends Component {
 					<FormControl type="text" name="path" placeholder="documents/myproject/db" onChange={this.handleChange}/>
 				</FormGroup>
 				<Button type="submit" onClick={this.handleSubmit}>Create Files</Button>
-				<div>	<Link to = "/">Home</Link></div>
+				<div onClick = {this.props.clearModelsLines}>	<Link to = "/">Home</Link></div>
 
 
 				<ul className = "nav sidebar-nav">
@@ -87,6 +87,12 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		handleFilter(relationships){
 			dispatch(selectLine(relationships))
+		},
+		clearModelsLines(){
+			console.log("HERE!")
+			dispatch(removeAllLines())
+			dispatch(removeAllModels())
+			dispatch(removeAllRecs())
 		}
 	}
 }

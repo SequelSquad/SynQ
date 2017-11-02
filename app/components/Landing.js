@@ -2,7 +2,7 @@ import React from "react"
 import {connect} from "react-redux"
 import {Button} from "react-bootstrap"
 import {fetchDatabases} from "../reducers/initDb"
-import {setModal} from "../actions"
+import {setModal, removeAllLines, removeAllModels} from "../actions"
 import DBForm from "./DBForm"
 import {Link} from "react-router-dom"
 
@@ -13,6 +13,7 @@ export class Landing extends React.Component {
 
 	componentDidMount(){
 		this.props.loadDatabases()
+		// this.props.clearModelsLines()
 		console.log("fetch!")
 	}
 
@@ -20,7 +21,7 @@ export class Landing extends React.Component {
 		return (
 			<div>
 				<p>Choose whether you would like to connect to an existing database or create a new database:</p>
-				<Button onClick={() => this.props.handleClick("DB_HOME")}>Connect</Button><Button onClick={this.props.closeError}>Create</Button>
+				<Button onClick={() => this.props.handleClick("DB_HOME")}>Connect</Button><Button>Create</Button>
 				<div>
 					<Link to="/create">Create</Link>
 				</div>
@@ -42,6 +43,10 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		loadDatabases(){
 			dispatch(fetchDatabases())
+		},
+		clearModelsLines(){
+			dispatch(removeAllLines())
+			dispatch(removeAllModels())
 		}
 	}
 }
