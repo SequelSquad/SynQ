@@ -61,7 +61,13 @@ export const addModelThunk = (db) =>
 
 						Promise.all(foreignKeyPromises)
 							.then((result) => {
-								let relationshipsArr = result.filter((arr) => arr.length > 0)[0]
+								let relationshipsArr = []
+								let prerelationshipsArr = result.filter((arr) => arr.length > 0)
+								for (let i = 0; i < prerelationshipsArr.length; i++){
+									for (let j = 0; j < prerelationshipsArr[i].length; j++){
+										relationshipsArr.push(prerelationshipsArr[i][j])
+									}
+								}
 								let refinedRelationshipArr = relationshipsArr.map((relationshipObj) => {
 									return Object.assign(relationshipObj, {Table2: mergedArr.filter((obj) => obj.name === relationshipObj.Table2)[0].id})
 								})
