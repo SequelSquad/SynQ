@@ -17,7 +17,7 @@ class Routes extends Component {
 			<App>
 				<Modal currentModal = {this.props.currentModal} />
 				<Switch>
-					<Route exact path="/create" component={HomePage} />
+					<Route path="/create/:dbName" component={HomePage} />
 					<Route exact path="/" component={Landing} />
 				</Switch>
 			</App>

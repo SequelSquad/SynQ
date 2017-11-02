@@ -1,4 +1,4 @@
-import initDatabases from "../utils/connectDb"
+import {initDatabases} from "../utils/connectDb"
 
 /**
  * ACTION TYPES
