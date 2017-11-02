@@ -6,6 +6,7 @@ import {selectLine, removeAllLines} from "./lines"
 import { SET_CURR_RECT, setCurrRect } from "./currRectAction"
 import { SET_PATH, setPath } from "./setPath"
 import { SET_THEME, setTheme } from "./setTheme"
+import { SET_CURR_DB, setCurrDB } from "./currDBAction"
 
 export default {
 	ADD_MODEL,
@@ -21,6 +22,8 @@ export default {
 	REMOVE_REC,
 	REMOVE_ALL_MODELS,
 	REMOVE_ALL_RECS,
+	SET_CURR_DB,
+	setCurrDB,
 	removeRec,
 	addModel,
 	addModelThunk,

@@ -10,6 +10,8 @@ import currRect from "./currRect"
 import path from "./path"
 import theme from "./theme"
 import databases from "./initDb"
+import currDB from "./currDB"
+
 
 const rootReducer = combineReducers({
 	counter,
@@ -21,7 +23,8 @@ const rootReducer = combineReducers({
 	currRect,
 	path,
 	theme,
-	databases
+	databases,
+	currDB
 })
 
 export default rootReducer

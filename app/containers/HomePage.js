@@ -5,6 +5,7 @@ import Navbar from "./Navbar"
 import Sidebar from "./Sidebar"
 import HTML5Backend from "react-dnd-html5-backend"
 import { DragDropContext } from "react-dnd"
+import {removeModal} from "../actions/modalAction"
 import {addModel, movePosition, setModel, addTable, addModelThunk} from "../actions"
 import {connect} from "react-redux"
 
@@ -70,6 +71,9 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		handleAddTable: (table) => {
 			return dispatch(addTable(table))
+		},
+		handleRemoveModal() {
+			dispatch(removeModal())
 		},
 		handleAddPgTable: (db) => {
 			return Promise.resolve(dispatch(addModelThunk(db)))
