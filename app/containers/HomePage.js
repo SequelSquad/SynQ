@@ -5,7 +5,8 @@ import Navbar from "./Navbar"
 import Sidebar from "./Sidebar"
 import HTML5Backend from "react-dnd-html5-backend"
 import { DragDropContext } from "react-dnd"
-import {addModel, movePosition, setModel, addTable} from "../actions"
+import {removeModal} from "../actions/modalAction"
+import {addModel, movePosition, setModel, addTable, addModelThunk, setCurrDB} from "../actions"
 import {connect} from "react-redux"
 
 class HomePage extends Component {
@@ -15,6 +16,11 @@ class HomePage extends Component {
 		this.state = {
 			relationships: []
 		}
+	}
+
+	componentDidMount() {
+		let db = this.props.match.params.dbName
+		this.props.handleAddPgTable(db)
 	}
 
 	render(props) {
@@ -62,6 +68,13 @@ const mapDispatchToProps = (dispatch) => {
 		},
 		handleAddTable: (table) => {
 			return dispatch(addTable(table))
+		},
+		handleRemoveModal() {
+			dispatch(removeModal())
+		},
+		handleAddPgTable(db){
+			dispatch(addModelThunk(db))
+			dispatch(setCurrDB(db))
 		}
 	}
 }
