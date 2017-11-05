@@ -67,7 +67,6 @@ export const loadTableForeignKeys = (settings) => {
 export const queryData = (settings) => {
 	const postgresUrl = portSetting + settings.currentDatabase
 	const client = new pg.Client(postgresUrl)
-	console.log("SETTINGS", settings)
 	let querySearch = settings.SQLquery
 	if (querySearch.includes("DROP DATABASE")
 				|| querySearch.includes("DROP TABLE")

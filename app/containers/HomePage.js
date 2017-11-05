@@ -6,7 +6,7 @@ import Sidebar from "./Sidebar"
 import HTML5Backend from "react-dnd-html5-backend"
 import { DragDropContext } from "react-dnd"
 import {removeModal} from "../actions/modalAction"
-import {addModel, movePosition, setModel, addTable, addModelThunk} from "../actions"
+import {addModel, movePosition, setModel, addTable, addModelThunk, setCurrDB} from "../actions"
 import {connect} from "react-redux"
 
 class HomePage extends Component {
@@ -21,9 +21,6 @@ class HomePage extends Component {
 	componentDidMount() {
 		let db = this.props.match.params.dbName
 		this.props.handleAddPgTable(db)
-			.then(() => {
-				console.log("PROMISE RESOLVED!", this.props.models)
-			})
 	}
 
 	render(props) {
@@ -75,8 +72,9 @@ const mapDispatchToProps = (dispatch) => {
 		handleRemoveModal() {
 			dispatch(removeModal())
 		},
-		handleAddPgTable: (db) => {
-			return Promise.resolve(dispatch(addModelThunk(db)))
+		handleAddPgTable(db){
+			dispatch(addModelThunk(db))
+			dispatch(setCurrDB(db))
 		}
 	}
 }
