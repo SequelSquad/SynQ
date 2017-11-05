@@ -469,3 +469,41 @@ body {
 .dropdown-menu {
   font-size: 28px;
 }
+
+table, th, td{
+  padding: 5px;
+  border: 1px solid #ff8071
+}
+
+#outer{
+  overflow-x: scroll;
+}
+
+table{
+  table-layout: fixed;
+  overflow-x: auto;
+}
+
+td, th{
+  display: inline-block;
+  height: 60px;
+  overflow-y: auto;
+  white-space: nowrap;
+}
+
+tr{
+  white-space: nowrap;
+}
+
+
+tbody{
+  display: block;
+  height: 300px;
+  overflow-y: auto;
+  width: 100%;
+}
+
+#filter{
+  margin: 0px;
+}
+

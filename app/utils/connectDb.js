@@ -51,7 +51,7 @@ export const loadTableForeignKeys = (settings) => {
 
 	return client.query(querySearch)
 		.then(result => {
-			console.log("queryresultrows!", result.rows)
+
 			if (result.rows.length){
 				return result.rows.map((relationship, i) => {
 					return {id: Date.parse(new Date) + i , Table1: settings.id, Table2: relationship.foreign_table_name, Relationship: relationship.column_name}
@@ -67,7 +67,6 @@ export const loadTableForeignKeys = (settings) => {
 export const queryData = (settings) => {
 	const postgresUrl = portSetting + settings.currentDatabase
 	const client = new pg.Client(postgresUrl)
-	console.log("SETTINGS", settings)
 	let querySearch = settings.SQLquery
 	if (querySearch.includes("DROP DATABASE")
 				|| querySearch.includes("DROP TABLE")
