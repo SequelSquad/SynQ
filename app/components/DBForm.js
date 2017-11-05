@@ -16,7 +16,7 @@ class DBForm extends React.Component {
 	}
 
 	render() {
-		console.log("render")
+
 		return (
 			<Modal show = {true} onHide = {() => {
 				this.props.handleRemoveModal()}}>
