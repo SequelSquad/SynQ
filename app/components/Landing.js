@@ -14,7 +14,7 @@ export class Landing extends React.Component {
 	componentDidMount(){
 		this.props.loadDatabases()
 		// this.props.clearModelsLines()
-		console.log("fetch!")
+
 	}
 
 	render() {
