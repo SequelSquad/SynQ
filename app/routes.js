@@ -7,6 +7,7 @@ import HomePage from "./containers/HomePage"
 import CounterPage from "./containers/CounterPage"
 import Modal from "./components/ModalConductor"
 import Landing from "./components/Landing"
+import DataVisPage from "./components/DataVisPage"
 
 class Routes extends Component {
 	constructor(props) {
@@ -18,7 +19,8 @@ class Routes extends Component {
 				<Modal currentModal = {this.props.currentModal} />
 				<Switch>
 					<Route path="/create/:dbName" component={HomePage} />
-					<Route path = "/create" component = {HomePage}/>
+					<Route exact path = "/create" component = {HomePage}/>
+					<Route path = "/datavis" componeny = {DataVisPage}/>
 					<Route exact path="/" component={Landing} />
 				</Switch>
 			</App>
