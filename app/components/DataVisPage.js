@@ -3,7 +3,7 @@ import {connect} from "react-redux"
 import {Button} from "react-bootstrap"
 import {fetchDatabases} from "../reducers/initDb"
 import {setModal, removeAllLines, removeAllModels} from "../actions"
-// import BarChart from "./BarChart"
+import BarChart from "./BarChart"
 import {Link} from "react-router-dom"
 
 export class DataVisPage extends React.Component {
@@ -15,11 +15,11 @@ export class DataVisPage extends React.Component {
 		console.log("render datavis")
 		return (
 			<div>
-				{/* <br/>
-				<Link to={`/create/${this.props.currDB}`} >Create</Link>
-				<br/> */}
+				<br/>
+				<Link to={`/create/${this.props.currDB}`} ><Button>Create</Button></Link>
+				<br/>
 				<p>{this.props.currDB}</p>
-				{/* <BarChart data={this.props.queryResult}/> */}
+				<BarChart data={this.props.queryResult}/>
 			</div>
 		)
 	}

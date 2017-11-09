@@ -20,7 +20,7 @@ class Routes extends Component {
 				<Switch>
 					<Route path="/create/:dbName" component={HomePage} />
 					<Route exact path = "/create" component = {HomePage}/>
-					<Route path = "/datavis" componeny = {DataVisPage}/>
+					<Route path = "/datavis" component = {DataVisPage}/>
 					<Route exact path="/" component={Landing} />
 				</Switch>
 			</App>

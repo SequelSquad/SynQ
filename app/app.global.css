@@ -507,3 +507,11 @@ tbody{
   margin: 0px;
 }
 
+.x-axis text {
+  transform: rotate(-30deg);
+  text-anchor: end;
+}
+
+svg {
+  padding-left: 200px;
+}
