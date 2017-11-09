@@ -1,4 +1,4 @@
-import { SET_MODEL, ADD_COLUMN, ADD_TABLE, REMOVE_MODEL } from "../actions"
+import { SET_MODEL, ADD_COLUMN, ADD_TABLE, REMOVE_MODEL, REMOVE_ALL_MODELS } from "../actions"
 
 const modelsArr = []
 
@@ -25,6 +25,9 @@ export default function models(state = modelsArr, action) {
 	case REMOVE_MODEL: {
 		const newArr = state.filter(model => parseInt(model.id) !== parseInt(action.modelID))
 		return newArr
+	}
+	case REMOVE_ALL_MODELS : {
+		return []
 	}
 	default:
 		return state

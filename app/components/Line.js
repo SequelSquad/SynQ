@@ -20,29 +20,27 @@ export default class Line extends Component {
 		if(x1 - x2 < 0){
 			return(
 				<g>
-					<text x = {x1+145} y = {y1+50} fill = "white" textAnchor = "middle">
-						<tspan fontSize = "10">{this.props.relationship.Relationship}</tspan>
+					<text x = {x1+310} y = {y1+45} fill = "white" textAnchor = "middle">
+						<tspan fontSize = "20">{this.props.relationship.Relationship}</tspan>
 					</text>
-					<path className = "line" ref = "markerEndNode" d = {`M${x1+120},${y1 + 55} L${x1 + 150}, ${y1 + 55}`} stroke = "green" strokeWidth = "5"/>
-					<path className = "line" id = "main" ref = "markerEndNode" d = {`M${x1+151},${y1 + 55} L${x2 - 45}, ${y2+55}`} stroke = "green" />
-					<path className = "line" ref = "markerEndNode" d = {`M${x2 - 44},${y2 + 55} L${x2 - 15}, ${y2+55}`} stroke = "green" strokeWidth = "5" />
+					<path className = "line" ref = "markerEndNode" d = {`M${x1+240},${y1 + 55} L${x1 + 300}, ${y1 + 55}`} stroke = "green" strokeWidth = "10"/>
+					<path className = "line" id = "main" ref = "markerEndNode" d = {`M${x1+301},${y1 + 55} L${x2 - 61}, ${y2+55}`} stroke = "green" strokeWidth = "3"/>
+					<path className = "line" ref = "markerEndNode" d = {`M${x2 - 60},${y2 + 55} L${x2 - 15}, ${y2+55}`} stroke = "green" strokeWidth = "10" />
 				</g>
 			)
 		} else {
 			return (
 
 				<g>
-					<text x = {x1-50} y = {y1+50} fill = "white" textAnchor = "middle">
-						<tspan fontSize = "10">{this.props.relationship.Relationship}</tspan>
+					<text x = {x1-60} y = {y1+45} fill = "white" textAnchor = "middle">
+						<tspan fontSize = "20">{this.props.relationship.Relationship}</tspan>
 					</text>
-					<path className = "line" ref = "markerEndNode" d = {`M${x1 - 10},${y1 + 55} L${x1 - 45}, ${y1 + 55}`} stroke = "green" strokeWidth = "5"/>
-					<path className = "line" ref = "markerEndNode" d = {`M${x1-46},${y1 + 55} L${x2 + 150}, ${y2+55}`} stroke = "green" />
-					<path className = "line" ref = "markerEndNode" d = {`M${x2 + 151},${y2 + 55} L${x2}, ${y2+55}`} stroke = "green" strokeWidth = "5" />
+					<path className = "line" ref = "markerEndNode" d = {`M${x1 - 10},${y1 + 55} L${x1 - 60}, ${y1 + 55}`} stroke = "green" strokeWidth = "10"/>
+					<path className = "line" ref = "markerEndNode" d = {`M${x1-61},${y1 + 55} L${x2 + 299}, ${y2+55}`} stroke = "green" strokeWidth="3" />
+					<path className = "line" ref = "markerEndNode" d = {`M${x2 + 300},${y2 + 55} L${x2+200}, ${y2+55}`} stroke = "green" strokeWidth = "10" />
 				</g>
 
 			)
 		}
 	}
 }
-
-

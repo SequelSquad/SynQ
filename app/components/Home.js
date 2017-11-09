@@ -63,6 +63,7 @@ class Home extends Component {
 	}
 
 	renderBox(){
+
 		if (this.props.allProps.model.length){
 			return this.props.allProps.model.map((model) => {
 				return (
@@ -101,7 +102,7 @@ class Home extends Component {
 				let y1test = this.props.allProps.model.filter((model) => {
 					return model.id === parseInt(line.Table1)
 				})[0].top + ((sourceYArr.filter((table) => table === line.Table1).length + (relationshipHash[line.Table1] ? relationshipHash[line.Table1].length - 1 : 0))
-								*20)
+								*40)
 
 				let y1reg = this.props.allProps.model.filter((model) => {
 					return model.id === parseInt(line.Table1)
@@ -110,7 +111,7 @@ class Home extends Component {
 				let y2test = this.props.allProps.model.filter((model) => {
 					return model.id === parseInt(line.Table2)
 				})[0].top + ((targetYArr.filter((table) => table === line.Table2).length -1 + (relationshipHash[line.Table2] ? relationshipHash[line.Table2].length : 0))
-								*20)
+								*40)
 
 				let y2reg = this.props.allProps.model.filter((model) => {
 					return model.id === parseInt(line.Table2)

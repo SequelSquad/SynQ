@@ -1,6 +1,6 @@
 // @flow
 import {ADD_LINE} from "../actions/lines"
-import {REMOVE_LINE, SELECT_LINE} from "../actions/lines"
+import {REMOVE_LINE, SELECT_LINE, REMOVE_ALL} from "../actions/lines"
 const linesState = []
 
 export default function line(state = linesState, action) {
@@ -16,6 +16,9 @@ export default function line(state = linesState, action) {
 		return state.filter((assoc) => {
 			return (action.lines.includes(assoc.Table1) || action.lines.includes(assoc.Table2))
 		})
+	}
+	case REMOVE_ALL:{
+		return []
 	}
 	default:
 		return state
