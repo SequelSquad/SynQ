@@ -1,5 +1,5 @@
 // @flow
-import { ADD_MODEL, MOVE_POSITION, REMOVE_REC} from "../actions"
+import { ADD_MODEL, MOVE_POSITION, REMOVE_REC, REMOVE_ALL_RECS} from "../actions"
 
 const modelState = []
 
@@ -12,6 +12,9 @@ export default function addModel(state = modelState, action) {
 	case REMOVE_REC:{
 		const newArr = state.filter(model => parseInt(model.id) !== parseInt(action.modelID))
 		return newArr
+	}
+	case REMOVE_ALL_RECS:{
+		return []
 	}
 	default:
 		return state

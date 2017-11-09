@@ -9,6 +9,10 @@ import lines from "./lines"
 import currRect from "./currRect"
 import path from "./path"
 import theme from "./theme"
+import databases from "./initDb"
+import currDB from "./currDB"
+import queryResult from "./Query"
+
 
 const rootReducer = combineReducers({
 	counter,
@@ -19,7 +23,10 @@ const rootReducer = combineReducers({
 	lines,
 	currRect,
 	path,
-	theme
+	theme,
+	databases,
+	currDB,
+	queryResult
 })
 
 export default rootReducer
