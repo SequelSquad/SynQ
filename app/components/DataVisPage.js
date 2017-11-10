@@ -4,6 +4,7 @@ import {Button} from "react-bootstrap"
 import {fetchDatabases} from "../reducers/initDb"
 import {setModal, removeAllLines, removeAllModels} from "../actions"
 import BarChart from "./BarChart"
+import LineChart from "./LineChart"
 import {Link} from "react-router-dom"
 
 export class DataVisPage extends React.Component {
@@ -19,7 +20,8 @@ export class DataVisPage extends React.Component {
 				<Link to={`/create/${this.props.currDB}`} ><Button>Create</Button></Link>
 				<br/>
 				<p>{this.props.currDB}</p>
-				<BarChart data={this.props.queryResult}/>
+				<LineChart data={this.props.queryResult} />
+				{/* <BarChart data={this.props.queryResult}/> */}
 			</div>
 		)
 	}

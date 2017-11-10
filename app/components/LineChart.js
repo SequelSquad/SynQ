@@ -4,24 +4,26 @@ import { max } from "d3-array"
 import { select } from "d3-selection"
 import { findDOMNode } from "react-dom"
 import * as d3Axis from "d3-axis"
+import * as d3 from "d3"
 
-class BarChart extends Component {
+class LineChart extends Component {
 	constructor(props){
 		super(props)
-		this.createBarChart = this.createBarChart.bind(this)
+		this.createLineChart = this.createLineChart.bind(this)
 		this.createAxes= this.createAxes.bind(this)
 	}
 
 	componentDidMount() {
-		this.createBarChart()
+		this.createLineChart()
 	}
 
 	componentDidUpdate() {
-		this.createBarChart()
+		this.createLineChart()
 	}
 
-	createBarChart() {
+	createLineChart() {
 		const node = this.node
+
 		const yScale = scaleLinear()
 			.domain([0, this.props.data.length])
 			.range([500, 0])
@@ -31,26 +33,18 @@ class BarChart extends Component {
 			.rangeRound([0, 500])
 			.padding(0.1)
 
+		var d3line = d3.line()
+			.x(d => xScale(d.x))
+			.y(d => yScale(d.y))
+
+		var newline = d3line(this.props.data)
+
 		select(node)
-			.selectAll("rect")
+			.selectAll("path")
 			.data(this.props.data)
 			.enter()
-			.append("rect")
-
-		select(node)
-			.selectAll("rect")
-			.data(this.props.data)
-			.exit()
-			.remove()
-
-		select(node)
-			.selectAll("rect")
-			.data(this.props.data)
-			.style("fill", "#fe9922")
-			.attr("x", d => xScale(d.x))
-			.attr("y", d => 500 - yScale(d.y))
-			.attr("height", d => yScale(d.y))
-			.attr("width", xScale.bandwidth())
+			.append("path")
+			.attr("d", newline)
 
 		this.createAxes(xScale, yScale)
 	}
@@ -87,4 +81,4 @@ class BarChart extends Component {
 	}
 
 }
-export default BarChart
+export default LineChart
