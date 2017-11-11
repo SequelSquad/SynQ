@@ -7,12 +7,30 @@ import HomePage from "./containers/HomePage"
 import CounterPage from "./containers/CounterPage"
 import Modal from "./components/ModalConductor"
 import Landing from "./components/Landing"
+import fs from "fs"
+import electron from "electron"
+import path from "path"
 
 class Routes extends Component {
 	constructor(props) {
 		super(props)
 	}
-	render() {
+	componentDidMount(){
+		const queryPath = __dirname + "/components/" +  "/query.json"
+		fs.stat(queryPath, function(err, stat) {
+			if(err == null) {
+				console.log("File exists")
+			} else if(err.code == "ENOENT") {
+				// file does not exist
+				fs.writeFile(queryPath,JSON.stringify([]),(err) => {
+					if (err) console.error
+				})
+			} else {
+				console.log("Some other error: ", err.code)
+			}
+		})
+	}
+	render(){
 		return (
 			<App>
 				<Modal currentModal = {this.props.currentModal} />
