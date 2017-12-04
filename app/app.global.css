@@ -507,3 +507,15 @@ tbody{
   margin: 0px;
 }
 
+.x-axis text {
+  transform: rotate(-30deg);
+  text-anchor: end;
+}
+
+svg.barchart {
+  padding-left: 200px;
+}
+
+svg.linechart{
+  padding-left: 200px;
+}

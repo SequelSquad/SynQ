@@ -10,6 +10,7 @@ import Landing from "./components/Landing"
 import fs from "fs"
 import electron from "electron"
 import path from "path"
+import DataVisPage from "./components/DataVisPage"
 
 class Routes extends Component {
 	constructor(props) {
@@ -36,7 +37,8 @@ class Routes extends Component {
 				<Modal currentModal = {this.props.currentModal} />
 				<Switch>
 					<Route path="/create/:dbName" component={HomePage} />
-					<Route path = "/create" component = {HomePage}/>
+					<Route exact path = "/create" component = {HomePage}/>
+					<Route path = "/datavis" component = {DataVisPage}/>
 					<Route exact path="/" component={Landing} />
 				</Switch>
 			</App>

@@ -20,7 +20,9 @@ class Store {
 
 function parseDataFile(filePath, defaults){
 	fs.readFile(filePath, (err, data) => {
-		if (err) return defaults
-		else return data.toString.split("\n")
+		if (err) defaults
+		else this.data =  data.toString.split("\n")
 	})
+
+
 }
