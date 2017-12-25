@@ -28,7 +28,7 @@ Doris Cheng
 Peter Kang
 * [LinkedIn](https://www.linkedin.com/in/peter-s-kang/)
 * [Github](https://github.com/Sunjin-Kang)
-* [Website](https://www.sunjin.io)
+* [Website](www.sunjin.io)
 
 David Ko
 * [LinkedIn](https://www.linkedin.com/in/david-park-ko/)
