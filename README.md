@@ -26,9 +26,9 @@ Doris Cheng
 * Website
 
 Peter Kang
-* [LinkedIn](https://www.linkedin.com/in/peter-kang-28a17091/)
+* [LinkedIn](https://www.linkedin.com/in/peter-s-kang/)
 * [Github](https://github.com/Sunjin-Kang)
-* Website
+* [Website](https://www.sunjin.io)
 
 David Ko
 * [LinkedIn](https://www.linkedin.com/in/david-park-ko/)
