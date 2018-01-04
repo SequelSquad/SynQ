@@ -1,5 +1,5 @@
 import React from "react"
-import {Form, FormGroup, Col, Row, FormControl, Button, Checkbox, ControlLabel, Modal, DropdownButton, MenuItem} from "react-bootstrap"
+import {Form, FormGroup, Col, Row, FormControl, Button, Checkbox, ControlLabel, Modal, DropdownButton, MenuItem, ButtonGroup} from "react-bootstrap"
 import {connect} from "react-redux"
 import {removeModal} from "../actions/modalAction"
 import {setModel, removeModel, removeRec, setCurrDB} from "../actions"
@@ -8,7 +8,8 @@ import update from "react-addons-update"
 import {dialog} from "electron"
 import {Link} from "react-router-dom"
 import { findDOMNode } from "react-dom"
-
+import fs from "fs"
+const queries = require("./query.json")
 
 
 class QueryForm extends React.Component {
@@ -18,12 +19,13 @@ class QueryForm extends React.Component {
 			SQLquery: "",
 			currentDatabase: this.props.currDB,
 			xVal: "",
-			yVal: ""
+			yVal: "",
+			queries: queries
 		}
 		this.onHandleChange = this.onHandleChange.bind(this)
 		this.onHandleSubmit = this.onHandleSubmit.bind(this)
 		this.makeDraggable = this.makeDraggable.bind(this)
-
+		this.onSelectQuery = this.onSelectQuery.bind(this)
 	}
 
 	makeDraggable() {
@@ -45,11 +47,28 @@ class QueryForm extends React.Component {
 		} else {
 			newState[name] = evt
 		}
-
 		this.setState(newState)
 	}
 
+	onSelectQuery(e){
+		this.setState({
+			SQLquery: e
+		})
+	}
+
 	onHandleSubmit(){
+		console.log("CURRQUERY", this.state)
+		if (this.state.queries.indexOf(this.state.SQLquery) === -1){
+			this.setState({
+				queries: this.state.queries.concat(this.state.SQLquery)
+			}, () => {
+				if (this.state.queries.length > 10){
+					this.setState({
+						queries: this.state.queries.slice(1)
+					})
+				}
+			})
+		}
 		this.props.handleFetchQuery(this.state)
 	}
 
@@ -58,7 +77,16 @@ class QueryForm extends React.Component {
 		return (
 
 			<Modal id = "modal" ref = "modal" show = {true} onHide = {() => {
-				this.props.handleRemoveModal()}}>
+				let componentObj = this
+				fs.writeFile(__dirname + "/components/query.json", JSON.stringify(this.state.queries), (err) => {
+					if (err) {
+						console.log("ERROR!", err)
+					} else{
+						console.log("FILESAVED!")
+					}
+					componentObj.props.handleRemoveModal()
+				})}
+			}>
 				<Modal.Header className = "modal-header">
 					<Modal.Title>
 						<div>Type a query</div>
@@ -72,6 +100,17 @@ class QueryForm extends React.Component {
 								<FormControl componentClass="textarea" type="query" placeholder="Enter Query" name="SQLquery"
 									value={this.state.SQLquery} onChange = {this.onHandleChange} required/>
 							</Col>
+						</FormGroup>
+						<FormGroup>
+							<ButtonGroup vertical block>
+								<DropdownButton title = "Past Queries" id = "bg-justified-dropdown" onSelect = {this.onSelectQuery}>
+									{this.state.queries.map((query, i) => {
+										return (
+											<MenuItem eventKey = {query} key = {i}>{query}</MenuItem>
+										)
+									})}
+								</DropdownButton>
+							</ButtonGroup>
 						</FormGroup>
 						{this.props.queryResult.length ?
 							<div>

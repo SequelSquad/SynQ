@@ -54,6 +54,7 @@ class Sidebar extends Component {
 				<Button type="submit" onClick={this.handleSubmit}>Create Files</Button>
 				<br/>
 				<Button type="submit" onClick={this.props.handleQuery}>Create Query</Button>
+				<div><Link to = "/datavis">Visualize</Link></div>
 				<div onClick = {this.props.clearModelsLines}>	<Link to = "/">Home</Link></div>
 
 
@@ -91,7 +92,6 @@ const mapDispatchToProps = (dispatch) => {
 			dispatch(selectLine(relationships))
 		},
 		clearModelsLines(){
-			console.log("HERE!")
 			dispatch(removeAllLines())
 			dispatch(removeAllModels())
 			dispatch(removeAllRecs())
