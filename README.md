@@ -24,12 +24,12 @@ Download here: https://drive.google.com/file/d/0B9eJb9BMLTYBaHpGMlhzNjJRYzA/view
 ## Team
 
 SynQ was built as a capstone project at [FullStack Academy](https://www.fullstackacademy.com/), over a period of 2 weeks.
-Watch our presentation on Youtube - coming soon!
+Watch our presentation on [Youtube](https://www.youtube.com/watch?v=vqWYhei_1Ps)
 
 Doris Cheng
 * [LinkedIn](https://www.linkedin.com/in/dorcheng/)
 * [Github](https://github.com/dorcheng)
-* Website
+* [Website](https://www.dorischeng.me)
 
 Peter Kang
 * [LinkedIn](https://www.linkedin.com/in/peter-s-kang/)
@@ -39,7 +39,7 @@ Peter Kang
 David Ko
 * [LinkedIn](https://www.linkedin.com/in/david-park-ko/)
 * [Github](https://github.com/daveyko)
-* Website
+* [Website](https://www.davidko.co)
 
 Elisabeth Seite
 * [LinkedIn](https://www.linkedin.com/in/eseite/)
