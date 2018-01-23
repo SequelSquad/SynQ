@@ -15,6 +15,12 @@ Download here: https://drive.google.com/file/d/0B9eJb9BMLTYBaHpGMlhzNjJRYzA/view
 5. After you are satisfied with the structure of your database, enter the path of the directory where you want SynQ to generate the files into (we recommend the path of your project).
 6. Click "Create Files" and watch your files appear in the specified directory!
 
+<br>
+<p align="center">
+  <img src="https://github.com/SequelSquad/SynQ/blob/master/app/synqTables.png?raw=true"/>
+  <p align="center"><i>An example database built by dragging model cards to the canvas</i></p>
+</p>
+
 ## Team
 
 SynQ was built as a capstone project at [FullStack Academy](https://www.fullstackacademy.com/), over a period of 2 weeks.
